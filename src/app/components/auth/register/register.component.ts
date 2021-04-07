@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
 
-import { User } from 'src/app/models/interfaces';
-import { AuthService } from 'src/app/services/auth.service';
-import { UsersService } from 'src/app/services/users.service';
+import {User} from 'src/app/models/interfaces';
+import {AuthService} from 'src/app/services/auth.service';
+import {UsersService} from 'src/app/services/users.service';
 import fadeAnimation from 'src/app/shared/animations/fade.animation';
 
 @Component({
@@ -14,24 +14,26 @@ import fadeAnimation from 'src/app/shared/animations/fade.animation';
   animations: [fadeAnimation],
 })
 export class RegisterComponent implements OnInit {
+
   @ViewChild('form') form: NgForm;
-  isShown: boolean = false;
+
+  isShown = false;
   user: User;
   isError: string;
   isLoading: boolean;
-  confirmPasswordError: boolean = false;
+  confirmPasswordError = false;
+
   constructor(
     private auth: AuthService,
     private router: Router,
     private usersService: UsersService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
-    //* set timeout for animation intro
     setTimeout(() => {
       this.isShown = true;
     }, 500);
-    //! init propreties
     this.isError = null;
     this.isLoading = false;
 
@@ -41,7 +43,7 @@ export class RegisterComponent implements OnInit {
       password: null,
     };
   }
-  //! compare confirm password to the typed password
+
   public checkPassword(e: Event) {
     const password = this.form.value.password;
     const confirm_new_password = (e.target as any).value;
@@ -54,7 +56,7 @@ export class RegisterComponent implements OnInit {
       }
     }
   }
-  // ! on register
+
 
   public onSubmit(form: NgForm) {
     this.isLoading = true;
@@ -63,20 +65,17 @@ export class RegisterComponent implements OnInit {
     const email = form.value.email.trim();
     const password = form.value.password.trim();
 
-    //* signup with fire auth
+
     this.auth
       .signUp(email, password)
-      //! success
       .then((response) => {
         if (response.user.uid) {
-          // * create new user
           const newUser = {
             uid: response.user.uid,
             name,
             email,
             joind_date: new Date(),
           };
-          // * add user to db
           this.usersService.addNewUser(newUser).subscribe(
             () => {
               this.isLoading = false;
@@ -89,7 +88,6 @@ export class RegisterComponent implements OnInit {
           );
         }
       })
-      //! error
       .catch((error) => {
         this.isLoading = false;
         this.isError = error.error?.message

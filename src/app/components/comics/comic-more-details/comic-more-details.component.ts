@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Comic } from 'src/app/models/interfaces';
-import { MyComicsService } from 'src/app/services/my-comics.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {Pokemon} from 'src/app/models/interfaces';
 
 @Component({
   selector: 'app-comic-more-details',
@@ -8,42 +7,22 @@ import { MyComicsService } from 'src/app/services/my-comics.service';
   styleUrls: ['./comic-more-details.component.scss'],
 })
 export class ComicMoreDetailsComponent implements OnInit {
-  @Input() comic: Comic;
-  @Input() isCreator: boolean;
-  isloading: boolean = false;
-  isError: string = null;
-  isToast: boolean = false;
-  isBuyOrFav: 'fav' | 'buy';
 
-  constructor(private myComicService: MyComicsService) {}
+  @Input() pokemon: Pokemon;
 
-  ngOnInit(): void {}
+  isLoading = false;
+  isError = null;
+  isToast = false;
 
-  public onComicEdited(comicEdited: Comic) {
-    comicEdited.pages = comicEdited.pages ? comicEdited.pages : 0;
-    //! store it to firebase db
-    if (comicEdited.id) {
-      this.myComicService.addNewComic(comicEdited).subscribe(
-        () => {
-          this.comic = comicEdited;
-        },
-        (err) => console.log(err)
-      );
-    }
+  constructor() {
   }
 
-  // ! toast actions
-
-  public onBuyClicked(id: string) {
-    this.isBuyOrFav = 'buy';
-    if (id == this.comic.id) {
-      this.isToast = true;
-    }
+  ngOnInit(): void {
   }
 
-  public onFavClicked(id: string) {
-    this.isBuyOrFav = 'fav';
-    if (id == this.comic.id) {
+
+  public onFavClicked(id: number) {
+    if (id === this.pokemon.id) {
       this.isToast = true;
     }
   }

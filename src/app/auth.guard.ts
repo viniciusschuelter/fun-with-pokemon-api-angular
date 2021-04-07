@@ -29,7 +29,6 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     this.isAuth$.subscribe((uid) => {
       if (!uid) {
-        console.log('guard is not auth');
         this.router.navigate(['/auth/login']);
       }
     });

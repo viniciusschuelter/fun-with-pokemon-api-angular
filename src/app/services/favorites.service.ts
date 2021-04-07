@@ -4,7 +4,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 
 import {from, Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import {Comic} from '../models/interfaces';
+import {Pokemon} from '../models/interfaces';
 import {AuthService} from './auth.service';
 
 @Injectable({
@@ -20,9 +20,9 @@ export class FavoritesService {
   }
 
 
-  public addNewFavorite(comic: Comic): Observable<any> {
+  public addNewFavorite(pokemon: Pokemon): Observable<any> {
     const uid = this.auth.getCurrUserUid();
-    const favoriteWithUser = {...comic, uid};
+    const favoriteWithUser = {...pokemon, uid};
     return from(
       this.Afirestore.collection(`favorites`).add(favoriteWithUser)
     ).pipe(catchError(this.handleErrors));

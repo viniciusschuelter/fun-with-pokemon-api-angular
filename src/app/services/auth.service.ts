@@ -41,21 +41,19 @@ export class AuthService {
       (user) => {
         if (user) {
           this.store.dispatch(authActions.login({uid: user.uid}));
-
           this.getUser(user);
         } else {
           this.store.dispatch(authActions.logout());
           this.currUser = null;
           this.UserInfos.next(null);
-          console.log('logout');
         }
       },
       (err) => console.log(err)
     );
   }
 
-  public getUser(user: any) {
-    if (user.displayName) {
+  public getUser(user: User) {
+    if (user.displayName || user.email) {
       this.currUser = {
         uid: user.uid,
         name: user.displayName,
@@ -63,9 +61,9 @@ export class AuthService {
       };
       this.UserInfos.next({...this.currUser});
       return this.currUser;
-    } else if (user.displayName == null) {
-      this.Cservice.getUserById(user.uid).subscribe((user: User) => {
-        this.UserInfos.next({...user});
+    } else {
+      this.Cservice.getUserById(user.uid).subscribe((resUser: User) => {
+        this.UserInfos.next({...resUser});
         return user;
       });
     }

@@ -7,31 +7,83 @@ export interface User {
   displayName?: string;
 }
 
-export interface Comic {
-  id: string;
-  title: string;
-  format: string;
-  description?: string;
-  cover: string;
-  pages: number;
-  condition: string;
-  price: number;
-  date: Date;
-  owner?: string;
-  characters?: { name: string; image: string }[];
-  poster?: string;
-  uid?: string;
-  pageCount?: number;
-  favorite_date?: Date;
-  mycomic_date?: Date;
-}
-export interface Character {
+export interface Pokemon {
+  abilities: PokemonAbility[];
+  base_experience: number;
+  forms: PokemonMini[];
+  game_indices: GenerationGameIndex[];
+  height: number;
+  held_items: PokemonHeldItem[];
   id: number;
+  is_default: boolean;
+  location_area_encounters: string;
+  moves: PokemonMove[];
   name: string;
-  image: string;
-  description?: string;
-  comics?: {
-    available: number;
-    items: { name: string; resourceURI: string }[];
-  };
+  order: 1;
+  species: PokemonMini;
+  sprites: PokemonSprites;
+  stats: PokemonStat[];
+  types: PokemonType[];
+  weight: number;
+  date: Date | string;
+  favorite_date: Date | string;
+}
+
+export interface GenerationGameIndex {
+  game_index: number;
+  generation: PokemonMini;
+}
+
+export interface PokemonMini {
+  name: string;
+  url: string;
+}
+
+export interface PokemonType  {
+  type: PokemonMini;
+  slot: number;
+}
+
+export interface PokemonAbility {
+  is_hidden: boolean;
+  slot: number;
+  ability: PokemonMini;
+}
+
+export interface PokemonStat {
+  stat: PokemonMini;
+  effort: number;
+  base_stat: number;
+}
+
+export interface PokemonSprites {
+  front_default: string;
+  front_shiny: string;
+  front_female: string;
+  front_shiny_female: string;
+  back_default: string;
+  back_shiny: string;
+  back_female: string;
+  back_shiny_female: string;
+}
+
+export interface PokemonMove {
+  move: PokemonMini;
+  version_group_details: PokemonMoveVersion[];
+}
+
+export interface PokemonMoveVersion {
+  version_group: PokemonMini;
+  move_learn_method: PokemonMini;
+  level_learned_at: number;
+}
+
+export interface PokemonHeldItem {
+  item: PokemonMini;
+  version_details: PokemonHeldItemVersion;
+}
+
+export interface PokemonHeldItemVersion {
+  version: PokemonMini;
+  rarity: number;
 }

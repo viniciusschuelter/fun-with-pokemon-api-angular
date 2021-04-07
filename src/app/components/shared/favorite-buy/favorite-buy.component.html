@@ -3,26 +3,6 @@
 <aside
   class="w-100 ml-auto d-flex flex-column justify-content-end align-items-center"
 >
-  <!-- * buy botton if not auth-->
-  <button
-    *ngIf="!isAuth"
-    routerLink="/soon"
-    [queryParams]="{ type: 'buy' }"
-    type="button"
-    class="btn btn-accent btn-sm text-uppercase m-2 w-50 ml-auto py-2 font-weight-bold"
-  >
-    buy
-  </button>
-  <!-- ! buy botton if user is AUth-->
-  <button
-    (click)="onBuy()"
-    *ngIf="isAuth"
-    type="button"
-    class="btn btn-accent btn-sm text-uppercase m-2 w-50 ml-auto py-2 font-weight-bold"
-  >
-    buy
-  </button>
-  <!-- * favorite botton if user not auth -->
   <button
     *ngIf="!isAuth"
     routerLink="/soon"
@@ -36,7 +16,7 @@
     ></i>
     favorite
   </button>
-  <!-- ! favorite botton  if user is auth -->
+
   <button
     *ngIf="isAuth"
     (click)="onFavorite()"

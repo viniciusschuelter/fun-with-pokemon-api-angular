@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Character } from 'src/app/models/interfaces';
+import {Pokemon} from 'src/app/models/interfaces';
 
 @Component({
   selector: 'app-character-badge',
@@ -7,8 +7,9 @@ import { Character } from 'src/app/models/interfaces';
   styleUrls: ['./character-badge.component.scss'],
 })
 export class CharacterBadgeComponent implements OnInit {
-  @Input() character: Character;
-  isClosed: boolean = false;
+
+  @Input() character: Pokemon;
+  isClosed = false;
   constructor() {}
 
   ngOnInit(): void {}
