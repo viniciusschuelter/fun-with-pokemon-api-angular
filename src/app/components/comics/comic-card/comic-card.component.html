@@ -1,0 +1,158 @@
+<ng-content></ng-content>
+
+<article
+  [ngClass]="page === 'favorites' ? 'py-0 ' : ''"
+  class="bg-light mx-auto p-3 card my-4"
+>
+  <!-- * drag/drop icon  -->
+  <i
+    *ngIf="page === 'favorites'"
+    class="fa fa-bars bg-light p-0 m-0 text-secondary"
+  ></i>
+  <!-- ? S P I N N E R if user name not yet rendered ------------------------------------------>
+  <div
+    *ngIf="isInit"
+    class="mx-auto d-block spinner-grow spinner-grow-lg mt-2 ml-3"
+    role="status"
+  >
+    <span class="sr-only">Loading...</span>
+  </div>
+  <!--  ! C A R D Content------------------------------------------>
+  <div *ngIf="!isInit" class="row row-cols-1 row-cols-md-2">
+    <!-- ! left side -->
+    <!-- * cover comic  -->
+    <div class="col d-flex">
+      <img
+        [src]="comic.cover"
+        [alt]="comic.title"
+        width="150px"
+        height="230px"
+        class="d-block my-3"
+      />
+      <!-- * details comic -->
+      <article class="d-flex flex-column justify-content-between ml-5 my-2">
+        <div class="d-flex flex-column justify-content-start mt-2">
+          <p class="details-value">
+            <span class="details-key">title : </span>
+            {{ comic.title | titlecase }}
+          </p>
+          <p class="details-value">
+            <span class="details-key">format : </span>
+            {{ comic.format | titlecase }}
+          </p>
+          <p class="details-value">
+            <span class="details-key">pages : </span>
+            {{ comic.pages ? comic.pages : 0 }}
+          </p>
+          <p class="details-value">
+            <span class="details-key">condition : </span>
+            {{ comic.condition | titlecase }}
+          </p>
+        </div>
+        <!-- * button info -->
+        <button
+          [routerLink]="['/comics', comic.id]"
+          [queryParams]="{ creator: isCreator ? true : false }"
+          type="button"
+          class="more-btn btn btn-outline-secondary btn-sm text-uppercase py-1 w-100 font-weight-bold mb-2"
+        >
+          more info
+        </button>
+      </article>
+    </div>
+    <!-- ! right side -->
+
+    <!-- ? other Pages ------------------------------------------------------->
+    <div
+      class="col d-flex flex-column justify-content-between mt-3 mx-auto mx-sm-0 align-items-end"
+    >
+      <!-- * price -->
+      <h4 class="font-weight-bold mr-3">
+        <span class="lead text-capitalize mr-2">price</span>
+        {{ comic.price | currency: "USD":"symbol" }}
+      </h4>
+
+      <div class="d-flex flex-column justify-content-around w-50 mt-5">
+        <!-- * favorite / buy botton -->
+        <app-favorite-buy
+          (onBuyClicked)="onBuyClicked($event)"
+          (onFavClicked)="onFavClicked($event)"
+          [page]="page"
+          class="w-100"
+          *ngIf="!isCreator || page === 'favorites'"
+          [comic]="comic"
+        >
+          <!-- ? toast  -->
+          <app-toast
+            (onCloseToast)="onCloseToast()"
+            *ngIf="isToast"
+            [comic]="comic"
+            [message]="
+              isBuyOrFav === 'buy'
+                ? 'will be available in our market soon, Thank you.'
+                : 'Fav successfully added to your favorites '
+            "
+          ></app-toast>
+        </app-favorite-buy>
+
+        <!-- * edit botton -->
+        <button
+          (click)="onEditClicked()"
+          data-toggle="modal"
+          data-target="#editModal"
+          type="button"
+          *ngIf="isCreator && page !== 'favorites'"
+          class="edit-btn btn text-white btn-sm text-uppercase m-2 w-50 ml-auto py-2 px-0 font-weight-bold"
+        >
+          edit
+        </button>
+        <!-- * remove botton -->
+        <button
+          (click)="onRemoveClicked()"
+          data-toggle="modal"
+          data-target="#removeModal"
+          type="button"
+          *ngIf="isCreator && page !== 'home' && page !== 'favorites'"
+          class="remove-btn btn text-white btn-sm text-uppercase m-2 w-50 ml-auto py-2 px-0 font-weight-bold"
+        >
+          remove
+        </button>
+      </div>
+      <!-- * infos owner / date -->
+      <div class="d-flex justify-content-end mt-0 pt-0">
+        <h6 class="d-block mr-3 text-capitalize font-weight-normal ml-auto">
+          <span class="mr-2 font-weight-bold">created at </span>
+          {{ comic.date | date: "MM/dd/yyyy" }}
+        </h6>
+        <h6
+          *ngIf="comic.owner && !isCreator"
+          class="d-block mr-3 text-capitalize font-weight-normal"
+        >
+          <span class="mr-2 font-weight-bold">by</span>
+          {{ comic.owner | titlecase }}
+        </h6>
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- ? remove Modal -->
+
+<app-remove-modal
+  (onCloseModalRemove)="onCloseModalRemove()"
+  *ngIf="isCreator && isOnRemove"
+  [id]="'removeModal'"
+  [comicId]="comic.id"
+></app-remove-modal>
+
+<!-- ? edit Modal -->
+<app-add-modal
+  (onCloseModalEdit)="onCloseModalEdit()"
+  [page]="'myComics'"
+  *ngIf="isCreator && isEdited"
+  (onComicEdited)="onComicEdited($event)"
+  [id]="'editModal'"
+  [mode]="'edit'"
+  [comicDetailsIsHere]="comic"
+>
+</app-add-modal>

@@ -1,0 +1,34 @@
+<section class="mt-2 my-5 favorites">
+  <div class="container">
+    <!--! error -->
+    <app-error *ngIf="isError" [message]="isError"></app-error>
+    <!--! loading-->
+    <app-loading
+      *ngIf="isloading && !isError"
+      class="d-block pt-5"
+    ></app-loading>
+    <!--! no data found -->
+    <app-no-data
+      [message]="'no comics yet in your Favorites '"
+      *ngIf="comics.length == 0 && !isloading && !isError"
+    ></app-no-data>
+    <!--! drag drop directives -->
+    <div class="w-100" cdkDropList (cdkDropListDropped)="drop($event)">
+      <!--! comics list cards -->
+      <app-comic-card
+        [ngStyle]="{ cursor: 'all-scroll' }"
+        cdkDrag
+        class="py-5 w-100"
+        *ngFor="let comic of comics"
+        [comic]="comic"
+        [page]="'favorites'"
+        [isCreator]="'false'"
+      >
+        <!--* adding placeholder after draging item -->
+        <div class="placeholder-drop invisible display-1" *cdkDragPlaceholder>
+          droped element placeholder
+        </div>
+      </app-comic-card>
+    </div>
+  </div>
+</section>

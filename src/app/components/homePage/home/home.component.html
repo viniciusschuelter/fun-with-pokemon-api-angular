@@ -1,0 +1,45 @@
+<section class="homePage">
+  <div class="container my-5">
+    <!--! filters bar-->
+    <app-filters-bar
+      [comicsList]="comics"
+      (onSearchComic)="onSearchComic($event)"
+      (onOrderComic)="onOrderComic($event)"
+      (onQuantityComic)="onQuantityComic($event)"
+      (onSingleCharacterSelected)="onSingleCharacterSelected($event)"
+      class="mb-5"
+    ></app-filters-bar>
+
+    <app-error *ngIf="isError" [message]="isError" class="mt-5"></app-error>
+
+    <app-loading *ngIf="isLoading && !isError" class="d-block"></app-loading>
+
+    <app-no-data
+      *ngIf="(comics.length < 0 && !isLoading) || isNoData"
+    ></app-no-data>
+
+    <app-character-badge
+      *ngIf="character.id"
+      [character]="character"
+    ></app-character-badge>
+
+    <app-comic-card
+      [id]="comic.id"
+      class="py-5"
+      *ngFor="let comic of comics"
+      [comic]="comic"
+      [page]="'home'"
+    ></app-comic-card>
+
+    <app-lazy-loading-scroll (scrolled)="onScroll()">
+      <img
+        *ngIf="!isLoading"
+        src="../../../../assets/images/spinner.gif"
+        alt="spinner"
+        width="50px"
+        height="50px"
+        class="d-block mx-auto my-5"
+      />
+    </app-lazy-loading-scroll>
+  </div>
+</section>

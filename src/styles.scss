@@ -1,0 +1,28 @@
+$theme-colors: (
+  "native": #000,
+  "accent": #dc042b,
+);
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+// ! initialization
+body {
+  background-color: #eee;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+
+  button,
+  i,
+  img {
+    cursor: pointer;
+  }
+  button {
+    border-radius: 0 !important;
+    outline: 0;
+    border: 0;
+  }
+}

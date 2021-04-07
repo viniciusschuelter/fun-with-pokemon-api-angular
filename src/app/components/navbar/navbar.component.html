@@ -1,0 +1,131 @@
+<header class="header">
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container">
+      <!-- ! Logo & burger button------------------------------------------->
+      <a class="navbar-brand">
+        <img
+          src="../../../assets/images/Logo.png"
+          alt="logo-marvel"
+          width="70px"
+          height="50px"
+        />
+      </a>
+      <button
+        class="navbar-toggler d-lg-none"
+        type="button"
+        data-toggle="collapse"
+        data-target="#collapsibleNavId"
+        aria-controls="collapsibleNavId"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- ? S P I N N E R------------------------------------------>
+      <div
+        *ngIf="isInit"
+        class="mx-auto d-block spinner-grow spinner-grow-sm"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+      <!-- ? M E N U------------------------------------------->
+      <div
+        *ngIf="!isInit"
+        class="collapse navbar-collapse"
+        id="collapsibleNavId"
+      >
+        <ul class="navbar-nav ml-auto mt-4 mt-lg-0">
+          <!-- ! Home link -->
+          <li *ngIf="!isInit" class="nav-item">
+            <a
+              routerLink="/"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+
+          <!-- * onlogin show  ( My comics / My favorites ) start   ------------------->
+
+          <!-- ! my comics link -->
+          <li *ngIf="isAuth$ | async" class="nav-item">
+            <a
+              routerLink="comics"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              my comics
+            </a>
+          </li>
+          <!-- ! my favorites link -->
+          <li *ngIf="isAuth$ | async" class="nav-item">
+            <a
+              routerLink="favorites"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              my favorites
+            </a>
+          </li>
+
+          <!-- * onlogin show  ( My comics / My favorites )  end   ------------------->
+          <!-- ! register button -->
+          <li *ngIf="!(isAuth$ | async)" class="nav-item">
+            <button
+              routerLink="/auth/register"
+              type="button"
+              class="nav-link btn btn-outline-accent my-3 my-lg-0"
+            >
+              register
+            </button>
+          </li>
+          <!-- ! login button -->
+          <li *ngIf="!(isAuth$ | async)" class="nav-item">
+            <button
+              routerLink="/auth/login"
+              type="button"
+              class="nav-link btn text-light btn-danger"
+            >
+              login
+            </button>
+          </li>
+          <!-- * onlogin show  ( logout / user name ) start   ------------------->
+
+          <!-- ? S P I N N E R if user name not yet render------------------------------------------>
+          <div
+            *ngIf="!LogginUser?.name && isAuth$ | async"
+            class="mx-auto d-block spinner-grow spinner-grow-sm mt-2 ml-3"
+            role="status"
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
+          <!-- ! username link -->
+          <li *ngIf="isAuth$ | async" class="nav-item">
+            <a class="nav-link">
+              <small class="text-capitalize text-dark username">
+                {{ LogginUser?.name ? LogginUser?.name : "" }}
+              </small>
+            </a>
+          </li>
+
+          <!-- ! logout button -->
+          <li *ngIf="isAuth$ | async" class="nav-item">
+            <button
+              (click)="onLogout()"
+              type="button"
+              class="nav-link btn btn-outline-secondary mt-3 mt-lg-0"
+            >
+              log out
+            </button>
+          </li>
+
+          <!-- * onlogin show  ( logout / user name ) end ------------------>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
