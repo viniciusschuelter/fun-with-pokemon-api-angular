@@ -1,0 +1,69 @@
+<section class="my-comics">
+  <!--! no data found -->
+  <app-no-data *ngIf="!comic.id && !isloading && !isError"></app-no-data>
+  <!--! is error -->
+  <app-error *ngIf="isError" [message]="isError" class="my-5"></app-error>
+
+  <section *ngIf="!isError && comic.id" class="comic-details mt-0">
+    <!-- * background image blured poster  -------------->
+    <img class="poster-background" [src]="comic?.poster" [alt]="comic?.title" />
+    <div class="container mt-0 pt-0">
+      <article class="d-flex flex-column card-details bg-transparent mt-0">
+        <!-- * back botton -->
+        <button
+          routerLink="/"
+          type="button"
+          class="btn btn-outline-light text-uppercase text-white d-block font-weight-bold mr-auto p-2 px-3 mt-5"
+        >
+          <i
+            class="fa fa-arrow-left font-weight-bold text-white"
+            aria-hidden="true"
+          ></i>
+          back
+        </button>
+
+        <!--! is loading -->
+        <app-loading
+          *ngIf="isloading && !isError"
+          class="d-block pt-5"
+        ></app-loading>
+        <!-- ! card details comic----------------------------------------------------------->
+        <app-comic-more-details
+          [isCreator]="isCreator"
+          [comic]="comic"
+          *ngIf="!isloading"
+          class="row my-5"
+        ></app-comic-more-details>
+      </article>
+      <!-- ! characters section list  ( image / name ) -------------------------------------------------------------->
+      <section *ngIf="!isloading" class="characters text-white">
+        <h3 class="font-weight-bold text-left text-capitalize my-2">
+          characters
+        </h3>
+        <ul class="row list-unstyled char-list mb-0">
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-2 my-3"
+            *ngFor="let character of comic?.characters | async"
+          >
+            <li class="char-card mx-auto mx-sm-0 d-block">
+              <img
+                [src]="character?.image"
+                [alt]="character?.name"
+                width="150px"
+                height="200px"
+              />
+              <h5 class="char-name font-weight-bold text-left text-capitalize">
+                {{ character?.name | titlecase }}
+              </h5>
+            </li>
+          </div>
+        </ul>
+        <div *ngIf="comic.characters == 'undefined'">
+          <h5 class="text-capitalise text-muted mt-5">
+            no characters found for this comic
+          </h5>
+        </div>
+      </section>
+    </div>
+  </section>
+</section>

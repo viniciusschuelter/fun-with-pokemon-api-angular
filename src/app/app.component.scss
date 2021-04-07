@@ -1,0 +1,15 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  width: 100%;
+  min-height: 100vh;
+
+  .nav {
+    margin-bottom: 100px;
+  }
+
+  .content {
+    min-height: 100%;
+  }
+}
