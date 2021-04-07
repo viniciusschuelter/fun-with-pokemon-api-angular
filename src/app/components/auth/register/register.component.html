@@ -1,4 +1,3 @@
-<!--? adding fade animation to the page-->
 <section
   [@fade]="isShown ? 'fadeIn' : 'fadeOut'"
   class="my-3 mx-auto d-flex flex-column register-page pb-4"
@@ -13,15 +12,13 @@
           height="50px"
           class="d-block mx-auto mb-2"
         />
-        <!-- ? if Error-->
+
         <app-error *ngIf="isError" [message]="isError"></app-error>
-        <!-- ? is loading -->
+
         <app-loading *ngIf="isLoading && !isError" class="mt-5"></app-loading>
 
-        <!-- * Register Form  start---------------------------------------------------->
         <section *ngIf="!isLoading" class="mx-auto w-100">
           <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="mx-auto">
-            <!-- ! name ------------------------->
             <div class="form-group">
               <input
                 [ngClass]="{
@@ -47,7 +44,7 @@
                 Name must be 2 chars at least
               </small>
             </div>
-            <!-- ! email ------------------------->
+
             <div class="form-group">
               <input
                 [ngClass]="{
@@ -74,7 +71,7 @@
                 Invalid email syntax
               </small>
             </div>
-            <!-- ! password ------------------------->
+
             <div class="form-group">
               <input
                 [ngClass]="{
@@ -104,7 +101,7 @@
                 Invalid password syntax
               </small>
             </div>
-            <!-- ! confirm password ------------------------->
+
             <div class="form-group">
               <input
                 (keyup)="checkPassword($event)"
@@ -142,7 +139,7 @@
                 password doesn't match
               </small>
             </div>
-            <!-- ! submit button ------------------------->
+
             <button
               [disabled]="
                 form.invalid ||
@@ -154,17 +151,16 @@
               create account
             </button>
           </form>
-          <!-- * Register Form  End---------------------------------------------------->
 
           <p class="text-center text-muted d-block my-4">
             Register account using
           </p>
-          <!-- ! social login  component-->
+
           <app-social [auth]="'register'"></app-social>
         </section>
       </div>
     </div>
-    <!-- ! login link-->
+
     <div
       *ngIf="!isLoading"
       class="d-flex ml-auto align-items-center justify-content-end mt-5"

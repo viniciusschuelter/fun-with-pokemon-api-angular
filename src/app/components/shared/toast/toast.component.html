@@ -10,13 +10,12 @@
       <img
         src="../../../../assets/images/Logo.png"
         class="rounded mr-2"
-        alt="marvel"
+        alt="pokemon"
         width="20px"
         height="20px"
       />
-      <strong class="mr-auto">Marvel</strong>
-      <!-- Message header fav/ buy-->
-      <small> {{ message.includes("favorites") ? "Favorites" : "Buy" }} </small>
+      <strong class="mr-auto">Pokemon</strong>
+      <small> Favorites </small>
       <button
         (click)="onCloseToastFn()"
         type="button"
@@ -29,7 +28,7 @@
     </div>
     <div class="toast-body text-muted">
       <small class="text-accent font-weight-bold">
-        {{ comic.title }}
+        {{ pokemon.name }}
       </small>
       <br />
       {{ message }}

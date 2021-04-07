@@ -1,105 +1,71 @@
 <ng-content></ng-content>
-<div *ngIf="!isloading" class="row my-5 comic-card">
-  <!--? COVER IMAGE -->
+<div *ngIf="!isLoading" class="row my-5 comic-card">
+
   <div class="col-12 col-lg-3 mb-5 mb-lg-0">
     <img
-      [src]="comic.cover"
-      [alt]="comic.title"
+      [src]="pokemon.cover"
+      [alt]="pokemon.title"
       width="220px"
       height="330px"
       class="d-block mx-auto mx-md-0"
     />
   </div>
-  <!-- ! details  CARD ----------------------------------------------------->
+
   <div
     class="col-12 col-lg-6 d-flex flex-column justify-content-between mr-auto align-items-start"
   >
-    <h4>{{ comic.title | titlecase }}</h4>
+    <h4>{{ pokemon.title | titlecase }}</h4>
     <div class="d-flex justify-content-start w-100 align-items-start mt-2">
       <article class="data-card-infos ml-0">
         <h6>Pages</h6>
-        <p>{{ comic.pageCount ? comic.pageCount : 0 }}</p>
+        <p>{{ pokemon.pageCount ? pokemon.pageCount : 0 }}</p>
       </article>
       <article class="data-card-infos">
         <h6>Format</h6>
-        <p>{{ comic.format }}</p>
+        <p>{{ pokemon.format }}</p>
       </article>
       <article class="data-card-infos">
         <h6>Condition</h6>
-        <p>{{ comic.condition }}</p>
+        <p>{{ pokemon.condition }}</p>
       </article>
     </div>
     <article>
       <h6 class="">Description</h6>
       <p class="text-withe font-weight-light">
-        {{ comic.description ? comic.description : "No description yet " }}
+        {{ pokemon.description ? pokemon.description : "No description yet " }}
       </p>
     </article>
     <div class="d-flex justify-content-end mt-1">
       <p class="d-block mr-3 text-capitalize">
         <span class="mr-2 font-weight-bold">created at</span>
-        {{ comic.date | date: "MM/dd/yyyy" }}
+        {{ pokemon.date | date: "MM/dd/yyyy" }}
       </p>
-      <p *ngIf="!isCreator && comic.owner" class="d-block mr-3 text-capitalize">
+      <p *ngIf="comic.owner" class="d-block mr-3 text-capitalize">
         <span class="mr-2 font-weight-bold">by</span>
-        {{ comic.owner | titlecase }}
+        {{ pokemon.owner | titlecase }}
       </p>
     </div>
   </div>
-  <!--! Price / Buttons  --------------------------------------------------------->
 
   <div
     class="col-12 col-lg-3 d-flex flex-column justify-content-start ml-auto mx-sm-0"
   >
-    <!-- * price -->
     <h4 class="font-weight-bold text-white text-left ml-auto mb-3">
       <span class="lead text-capitalize mr-2">price</span>
-      {{ comic.price | currency: "USD":"symbol" }}
+      {{ pokemon.price | currency: "USD":"symbol" }}
     </h4>
 
-    <!-- * favorite / buy botton -->
     <app-favorite-buy
-      (onBuyClicked)="onBuyClicked($event)"
       (onFavClicked)="onFavClicked($event)"
-      [page]="page"
       class="w-100"
-      *ngIf="!isCreator || page === 'favorites' || page === 'details'"
-      [comic]="comic"
+      [pokemon]="pokemon"
     >
-      <!-- ? toast  -->
       <app-toast
         (onCloseToast)="onCloseToast()"
         *ngIf="isToast"
-        [comic]="comic"
-        [message]="
-          isBuyOrFav === 'buy'
-            ? 'will be available in our market soon, Thank you.'
-            : 'Fav successfully added to your favorites '
-        "
+        [pokemon]="pokemon"
+        [message]="'this pokemon has been added to favorites'"
       ></app-toast>
     </app-favorite-buy>
-
-    <!-- * edit botton -->
-    <button
-      data-toggle="modal"
-      data-target="#editModal"
-      type="button"
-      *ngIf="isCreator"
-      class="edit-btn btn text-white btn-sm text-uppercase m-2 w-50 ml-auto py-2 px-0 font-weight-bold"
-    >
-      edit
-    </button>
   </div>
 </div>
-
-<!-- ? edit Modal -->
-<app-add-modal
-  [page]="'details'"
-  [comicDetailsIsHere]="comic"
-  *ngIf="isCreator"
-  (onComicEdited)="onComicEdited($event)"
-  [id]="'editModal'"
-  [comicId]="comic.id"
-  [mode]="'edit'"
->
-</app-add-modal>

@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
 import {FavoritesComponent} from './components/favorites/favorites/favorites.component';
 import {HomeComponent} from './components/homePage/home/home.component';
-import {ComicsComponent} from './components/comics/my-comics/comics.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {AuthGuard} from './auth.guard';
 import {ComicsDetailsComponent} from './components/comics/comic-details/comics-details.component';
@@ -18,14 +17,10 @@ const routes: Routes = [
   },
 
   {
-    path: 'comics',
-    component: ComicsComponent,
-    canActivate: [AuthGuard],
-  },
-  {
     path: 'comics/:id',
     component: ComicsDetailsComponent,
   },
+
   {
     path: 'auth',
 

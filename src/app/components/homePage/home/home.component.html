@@ -1,8 +1,7 @@
 <section class="homePage">
   <div class="container my-5">
-    <!--! filters bar-->
     <app-filters-bar
-      [comicsList]="comics"
+      [pokemonList]="pokemons"
       (onSearchComic)="onSearchComic($event)"
       (onOrderComic)="onOrderComic($event)"
       (onQuantityComic)="onQuantityComic($event)"
@@ -15,7 +14,7 @@
     <app-loading *ngIf="isLoading && !isError" class="d-block"></app-loading>
 
     <app-no-data
-      *ngIf="(comics.length < 0 && !isLoading) || isNoData"
+      *ngIf="(!pokemons.length && !isLoading) || isNoData"
     ></app-no-data>
 
     <app-character-badge
@@ -24,10 +23,10 @@
     ></app-character-badge>
 
     <app-comic-card
-      [id]="comic.id"
+      [id]="pokemon.id"
       class="py-5"
-      *ngFor="let comic of comics"
-      [comic]="comic"
+      *ngFor="let pokemon of pokemons"
+      [pokemon]="pokemon"
       [page]="'home'"
     ></app-comic-card>
 
