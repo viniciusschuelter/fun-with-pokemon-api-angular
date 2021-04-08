@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   isFetched = false;
   isNoData = false;
   uid: string;
-  limit = 20;
+  limit = 24;
   skip = 0;
 
   constructor(
@@ -51,6 +51,7 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
     this.pokemonService.getPokemons().subscribe(
       (list: any) => {
+        console.log(list);
         this.pokemons = list;
         this.localService.setItem('pokemons', this.pokemons);
         this.isLoading = false;
@@ -85,9 +86,10 @@ export class HomeComponent implements OnInit {
     this.skip += this.limit;
     this.pokemonService
       .getPokemonByLazyLoading(this.limit, this.skip)
-      .subscribe((comics: Pokemon[]) => {
+      .subscribe((list: Pokemon[]) => {
+        console.log(list);
         this.isFetched = true;
-        this.pokemons = [...this.pokemons, ...comics];
+        this.pokemons = [...this.pokemons, ...list];
       });
   }
 }

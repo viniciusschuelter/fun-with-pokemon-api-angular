@@ -9,12 +9,12 @@
     ></app-loading>
 
     <app-no-data
-      [message]="'no comics yet in your Favorites '"
+      [message]="'no pokemon yet in your Favorites '"
       *ngIf="pokemons.length == 0 && !isLoading && !isError"
     ></app-no-data>
 
     <div class="w-100" cdkDropList (cdkDropListDropped)="drop($event)">
-      <app-comic-card
+      <app-pokemon-card
         [ngStyle]="{ cursor: 'all-scroll' }"
         cdkDrag
         class="py-5 w-100"
@@ -25,7 +25,7 @@
         <div class="placeholder-drop invisible display-1" *cdkDragPlaceholder>
           droped element placeholder
         </div>
-      </app-comic-card>
+      </app-pokemon-card>
     </div>
   </div>
 </section>

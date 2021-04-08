@@ -1,12 +1,11 @@
 <section class="homePage">
-  <div class="container my-5">
+  <div class="container my-3">
     <app-filters-bar
       [pokemonList]="pokemons"
       (onSearchComic)="onSearchComic($event)"
       (onOrderComic)="onOrderComic($event)"
       (onQuantityComic)="onQuantityComic($event)"
       (onSingleCharacterSelected)="onSingleCharacterSelected($event)"
-      class="mb-5"
     ></app-filters-bar>
 
     <app-error *ngIf="isError" [message]="isError" class="mt-5"></app-error>
@@ -17,18 +16,19 @@
       *ngIf="(!pokemons.length && !isLoading) || isNoData"
     ></app-no-data>
 
-    <app-character-badge
-      *ngIf="character.id"
+    <app-pokemon-badge
+      *ngIf="character?.id"
       [character]="character"
-    ></app-character-badge>
+    ></app-pokemon-badge>
 
-    <app-comic-card
-      [id]="pokemon.id"
-      class="py-5"
-      *ngFor="let pokemon of pokemons"
-      [pokemon]="pokemon"
-      [page]="'home'"
-    ></app-comic-card>
+    <div class="row">
+      <app-pokemon-card
+        class="col-lg-4 mb-4"
+        *ngFor="let pokemon of pokemons"
+        [pokemon]="pokemon"
+        [page]="'home'"
+      ></app-pokemon-card>
+    </div>
 
     <app-lazy-loading-scroll (scrolled)="onScroll()">
       <img

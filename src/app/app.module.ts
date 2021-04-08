@@ -15,8 +15,8 @@ import {StoreModule} from '@ngrx/store';
 
 import {FavoritesComponent} from './components/favorites/favorites/favorites.component';
 
-import {ComicsDetailsComponent} from './components/comics/comic-details/comics-details.component';
-import {ComicCardComponent} from './components/comics/comic-card/comic-card.component';
+import {PokemonDetailsComponent} from './components/pokemon/pokemon-details/pokemon-details.component';
+import {PokemonCardComponent} from './components/pokemon/pokemon-card/pokemon-card.component';
 import {FiltersBarComponent} from './components/shared/filters-bar/filters-bar.component';
 
 import {AngularFireModule} from '@angular/fire';
@@ -27,9 +27,9 @@ import {environment} from 'src/environments/environment';
 import {AuthReducer} from './store/auth/auth.reducer';
 
 import {LazyLoadingScrollComponent} from './components/shared/lazy-loading-scroll/lazy-loading-scroll.component';
-import {ComicMoreDetailsComponent} from './components/comics/comic-more-details/comic-more-details.component';
+import {PokemonMoreDetailsComponent} from './components/pokemon/pokemon-more-details/pokemon-more-details.component';
 
-import {CharacterBadgeComponent} from './components/comics/character-badge/character-badge.component';
+import {PokemonBadgeComponent} from './components/pokemon/pokemon-badge/pokemon-badge.component';
 
 import {FavoriteBuyComponent} from './components/shared/favorite-buy/favorite-buy.component';
 import {SoonComponent} from './components/shared/soon/soon.component';
@@ -48,12 +48,12 @@ import {SharedModule} from './modules/shared_modules/shared.module';
     HomeComponent,
     NotFoundComponent,
     FavoritesComponent,
-    ComicsDetailsComponent,
-    ComicCardComponent,
+    PokemonDetailsComponent,
+    PokemonCardComponent,
     FiltersBarComponent,
     LazyLoadingScrollComponent,
-    ComicMoreDetailsComponent,
-    CharacterBadgeComponent,
+    PokemonMoreDetailsComponent,
+    PokemonBadgeComponent,
     FavoriteBuyComponent,
     SoonComponent,
     ToastComponent,
