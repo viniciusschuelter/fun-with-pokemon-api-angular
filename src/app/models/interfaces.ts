@@ -67,6 +67,8 @@ export interface PokemonSprites {
   back_shiny_female: string;
 }
 
+export type SpritesTypes = keyof PokemonSprites;
+
 export interface PokemonMove {
   move: PokemonMini;
   version_group_details: PokemonMoveVersion[];

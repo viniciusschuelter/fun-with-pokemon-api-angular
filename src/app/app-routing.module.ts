@@ -4,7 +4,7 @@ import {FavoritesComponent} from './components/favorites/favorites/favorites.com
 import {HomeComponent} from './components/homePage/home/home.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {AuthGuard} from './auth.guard';
-import {ComicsDetailsComponent} from './components/comics/comic-details/comics-details.component';
+import {PokemonDetailsComponent} from './components/pokemon/pokemon-details/pokemon-details.component';
 import {SoonComponent} from './components/shared/soon/soon.component';
 
 const routes: Routes = [
@@ -17,8 +17,8 @@ const routes: Routes = [
   },
 
   {
-    path: 'comics/:id',
-    component: ComicsDetailsComponent,
+    path: 'pokemon/:id',
+    component: PokemonDetailsComponent,
   },
 
   {

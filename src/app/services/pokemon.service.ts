@@ -32,7 +32,7 @@ export class PokemonService {
 
   public getPokemonByLazyLoading(limit: number, skip: number): Observable<any> {
     return this.http
-      .get<PokemonMini[]>(this.url + `&limit=${limit}&offset=${skip}`)
+      .get<PokemonMini[]>(this.url + `?limit=${limit}&offset=${skip}`)
       .pipe(
         map((data: any) => data.results),
         catchError(this.handleErrors)

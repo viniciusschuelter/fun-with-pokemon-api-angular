@@ -1,0 +1,19 @@
+
+:host {
+
+  .card-img {
+    position: relative;
+
+    i {
+      opacity: 0;
+    }
+
+    &:hover {
+      i {
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.5s linear;
+      }
+    }
+  }
+}

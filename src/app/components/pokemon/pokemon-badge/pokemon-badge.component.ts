@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import {Pokemon} from 'src/app/models/interfaces';
 
 @Component({
-  selector: 'app-character-badge',
-  templateUrl: './character-badge.component.html',
-  styleUrls: ['./character-badge.component.scss'],
+  selector: 'app-pokemon-badge',
+  templateUrl: './pokemon-badge.component.html',
+  styleUrls: ['./pokemon-badge.component.scss'],
 })
-export class CharacterBadgeComponent implements OnInit {
+export class PokemonBadgeComponent implements OnInit {
 
   @Input() character: Pokemon;
   isClosed = false;

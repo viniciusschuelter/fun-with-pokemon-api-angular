@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 import {Pokemon} from 'src/app/models/interfaces';
-import {PokemonService} from "../../../services/pokemon.service";
+import {PokemonService} from '../../../services/pokemon.service';
 
 @Component({
   selector: 'app-filters-bar',

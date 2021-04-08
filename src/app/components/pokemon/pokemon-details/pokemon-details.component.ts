@@ -4,11 +4,11 @@ import {Pokemon} from 'src/app/models/interfaces';
 import {PokemonService} from '../../../services/pokemon.service';
 
 @Component({
-  selector: 'app-comics-details',
-  templateUrl: './comics-details.component.html',
-  styleUrls: ['./comics-details.component.scss'],
+  selector: 'app-pokemon-details',
+  templateUrl: './pokemon-details.component.html',
+  styleUrls: ['./pokemon-details.component.scss'],
 })
-export class ComicsDetailsComponent implements OnInit {
+export class PokemonDetailsComponent implements OnInit {
 
   pokemon: Pokemon;
   isLoading: boolean;
