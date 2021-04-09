@@ -16,11 +16,6 @@
       *ngIf="(!pokemons.length && !isLoading) || isNoData"
     ></app-no-data>
 
-    <app-pokemon-badge
-      *ngIf="character?.id"
-      [character]="character"
-    ></app-pokemon-badge>
-
     <div class="row">
       <app-pokemon-card
         class="col-lg-4 mb-4"

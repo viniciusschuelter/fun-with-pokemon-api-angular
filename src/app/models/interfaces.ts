@@ -69,6 +69,27 @@ export interface PokemonSprites {
 
 export type SpritesTypes = keyof PokemonSprites;
 
+export enum PokemonTypesEnum {
+  bug = 'bug',
+  dark = 'dark',
+  dragon = 'dragon',
+  electric = 'electric',
+  fire = 'fire',
+  fairy = 'fairy',
+  fighting = 'fighting',
+  flying = 'flying',
+  ghost = 'ghost',
+  grass = 'grass',
+  ground = 'ground',
+  ice = 'ice',
+  normal = 'normal',
+  poison = 'poison',
+  psychic = 'psychic',
+  rock = 'rock',
+  steel = 'steel',
+  water = 'water',
+};
+
 export interface PokemonMove {
   move: PokemonMini;
   version_group_details: PokemonMoveVersion[];

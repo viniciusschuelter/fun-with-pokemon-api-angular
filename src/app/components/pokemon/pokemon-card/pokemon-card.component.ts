@@ -4,6 +4,7 @@ import {Observable, Subscription} from 'rxjs';
 import {Pokemon, PokemonMini, PokemonSprites, SpritesTypes} from 'src/app/models/interfaces';
 import {AuthService} from 'src/app/services/auth.service';
 import {PokemonService} from '../../../services/pokemon.service';
+import {FavoritesService} from "../../../services/favorites.service";
 
 @Component({
   selector: 'app-pokemon-card',
@@ -37,7 +38,8 @@ export class PokemonCardComponent implements OnInit, OnDestroy {
   constructor(
     private auth: AuthService,
     private store: Store<{ auth: string }>,
-    private pokemonService: PokemonService
+    private pokemonService: PokemonService,
+    private favoriteService: FavoritesService
   ) {
   }
 
@@ -83,7 +85,13 @@ export class PokemonCardComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
-
+  clickFavorite() {
+    const favoritePokemon = {...this.pokemon, favorite_date: new Date()};
+    this.isToast = true;
+    // this.favoriteService.addNewFavorite(favoritePokemon).subscribe(() => {
+    //
+    // });
+  }
 
   goToNextImg() {
     const index = this.carouselList.findIndex( item => item === this.carouselCurr);
@@ -107,5 +115,9 @@ export class PokemonCardComponent implements OnInit, OnDestroy {
     if (!this.pokemon.sprites[this.carouselCurr]) {
       this.goToPrevImg();
     }
+  }
+
+  trackBy(index: number, item: PokemonMini): string {
+    return item.url;
   }
 }
