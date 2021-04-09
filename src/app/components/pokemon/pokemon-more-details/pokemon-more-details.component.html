@@ -3,8 +3,8 @@
 
   <div class="col-12 col-lg-3 mb-5 mb-lg-0">
     <img
-      [src]="pokemon.cover"
-      [alt]="pokemon.title"
+      [src]="pokemon.sprites.front_default"
+      [alt]="pokemon.name"
       width="220px"
       height="330px"
       class="d-block mx-auto mx-md-0"
@@ -14,7 +14,7 @@
   <div
     class="col-12 col-lg-6 d-flex flex-column justify-content-between mr-auto align-items-start"
   >
-    <h4>{{ pokemon.title | titlecase }}</h4>
+    <h4>{{ pokemon.name | titlecase }}</h4>
     <div class="d-flex justify-content-start w-100 align-items-start mt-2">
       <article class="data-card-infos ml-0">
         <h6>Pages</h6>
@@ -55,17 +55,8 @@
       {{ pokemon.price | currency: "USD":"symbol" }}
     </h4>
 
-    <app-favorite-buy
-      (onFavClicked)="onFavClicked($event)"
-      class="w-100"
-      [pokemon]="pokemon"
-    >
-      <app-toast
-        (onCloseToast)="onCloseToast()"
-        *ngIf="isToast"
-        [pokemon]="pokemon"
-        [message]="'this pokemon has been added to favorites'"
-      ></app-toast>
-    </app-favorite-buy>
+    <a class="btn btn-outline-danger btn-sm ml-3" (click)="clickFavorite()">
+      <i class="fa fa-heart-o mx-2"></i>
+    </a>
   </div>
 </div>

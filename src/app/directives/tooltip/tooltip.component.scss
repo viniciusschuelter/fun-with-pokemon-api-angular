@@ -1,0 +1,51 @@
+:host {
+  display: block;
+
+  &.tooltip-right .tool-tip .arrow {
+    top: 50%;
+    left: 2px;
+  }
+  &.tooltip-left .tool-tip .arrow {
+    top: 50%;
+    left: 100%;
+  }
+  &.tooltip-bottom .tool-tip .arrow {
+    left: 50%;
+    top: 2px;
+  }
+
+  &.no-max .tool-tip .tooltip-inner {
+    max-width: none;
+  }
+}
+
+.tool-tip {
+  position: relative;
+
+  .arrow {
+    content: " ";
+    width: 10px;
+    height: 10px;
+    margin: -6px 0 0 -6px;
+    position: absolute;
+    z-index: 2;
+    top: 100%;
+    left: 50%;
+    background: var(--emphasis-low);
+    transform: rotate(45deg);
+    border-radius: 2px;
+  }
+
+  .tooltip-inner {
+    background: var(--emphasis-low);
+    color: var(--white);
+    font-size: 0.75rem;
+    line-height: 1rem;
+    border-radius: 5px;
+    max-width: 200px;
+    padding: 0.25rem 0.5rem;
+    word-break: break-word;
+    z-index: 3;
+    text-align: left;
+  }
+}

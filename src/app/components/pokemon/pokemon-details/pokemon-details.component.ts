@@ -21,8 +21,7 @@ export class PokemonDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const query = this.route.snapshot.queryParams.creator;
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('url');
 
     this.isError = null;
     this.isLoading = false;

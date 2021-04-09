@@ -29,16 +29,14 @@ import {AuthReducer} from './store/auth/auth.reducer';
 import {LazyLoadingScrollComponent} from './components/shared/lazy-loading-scroll/lazy-loading-scroll.component';
 import {PokemonMoreDetailsComponent} from './components/pokemon/pokemon-more-details/pokemon-more-details.component';
 
-import {PokemonBadgeComponent} from './components/pokemon/pokemon-badge/pokemon-badge.component';
-
-import {FavoriteBuyComponent} from './components/shared/favorite-buy/favorite-buy.component';
 import {SoonComponent} from './components/shared/soon/soon.component';
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import {ToastComponent} from './components/shared/toast/toast.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {CoreModule} from './modules/core/core.module';
 import {SharedModule} from './modules/shared_modules/shared.module';
+import {PokemonTypeComponent} from './components/pokemon/pokemon-type/pokemon-type.component';
+import {OverlayModule} from "@angular/cdk/overlay";
 
 @NgModule({
   declarations: [
@@ -53,10 +51,8 @@ import {SharedModule} from './modules/shared_modules/shared.module';
     FiltersBarComponent,
     LazyLoadingScrollComponent,
     PokemonMoreDetailsComponent,
-    PokemonBadgeComponent,
-    FavoriteBuyComponent,
+    PokemonTypeComponent,
     SoonComponent,
-    ToastComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +67,7 @@ import {SharedModule} from './modules/shared_modules/shared.module';
     AngularFireAuthModule,
     AngularFirestoreModule,
     DragDropModule,
+    OverlayModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerImmediately',
