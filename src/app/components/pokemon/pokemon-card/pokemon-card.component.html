@@ -1,18 +1,7 @@
 <app-loading *ngIf="isLoading" class="mt-5"></app-loading>
 
 <div class="card" *ngIf="!isLoading">
-  <div class="card-img">
-    <img
-      [src]="pokemon.sprites[carouselCurr]"
-      alt=""
-      class="card-img-top">
-    <a class="carousel-control-prev">
-      <i class="fa fa-angle-left text-primary" (click)="goToPrevImg()"></i>
-    </a>
-    <a class="carousel-control-next">
-      <i class="fa fa-angle-right text-primary" (click)="goToNextImg()"></i>
-    </a>
-  </div>
+  <app-pokemon-carousel [pokemonSprites]="pokemon?.sprites"></app-pokemon-carousel>
   <div class="card-body">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h5 class="card-title mb-0">{{pokemon.name | titlecase}}</h5>
@@ -23,11 +12,9 @@
         ></app-pokemon-type>
       </div>
     </div>
-    <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum similique repellat a laborum,
-      rerum voluptates ipsam eos quo tempore iusto dolore modi dolorum in pariatur. Incidunt repellendus praesentium
-      quae!</p>
+    <app-pokemon-stats class="mb-3" [pokemonStats]="pokemon?.stats"></app-pokemon-stats>
     <div class="d-flex justify-content-between">
-      <a class="btn btn-outline-primary btn-sm" [routerLink]="['/pokemon', pokemon.url]" [awesomeTooltip]="'teste'">
+      <a class="btn btn-outline-primary btn-sm" [routerLink]="['/pokemon', url]" [awesomeTooltip]="'teste'">
         <span class="mx-3">Read More</span>
       </a>
       <a class="btn btn-outline-danger btn-sm ml-3" (click)="clickFavorite()">

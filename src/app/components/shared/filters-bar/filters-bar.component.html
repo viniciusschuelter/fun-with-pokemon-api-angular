@@ -1,88 +1,24 @@
-<section
-  class="mb-4 d-flex flex-column flex-md-row w-100 filter-bar justify-content-around"
->
-  <form
-    (ngSubmit)="onSearch()"
-    class="form-search d-flex bg-white p-0 mt-2 w-50 mx-auto mx-md-1 form-group bg-white"
-  >
-    <input
-      name="search"
-      [(ngModel)]="search"
-      class="form-control mr-sm-2 search-input border-0"
-      type="text"
-      placeholder="I'm Looking for ..."
-      aria-label="Search"
-    />
-    <button type="submit">
-      <i
-        class="fa fa-search bg-white h3 text-secondary pr-2 bg-transparent"
-        aria-hidden="true"
-      ></i>
-    </button>
-  </form>
-
-  <div class="form-group char-wrapper mx-auto mx-md-1">
-    <input
-      (click)="onCharacterClicked()"
-      type="text"
-      class="form-control my-2 char-list"
-      aria-describedby="helpId"
-      placeholder="Character"
-    />
-
-    <i class="fa fa-chevron-down" aria-hidden="true"></i>
-
-    <aside
-      *ngIf="isClicked"
-      class="list-chars d-flex flex-column justify-content-around d-block pt-2"
-    >
-      <div
-        (click)="onCharacterSelected(char.id)"
-        *ngFor="let char of pokemons"
-        class="d-flex my-2 pt-3 pl-2"
-      >
-
-        <article class="d-flex align-items-center p-2 w-100">
-          <img
-            [src]="char.image"
-            [alt]="char.name"
-            class="d-block mr-4"
-            width="50px"
-            height="50px"
-          />
-          <h6>
-            {{ char.name | titlecase }}
-          </h6>
-        </article>
-      </div>
-
-      <app-lazy-loading-scroll
-        (scrolled)="onScroll()"
-      ></app-lazy-loading-scroll>
-    </aside>
-  </div>
-
-
-  <div class="form-group">
-    <select class="form-control my-2" (change)="onOrderBy(order.value)" #order>
-      <option hidden>Alphabetical</option>
-      <option value="title"><h6 class="">Alphabetical</h6></option>
-      <option value="-onsaleDate">Most Recent</option>
-      <option value="priceInc">Price - Low to High</option>
-      <option value="priceDesc">Price - High to Low</option>
+<div class="input-group mb-4">
+  <input
+    class="form-control"
+    name="search"
+    [(ngModel)]="search"
+    type="text"
+    placeholder="I'm Looking for ..."
+    aria-label="Search"
+  />
+  <div class="input-group-append">
+    <select class="form-control" (change)="selectHabitatPokemon(habitat.value)" #habitat>
+      <option hidden>Habitats</option>
+      <option [value]="habitat.name" *ngFor="let habitat of pokemonHabitats">
+        <h6 class="">{{habitat.name}}</h6>
+      </option>
+    </select>
+    <select class="form-control" (change)="selectTypePokemon(type.value)" #type>
+      <option hidden>Types</option>
+      <option [value]="type.name" *ngFor="let type of pokemonTypes">
+        <h6 class="">{{type.name}}</h6>
+      </option>
     </select>
   </div>
-  <!-- ! quantity ---------------------------------------->
-  <div class="form-group">
-    <select
-      class="form-control my-2"
-      (change)="onQuantity(quantity.value)"
-      #quantity
-    >
-      <option hidden>Show - 15</option>
-      <option value="15">Show - 15</option>
-      <option value="30">Show - 30</option>
-      <option value="50">Show - 50</option>
-    </select>
-  </div>
-</section>
+</div>

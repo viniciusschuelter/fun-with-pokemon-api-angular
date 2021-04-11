@@ -1,9 +1,9 @@
 <section class="my-comics">
-  <app-no-data *ngIf="!pokemon.id && !isLoading && !isError"></app-no-data>
+  <app-no-data *ngIf="!pokemon && !isLoading && !isError"></app-no-data>
 
   <app-error *ngIf="isError" [message]="isError" class="my-5"></app-error>
 
-  <section *ngIf="!isError && pokemon.id" class="comic-details mt-0">
+  <section *ngIf="!isError && pokemon" class="comic-details mt-0">
     <img class="poster-background" [src]="pokemon.sprites.front_default" [alt]="pokemon?.name" />
     <div class="container mt-0 pt-0">
       <article class="d-flex flex-column card-details bg-transparent mt-0">
@@ -35,29 +35,6 @@
         <h3 class="font-weight-bold text-left text-capitalize my-2">
           characters
         </h3>
-<!--        <ul class="row list-unstyled char-list mb-0">-->
-<!--          <div-->
-<!--            class="col-12 col-sm-6 col-md-4 col-lg-2 my-3"-->
-<!--            *ngFor="let character of pokemon?.characters | async"-->
-<!--          >-->
-<!--            <li class="char-card mx-auto mx-sm-0 d-block">-->
-<!--              <img-->
-<!--                [src]="character?.image"-->
-<!--                [alt]="character?.name"-->
-<!--                width="150px"-->
-<!--                height="200px"-->
-<!--              />-->
-<!--              <h5 class="char-name font-weight-bold text-left text-capitalize">-->
-<!--                {{ character?.name | titlecase }}-->
-<!--              </h5>-->
-<!--            </li>-->
-<!--          </div>-->
-<!--        </ul>-->
-<!--        <div *ngIf="comic.characters == 'undefined'">-->
-<!--          <h5 class="text-capitalise text-muted mt-5">-->
-<!--            no characters found for this comic-->
-<!--          </h5>-->
-<!--        </div>-->
       </section>
     </div>
   </section>

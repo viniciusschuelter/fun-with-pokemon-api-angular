@@ -1,26 +1,19 @@
 .my-comics {
   min-height: 100vh;
+
   .comic-details {
     margin-top: -25px !important;
+
     h6,
     h5 {
       font-weight: bold;
       text-transform: capitalize;
     }
+
     color: #fff;
     min-height: 100vh;
     position: relative;
-    background-color: rgba($color: #000000, $alpha: 0.7);
-    padding-bottom: 200px;
-    .data-card-infos {
-      p {
-        text-transform: capitalize;
-      }
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      margin: 0 30px;
-    }
+    background-color: rgba($color: #000000, $alpha: 0.5);
 
     .poster-background {
       position: absolute;
@@ -34,32 +27,5 @@
       margin-top: -23px;
     }
 
-    .edit-btn {
-      background-color: #7b61ff;
-    }
-    .char-list {
-      .char-card {
-        position: relative;
-        background-color: rgba($color: #000000, $alpha: 0.7);
-        width: 150px;
-        height: 200px;
-        overflow: hidden;
-        .img {
-          display: block;
-          position: absolute;
-          width: 150px;
-          height: 200px;
-          top: 0;
-          left: 0;
-        }
-        .char-name {
-          position: absolute;
-          bottom: 33px;
-          left: 13px;
-          width: 20px;
-          height: 10px;
-        }
-      }
-    }
   }
 }

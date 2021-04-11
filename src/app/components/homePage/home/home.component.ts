@@ -2,10 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 
-import {Pokemon} from 'src/app/models/interfaces';
+import {Pokemon, PokemonTypesEnum} from 'src/app/models/interfaces';
 import {AuthService} from 'src/app/services/auth.service';
 import {LocalStorageService} from 'src/app/services/local-storage.service';
 import {PokemonService} from '../../../services/pokemon.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -22,14 +23,16 @@ export class HomeComponent implements OnInit {
   isFetched = false;
   isNoData = false;
   uid: string;
-  limit = 24;
+  limit = 20;
   skip = 0;
+  activedFilters = false;
 
   constructor(
     private pokemonService: PokemonService,
     private localService: LocalStorageService,
     private auth: AuthService,
-    private store: Store<{ auth: string }>
+    private store: Store<{ auth: string }>,
+    private toastr: ToastrService,
   ) {
   }
 
@@ -42,16 +45,16 @@ export class HomeComponent implements OnInit {
     const myPokemons = this.localService.getItem('pokemons');
     this.pokemons = myPokemons;
     if (!myPokemons?.length) {
-      this.fetchComics();
+      this.fetchPokemons();
     }
   }
 
-  public fetchComics() {
+  public fetchPokemons() {
     this.isError = null;
     this.isLoading = true;
+    this.activedFilters = true;
     this.pokemonService.getPokemons().subscribe(
       (list: any) => {
-        console.log(list);
         this.pokemons = list;
         this.localService.setItem('pokemons', this.pokemons);
         this.isLoading = false;
@@ -59,28 +62,58 @@ export class HomeComponent implements OnInit {
       (err) => {
         this.isLoading = false;
         this.isError = err;
-        console.log(err);
+        this.toastr.error(err.error.message, 'Error');
       }
     );
   }
 
-  public onSearchComic(pokemonsByTile: Pokemon[]) {
+  public fetchPokemonsByType(pokemonType: string) {
+    this.isError = null;
+    this.isLoading = true;
+    this.activedFilters = true;
+    this.pokemonService.getPokemonByType(pokemonType).subscribe(
+      (list: any) => {
+        this.pokemons = list;
+        this.isLoading = false;
+      },
+      (err) => {
+        this.isLoading = false;
+        this.isError = err;
+        this.toastr.error(err.error.message, 'Error');
+      }
+    );
   }
 
-  public onOrderComic(pokemonsByOrder: Pokemon[]) {
+  public fetchPokemonsByHabitat(pokemonHabitat: string) {
+    this.isError = null;
+    this.isLoading = true;
+    this.activedFilters = true;
+    this.pokemonService.getPokemonByHabitat(pokemonHabitat).subscribe(
+      (list: any) => {
+        this.pokemons = list;
+        this.isLoading = false;
+      },
+      (err) => {
+        this.isLoading = false;
+        this.isError = err;
+        this.toastr.error(err.error.message, 'Error');
+      }
+    );
   }
 
-  public onQuantityComic(pokemonsByQuantity: Pokemon[]) {
+  public onHabitatPokemonSelect(pokemonHabitat: string) {
+    this.fetchPokemonsByHabitat(pokemonHabitat);
   }
 
-  public onSingleCharacterSelected(selectedComic: {
-    pokemonList: Pokemon[];
-    pokemon: Pokemon;
-  }) {
-    this.pokemons = selectedComic.pokemonList;
-    this.character = selectedComic.pokemon;
+  public onTypePokemonSelect(pokemonType: string) {
+    this.fetchPokemonsByType(pokemonType);
   }
 
+
+
+  public onSearchPokemon(term: string) {
+    this.activedFilters = false;
+  }
 
   public onScroll() {
     this.skip += this.limit;

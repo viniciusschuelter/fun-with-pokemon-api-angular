@@ -1,11 +1,9 @@
 <section class="homePage">
   <div class="container my-3">
     <app-filters-bar
-      [pokemonList]="pokemons"
-      (onSearchComic)="onSearchComic($event)"
-      (onOrderComic)="onOrderComic($event)"
-      (onQuantityComic)="onQuantityComic($event)"
-      (onSingleCharacterSelected)="onSingleCharacterSelected($event)"
+      (searchChange)="onSearchPokemon($event)"
+      (typePokemonChange)="onTypePokemonSelect($event)"
+      (habitatPokemonChange)="onHabitatPokemonSelect($event)"
     ></app-filters-bar>
 
     <app-error *ngIf="isError" [message]="isError" class="mt-5"></app-error>
@@ -25,9 +23,9 @@
       ></app-pokemon-card>
     </div>
 
-    <app-lazy-loading-scroll (scrolled)="onScroll()">
+    <app-lazy-loading-scroll (scrolled)="!activedFilters ? onScroll() : null">
       <img
-        *ngIf="!isLoading"
+        *ngIf="!isLoading && !activedFilters"
         src="../../../../assets/images/spinner.gif"
         alt="spinner"
         width="50px"

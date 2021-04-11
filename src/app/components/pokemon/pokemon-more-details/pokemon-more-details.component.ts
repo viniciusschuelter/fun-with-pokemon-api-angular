@@ -12,22 +12,10 @@ export class PokemonMoreDetailsComponent implements OnInit {
 
   isLoading = false;
   isError = null;
-  isToast = false;
 
   constructor() {
   }
 
   ngOnInit(): void {
-  }
-
-
-  public onFavClicked(id: number) {
-    if (id === this.pokemon.id) {
-      this.isToast = true;
-    }
-  }
-
-  public onCloseToast() {
-    this.isToast = false;
   }
 }

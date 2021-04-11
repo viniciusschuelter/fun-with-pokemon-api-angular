@@ -1,10 +1,11 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable, Subscription} from 'rxjs';
-import {Pokemon, PokemonMini, PokemonSprites, SpritesTypes} from 'src/app/models/interfaces';
+import {Pokemon, PokemonMini} from 'src/app/models/interfaces';
 import {AuthService} from 'src/app/services/auth.service';
 import {PokemonService} from '../../../services/pokemon.service';
-import {FavoritesService} from "../../../services/favorites.service";
+import {FavoritesService} from '../../../services/favorites.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-pokemon-card',
@@ -17,6 +18,10 @@ export class PokemonCardComponent implements OnInit, OnDestroy {
 
   @Input()
   set pokemon(pokemon: Pokemon & PokemonMini) {
+    if (pokemon.url) {
+      pokemon.url = pokemon.url.replace('-species', '');
+      this.url = pokemon.url;
+    }
     this._pokemon = pokemon;
     this.getPokemonDetails();
   }
@@ -32,13 +37,13 @@ export class PokemonCardComponent implements OnInit, OnDestroy {
   isToast = false;
   subs: Subscription;
   isLoading = false;
-  carouselCurr: SpritesTypes = 'front_default';
-  carouselList: SpritesTypes[] = ['front_default', 'back_default', 'front_female', 'back_female', 'front_shiny', 'back_shiny', 'front_shiny_female', 'back_shiny_female'];
+  url = '';
 
   constructor(
     private auth: AuthService,
     private store: Store<{ auth: string }>,
     private pokemonService: PokemonService,
+    private toastr: ToastrService,
     private favoriteService: FavoritesService
   ) {
   }
@@ -88,33 +93,9 @@ export class PokemonCardComponent implements OnInit, OnDestroy {
   clickFavorite() {
     const favoritePokemon = {...this.pokemon, favorite_date: new Date()};
     this.isToast = true;
-    // this.favoriteService.addNewFavorite(favoritePokemon).subscribe(() => {
-    //
-    // });
-  }
-
-  goToNextImg() {
-    const index = this.carouselList.findIndex( item => item === this.carouselCurr);
-    if (index === (this.carouselList.length - 1)) {
-      this.carouselCurr = this.carouselList[0];
-    } else {
-      this.carouselCurr = this.carouselList[index + 1];
-    }
-    if (!this.pokemon.sprites[this.carouselCurr]) {
-      this.goToNextImg();
-    }
-  }
-
-  goToPrevImg() {
-    const index = this.carouselList.findIndex( item => item === this.carouselCurr);
-    if (index === 0) {
-      this.carouselCurr = this.carouselList[this.carouselList.length - 1];
-    } else {
-      this.carouselCurr = this.carouselList[index - 1];
-    }
-    if (!this.pokemon.sprites[this.carouselCurr]) {
-      this.goToPrevImg();
-    }
+    this.favoriteService.addNewFavorite(favoritePokemon).subscribe(() => {
+      this.toastr.success('Now this pokemon is your favorite', 'Success');
+    });
   }
 
   trackBy(index: number, item: PokemonMini): string {

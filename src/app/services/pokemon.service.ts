@@ -9,10 +9,9 @@ import {Pokemon, PokemonMini} from '../models/interfaces';
 })
 
 export class PokemonService {
-  url = 'https://pokeapi.co/api/v2/pokemon';
+  url = 'https://pokeapi.co/api/v2/';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {  }
 
   public getPokemons(): Observable<any> {
     return this.http
@@ -30,9 +29,24 @@ export class PokemonService {
     );
   }
 
+  public getPokemonByType(type?: string): Observable<any> {
+    return this.http.get<any>(this.url + 'type/' + (type ? type : '')).pipe(
+      map(data => data?.pokemon ? data.pokemon.map(item => item.pokemon) : data.results),
+      catchError(this.handleErrors)
+    );
+  }
+
+
+  public getPokemonByHabitat(habitat?: string): Observable<any> {
+    return this.http.get<any>(this.url + 'pokemon-habitat/' + (habitat ? habitat : '')).pipe(
+      map(data => data?.pokemon_species ? data.pokemon_species : data.results),
+      catchError(this.handleErrors)
+    );
+  }
+
   public getPokemonByLazyLoading(limit: number, skip: number): Observable<any> {
     return this.http
-      .get<PokemonMini[]>(this.url + `?limit=${limit}&offset=${skip}`)
+      .get<PokemonMini[]>(this.url + `pokemon?limit=${limit}&offset=${skip}`)
       .pipe(
         map((data: any) => data.results),
         catchError(this.handleErrors)
