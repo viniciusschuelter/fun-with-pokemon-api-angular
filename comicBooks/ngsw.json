@@ -1,0 +1,147 @@
+{
+  "configVersion": 1,
+  "timestamp": 1618107342673,
+  "index": "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/4.ac1e622f22a9576a51f8.js",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/favicon.ico",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/index.html",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/main.1a52bca106361b6ef16e.js",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/manifest.webmanifest",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/polyfills.8c151b8375e767ff858f.js",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/runtime.c50e526643e041c197fa.js",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/scripts.c4c155fcd63d2bd4d4c6.js",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/styles.0bcb4edda503c108f7cf.css"
+      ],
+      "patterns": [
+        "https:\\/\\/fonts\\.googleapis\\.com\\/css2\\?family=Roboto:wght@300;400;500&amp;display=swap",
+        "https:\\/\\/fonts\\.gstatic\\.com\\/.*"
+      ]
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/icon-192x192.png",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/icon-256x256.png",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/icon-384x384.png",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/icon-512x512.png",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/bug.svg",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/dark.svg",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/dragon.svg",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/electric.svg",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/fairy.svg",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/fighting.svg",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/fire.svg",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/flying.svg",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/ghost.svg",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/grass.svg",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/ground.svg",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/ice.svg",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/normal.svg",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/poison.svg",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/psychic.svg",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/rock.svg",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/steel.svg",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/water.svg",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/images/Logo-footer-1.png",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/images/Logo.png",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/images/spinner.gif",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/fontawesome-webfont.20fd1704ea223900efa9.woff2",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/fontawesome-webfont.8b43027f47b20503057d.eot",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
+        "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/fontawesome-webfont.f691f37e57f04c152e23.woff"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "products",
+      "patterns": [
+        "https:\\/\\/pokeapi\\.co\\/api\\/v2\\/"
+      ],
+      "strategy": "freshness",
+      "maxSize": 10,
+      "maxAge": 21600000,
+      "timeoutMs": 10000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/4.ac1e622f22a9576a51f8.js": "b06e761190325a91dc9a1b72829b090f634bca0d",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/icon-192x192.png": "cc54b8a7712cff8c1996746bd1769af1ee9f65fc",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/icon-256x256.png": "d905f7d3c7792e6c87aa762ff6f4da3c534c6dc5",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/icon-384x384.png": "26179772d97712fbab11b99504b2dbb4a9cfcfbc",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/icon-512x512.png": "87d3ffa58c9cc6aac9973038dee399081b503820",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/bug.svg": "b8eaeadc6fbd54d2dd728024174ae8624a211564",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/dark.svg": "d317ca5b395a14f139394e1d49f723e62e39ab32",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/dragon.svg": "0a00c7f1da985d0b3cb59d6f21e3a35e0c633937",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/electric.svg": "cd4115ef50a5a656fcde7550ebbb016f800f08ae",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/fairy.svg": "40a46e9803987211353e3f003a119d97aba62833",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/fighting.svg": "0a7af62a992cbcb56c5c4aff3df73d10bffa625e",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/fire.svg": "0c950ae24d401cae2c2375cfc6ffa99730961e47",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/flying.svg": "297497fce86fa790a74a5e8b79b0746b440f098d",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/ghost.svg": "4defd1a5950eb1ba094d87f4f2f5a6d9a2215cd8",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/grass.svg": "204cc90a3ab38aca23c08c98d00393d92dd65b9c",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/ground.svg": "120d3b98c6b8c6e315ccaa7a79d088a2daaf0aa0",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/ice.svg": "cd36c840957f193bd9a6d610c4b4cacf63c52eef",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/normal.svg": "bef1eeb6567addd57923c73bef55f21dc2045a45",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/poison.svg": "f65d7cc6b815dffbf7f2530b32495fbb43f85a73",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/psychic.svg": "3ed4888ba39a4ece331c2052a466da9f2c5c8e21",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/rock.svg": "bf6b9c95cb249272dad6ec00b008de0f94454ff4",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/steel.svg": "dadb86c096dfcc77aa0c805ea1a1894c6a2a73f1",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/icons/svg/water.svg": "ef307ea83a9db296377207ff66fe32a7214b7827",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/images/Logo-footer-1.png": "3406768fc47a8277008c20e5370ccf5106b6d107",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/images/Logo.png": "817486bdd138b4816f0aa886021687d5f9381cc8",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/assets/images/spinner.gif": "5bbe9f3f26753ee00c48824c7ed6bae661ad1c3f",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/favicon.ico": "aa2d8103b893ef690bac3740142def7d6857a601",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf": "13b1eab65a983c7a73bc7997c479d66943f7c6cb",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/fontawesome-webfont.20fd1704ea223900efa9.woff2": "d6f48cba7d076fb6f2fd6ba993a75b9dc1ecbf0c",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/fontawesome-webfont.8b43027f47b20503057d.eot": "d980c2ce873dc43af460d4d572d441304499f400",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg": "98a8aa5cf7d62c2eff5f07ede8d844b874ef06ed",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/fontawesome-webfont.f691f37e57f04c152e23.woff": "28b782240b3e76db824e12c02754a9731a167527",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/index.html": "dac4ed6ee88a4180b9dbe416591483dd5331b613",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/main.1a52bca106361b6ef16e.js": "6946d4174fbbf40a5abddd3c39810ef5bfe22b67",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/manifest.webmanifest": "37d5fb4bfbddc7fd856f2206e29d23080331b0ef",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/polyfills.8c151b8375e767ff858f.js": "763cd3b34dfa4600ebb9d9588ec7116988e98920",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/runtime.c50e526643e041c197fa.js": "5c36b2f3507eff01a2766e85402f91e090e32d04",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/scripts.c4c155fcd63d2bd4d4c6.js": "82ea9ce454f03f0990c4a4cf9077142b61759050",
+    "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/styles.0bcb4edda503c108f7cf.css": "60bac7c4f9f68f54d1f8be4ebfc681e32a00d5c2"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
