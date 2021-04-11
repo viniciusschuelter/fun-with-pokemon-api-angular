@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "comicBooks": {
+    "funWithPokeapi": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/comicBooks",
+            "outputPath": "dist/funWithPokeapi",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -73,18 +73,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "comicBooks:build"
+            "browserTarget": "funWithPokeapi:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "comicBooks:build:production"
+              "browserTarget": "funWithPokeapi:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "comicBooks:build"
+            "browserTarget": "funWithPokeapi:build"
           }
         },
         "test": {
@@ -122,18 +122,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "comicBooks:serve"
+            "devServerTarget": "funWithPokeapi:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "comicBooks:serve:production"
+              "devServerTarget": "funWithPokeapi:serve:production"
             }
           }
         },
         "deploy": {
           "builder": "@netlify-builder/deploy:deploy",
           "options": {
-            "outputPath": "dist/comicBooks",
+            "outputPath": "dist/funWithPokeapi",
             "netlifyToken": "6E0lQlhtOEenEKEh6YfFCtCHw5jh2arGLovDub4sFeg",
             "siteId": "b1ad13e6-23f7-486e-82ba-2a28459263e8"
           }
@@ -141,7 +141,7 @@
       }
     }
   },
-  "defaultProject": "comicBooks",
+  "defaultProject": "funWithPokeapi",
   "cli": {
     "analytics": false
   }

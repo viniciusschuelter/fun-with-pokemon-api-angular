@@ -1,6 +1,6 @@
 {
-  "name": "comicBooks",
-  "short_name": "comicBooks",
+  "name": "funWithPokeapi",
+  "short_name": "funWithPokeapi",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
