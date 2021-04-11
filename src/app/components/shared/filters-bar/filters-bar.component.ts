@@ -1,7 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
-import {Pokemon} from 'src/app/models/interfaces';
+import {Pokemon, PokemonMini, PokemonTypesEnum} from 'src/app/models/interfaces';
 import {PokemonService} from '../../../services/pokemon.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-filters-bar',
@@ -10,26 +11,22 @@ import {PokemonService} from '../../../services/pokemon.service';
 })
 export class FiltersBarComponent implements OnInit {
 
-  @Output() onSearchComic: EventEmitter<string> = new EventEmitter();
-  @Output() onOrderComic: EventEmitter<Pokemon[]> = new EventEmitter();
-  @Output() onQuantityComic: EventEmitter<Pokemon[]> = new EventEmitter();
-  @Output()
-  onSingleCharacterSelected: EventEmitter<object> = new EventEmitter();
+  @Output() searchChange: EventEmitter<string> = new EventEmitter();
+  @Output() typePokemonChange: EventEmitter<string> = new EventEmitter();
+  @Output() habitatPokemonChange: EventEmitter<string> = new EventEmitter();
 
-  @Input() pokemonList: Pokemon[];
+  pokemonTypes: PokemonMini[] = [];
+  pokemonHabitats: PokemonMini[] = [];
 
-  pokemons: Pokemon[];
-  selectedChar: Pokemon | any;
-  isSelected = false;
-  isClicked = false;
   search = null;
   isError: string = null;
-  limit = 20;
-  skip = 0;
 
   constructor(
-    private pokemonService: PokemonService
+    private pokemonService: PokemonService,
+    private toastr: ToastrService
   ) {
+    this.fetchPokemonsType();
+    this.fetchPokemonsHabitats();
   }
 
   ngOnInit(): void {
@@ -38,63 +35,34 @@ export class FiltersBarComponent implements OnInit {
   public onSearch() {
   }
 
-  public onCharacterClicked() {
-    this.isClicked = !this.isClicked;
+  selectTypePokemon(value) {
+    this.typePokemonChange.emit(value);
   }
 
-  public onCharacterSelected(id: number) {
-    this.isClicked = false;
-    this.isSelected = true;
-    this.selectedCharacter(id);
+  selectHabitatPokemon(value) {
+    this.habitatPokemonChange.emit(value);
   }
 
-  public selectedCharacter(id: number) {
-    this.selectedChar = this.pokemons.filter((char) => {
-      return char.id === id;
-    });
+  public fetchPokemonsType() {
+    this.pokemonService.getPokemonByType().subscribe(
+      (types) => {
+        this.pokemonTypes = types;
+      },
+      (err) => {
+        this.toastr.error(err.error.message, 'Error');
+      }
+    );
   }
 
-  public onOrderBy(selected: string) {
-    switch (selected) {
-      case 'title':
-        this.pokemonList = this.pokemonList.sort((a, b) =>
-          a.name.localeCompare(b.name)
-        );
-        this.onOrderComic.emit(this.pokemonList);
-        break;
 
-      // case '-onsaleDate':
-      //   this.pokemonList = this.pokemonList.sort(
-      //     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-      //   );
-      //   this.onOrderComic.emit(this.pokemonList);
-      //   break;
-      //
-      // case 'priceInc':
-      //   this.pokemonList = this.pokemonList.sort((a, b) => a.price - b.price);
-      //   this.onOrderComic.emit(this.pokemonList);
-      //   break;
-      //
-      // case 'priceDesc':
-      //   this.pokemonList = this.pokemonList.sort((a, b) => b.price - a.price);
-      //   this.onOrderComic.emit(this.pokemonList);
-      //   break;
-      default: return;
-    }
-  }
-
-  public onQuantity(quantity: number) {
-  }
-
-  public onScroll() {
-    this.skip += this.limit;
-    this.pokemonService
-      .getPokemonByLazyLoading(this.limit, this.skip)
-      .subscribe(
-        (chars: any) => {
-          this.pokemons = [...this.pokemons, ...chars];
-        },
-        (err) => (this.isError = err)
-      );
+  public fetchPokemonsHabitats() {
+    this.pokemonService.getPokemonByHabitat().subscribe(
+      (habitats) => {
+        this.pokemonHabitats = habitats;
+      },
+      (err) => {
+        this.toastr.error(err.error.message, 'Error');
+      }
+    );
   }
 }

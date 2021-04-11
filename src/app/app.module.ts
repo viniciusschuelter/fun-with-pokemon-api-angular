@@ -36,7 +36,10 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import {CoreModule} from './modules/core/core.module';
 import {SharedModule} from './modules/shared_modules/shared.module';
 import {PokemonTypeComponent} from './components/pokemon/pokemon-type/pokemon-type.component';
-import {OverlayModule} from "@angular/cdk/overlay";
+import {OverlayModule} from '@angular/cdk/overlay';
+import { ToastrModule } from 'ngx-toastr';
+import {PokemonCarouselComponent} from './components/pokemon/pokemon-caurosel/pokemon-carousel.component';
+import {PokemonStatsComponent} from './components/pokemon/pokemon-stats/pokemon-stats.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +56,8 @@ import {OverlayModule} from "@angular/cdk/overlay";
     PokemonMoreDetailsComponent,
     PokemonTypeComponent,
     SoonComponent,
+    PokemonCarouselComponent,
+    PokemonStatsComponent
   ],
   imports: [
     BrowserModule,
@@ -72,6 +77,7 @@ import {OverlayModule} from "@angular/cdk/overlay";
       enabled: environment.production,
       registrationStrategy: 'registerImmediately',
     }),
+    ToastrModule.forRoot()
   ],
   bootstrap: [AppComponent],
 })

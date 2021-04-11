@@ -1,0 +1,43 @@
+
+:host {
+  display: block;
+
+  .label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: -1px;
+
+    &.stats {
+      text-align: end;
+      width: 70px;
+    }
+
+    &.number {
+      font-size: 1rem;
+    }
+  }
+
+  .hp {
+    background-color: #dc3545;
+  }
+
+  .attack {
+    background-color: #fd7e14;
+  }
+
+  .defense {
+    background-color: #ffc107;
+  }
+
+  .special-attack {
+    background-color: #0d6efd;
+  }
+
+  .special-defense {
+    background-color: #198754;
+  }
+
+  .speed {
+    background-color: #d63384;
+  }
+}

@@ -1,9 +1,12 @@
 {
-  "name": "comic-books",
+  "homepage": "https://viniciusschuelter.github.io/fun-with-pokemon-api-angular/",
+  "name": "fun-with-pokemon",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

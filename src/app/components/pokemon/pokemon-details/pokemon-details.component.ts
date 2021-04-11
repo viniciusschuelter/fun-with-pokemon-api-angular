@@ -21,17 +21,17 @@ export class PokemonDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('url');
+    const url = this.route.snapshot.paramMap.get('url');
 
     this.isError = null;
     this.isLoading = false;
-    this.fetchComicDetails(id);
+    this.fetchComicDetails(url);
   }
 
-  public fetchComicDetails(id: string) {
+  public fetchComicDetails(url: string) {
     this.isError = null;
     this.isLoading = true;
-    this.pokemonService.getPokemonByUrl(id).subscribe(
+    this.pokemonService.getPokemonByUrl(url).subscribe(
       (pokemon: Pokemon) => {
         this.isLoading = false;
         this.pokemon = pokemon;
