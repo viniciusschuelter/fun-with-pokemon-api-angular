@@ -1,9 +1,9 @@
 {
   "targets": {
-    "comicbooks-ade4e": {
+    "pokemon-api-1a563": {
       "hosting": {
-        "comicBooks": [
-          "comicbooks-ade4e"
+        "funWithPokeapi": [
+          "pokemon-api-1a563"
         ]
       }
     }

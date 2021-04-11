@@ -1,8 +1,8 @@
 {
   "hosting": [
     {
-      "target": "comicBooks",
-      "public": "dist/comicBooks",
+      "target": "funWithPokeapi",
+      "public": "dist/funWithPokeapi",
       "ignore": [
         "**/.*"
       ],
@@ -25,8 +25,8 @@
       ]
     },
     {
-      "target": "comicBooks",
-      "public": "dist/comicBooks",
+      "target": "funWithPokeapi",
+      "public": "dist/funWithPokeapi",
       "ignore": [
         "**/.*"
       ],
