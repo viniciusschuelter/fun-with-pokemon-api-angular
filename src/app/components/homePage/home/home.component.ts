@@ -137,5 +137,6 @@ export class HomeComponent implements OnInit {
       this.toastr.success('Now this pokemon is your favorite', 'Success');
     }
     this.localService.setItem('favorite', this.myFavorites);
+    this.myFavorites = [...this.myFavorites];
   }
 }

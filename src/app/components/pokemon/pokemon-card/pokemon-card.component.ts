@@ -36,7 +36,7 @@ export class PokemonCardComponent implements OnInit, OnDestroy {
   @Input() favorite = false;
   @Output() clickOnFavorite: EventEmitter<Pokemon> = new EventEmitter();
   isAuth$: Observable<string>;
-  uid: string = null;
+  uid: string = this.auth.getCurrUserUid();
   isInit = true;
   isToast = false;
   subs: Subscription;
@@ -56,7 +56,6 @@ export class PokemonCardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.AuthListener();
-    this.checkCreator();
   }
 
   private getPokemonDetails() {
@@ -70,7 +69,6 @@ export class PokemonCardComponent implements OnInit, OnDestroy {
   }
 
   public checkCreator() {
-    this.uid = this.auth.getCurrUserUid();
   }
 
   public AuthListener() {
@@ -91,6 +89,7 @@ export class PokemonCardComponent implements OnInit, OnDestroy {
   }
 
   clickFavorite() {
+    console.log(this.uid);
     if (this.uid) {
       const favoritePokemon = {...this.pokemon, favorite_date: new Date()};
       this.clickOnFavorite.emit(favoritePokemon);

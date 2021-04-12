@@ -20,6 +20,8 @@
         *ngFor="let pokemon of pokemons"
         [pokemon]="pokemon"
         [page]="'favorite'"
+        [favorite]="(myFavorites| arrayFilter: ['name', pokemon.name]).length"
+        (clickOnFavorite)="addToMyFavorites($event)"
       >
         <div class="placeholder-drop invisible display-1" *cdkDragPlaceholder>
           droped element placeholder

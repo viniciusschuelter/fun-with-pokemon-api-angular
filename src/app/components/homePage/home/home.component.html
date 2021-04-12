@@ -20,6 +20,7 @@
         *ngFor="let pokemon of pokemons"
         [pokemon]="pokemon"
         [page]="'home'"
+        [favorite]="!!(myFavorites| arrayFilter: ['name', pokemon.name]).length"
         (clickOnFavorite)="addToMyFavorites($event)"
       ></app-pokemon-card>
     </div>

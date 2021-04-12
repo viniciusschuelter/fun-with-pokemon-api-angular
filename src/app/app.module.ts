@@ -40,6 +40,7 @@ import {OverlayModule} from '@angular/cdk/overlay';
 import { ToastrModule } from 'ngx-toastr';
 import {PokemonCarouselComponent} from './components/pokemon/pokemon-caurosel/pokemon-carousel.component';
 import {PokemonStatsComponent} from './components/pokemon/pokemon-stats/pokemon-stats.component';
+import {ArrayFilterModule} from './pipes/array-filter/array-filter.module';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import {PokemonStatsComponent} from './components/pokemon/pokemon-stats/pokemon-
       enabled: environment.production,
       registrationStrategy: 'registerImmediately',
     }),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ArrayFilterModule
   ],
   bootstrap: [AppComponent],
 })
