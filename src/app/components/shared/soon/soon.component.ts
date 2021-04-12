@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-soon',
@@ -7,12 +7,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./soon.component.scss'],
 })
 export class SoonComponent implements OnInit {
-  type: string;
-  constructor(private router: Router, private route: ActivatedRoute) {}
+
+  constructor(private router: Router) {
+  }
 
   ngOnInit(): void {
-    // redirect to login page after 5 s
-    this.type = this.route.snapshot.queryParams.type;
     setTimeout(() => {
       this.router.navigate(['/auth/login']);
     }, 5000);

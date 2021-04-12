@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable, Subscription} from 'rxjs';
 import {Pokemon, PokemonMini} from 'src/app/models/interfaces';
@@ -6,6 +6,8 @@ import {AuthService} from 'src/app/services/auth.service';
 import {PokemonService} from '../../../services/pokemon.service';
 import {FavoritesService} from '../../../services/favorites.service';
 import {ToastrService} from 'ngx-toastr';
+import {Router} from "@angular/router";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-pokemon-card',
@@ -31,6 +33,8 @@ export class PokemonCardComponent implements OnInit, OnDestroy {
   }
 
   @Input() page: string;
+  @Input() favorite = false;
+  @Output() clickOnFavorite: EventEmitter<Pokemon> = new EventEmitter();
   isAuth$: Observable<string>;
   uid: string = null;
   isInit = true;
@@ -44,7 +48,9 @@ export class PokemonCardComponent implements OnInit, OnDestroy {
     private store: Store<{ auth: string }>,
     private pokemonService: PokemonService,
     private toastr: ToastrService,
-    private favoriteService: FavoritesService
+    private favoriteService: FavoritesService,
+    private localService: LocalStorageService,
+    private router: Router
   ) {
   }
 
@@ -54,11 +60,13 @@ export class PokemonCardComponent implements OnInit, OnDestroy {
   }
 
   private getPokemonDetails() {
-    this.isLoading = true;
-    this.subs = this.pokemonService.getPokemonByUrl(this.pokemon.url).subscribe(pokemon => {
-      this.pokemon = pokemon;
-      this.isLoading = false;
-    });
+    if (this.pokemon.url) {
+      this.isLoading = true;
+      this.subs = this.pokemonService.getPokemonByUrl(this.pokemon.url).subscribe(pokemon => {
+        this.pokemon = pokemon;
+        this.isLoading = false;
+      });
+    }
   }
 
   public checkCreator() {
@@ -76,26 +84,21 @@ export class PokemonCardComponent implements OnInit, OnDestroy {
     });
   }
 
-  public onFavClicked(id: number) {
-    if (id === this.pokemon.id) {
-      this.isToast = true;
+  ngOnDestroy() {
+    if (this.subs) {
+      this.subs.unsubscribe();
     }
   }
 
-  public onCloseToast() {
-    this.isToast = false;
-  }
-
-  ngOnDestroy() {
-    this.subs.unsubscribe();
-  }
-
   clickFavorite() {
-    const favoritePokemon = {...this.pokemon, favorite_date: new Date()};
-    this.isToast = true;
-    this.favoriteService.addNewFavorite(favoritePokemon).subscribe(() => {
-      this.toastr.success('Now this pokemon is your favorite', 'Success');
-    });
+    if (this.uid) {
+      const favoritePokemon = {...this.pokemon, favorite_date: new Date()};
+      this.clickOnFavorite.emit(favoritePokemon);
+      // this.favoriteService.addNewFavorite(favoritePokemon).subscribe(() => {
+      // });
+    } else {
+      this.router.navigate(['/soon']);
+    }
   }
 
   trackBy(index: number, item: PokemonMini): string {
