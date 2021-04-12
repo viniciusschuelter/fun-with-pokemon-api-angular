@@ -25,10 +25,10 @@ export class PokemonDetailsComponent implements OnInit {
 
     this.isError = null;
     this.isLoading = false;
-    this.fetchComicDetails(url);
+    this.fetchPokemonDetails(url);
   }
 
-  public fetchComicDetails(url: string) {
+  public fetchPokemonDetails(url: string) {
     this.isError = null;
     this.isLoading = true;
     this.pokemonService.getPokemonByUrl(url).subscribe(
