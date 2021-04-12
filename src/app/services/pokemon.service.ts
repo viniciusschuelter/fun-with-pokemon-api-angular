@@ -15,7 +15,7 @@ export class PokemonService {
 
   public getPokemons(): Observable<any> {
     return this.http
-      .get<PokemonMini[]>(this.url)
+      .get<PokemonMini[]>(this.url + 'pokemon')
       .pipe(
         map((data: any) => data.results),
         catchError(this.handleErrors)

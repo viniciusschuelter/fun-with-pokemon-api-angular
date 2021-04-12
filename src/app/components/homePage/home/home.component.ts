@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   limit = 20;
   skip = 0;
   activedFilters = false;
+  myFavorites = this.localService.getItem('favorite')
 
   constructor(
     private pokemonService: PokemonService,
@@ -70,7 +71,7 @@ export class HomeComponent implements OnInit {
   public fetchPokemonsByType(pokemonType: string) {
     this.isError = null;
     this.isLoading = true;
-    this.activedFilters = true;
+    this.activedFilters = !!pokemonType;
     this.pokemonService.getPokemonByType(pokemonType).subscribe(
       (list: any) => {
         this.pokemons = list;
@@ -87,7 +88,7 @@ export class HomeComponent implements OnInit {
   public fetchPokemonsByHabitat(pokemonHabitat: string) {
     this.isError = null;
     this.isLoading = true;
-    this.activedFilters = true;
+    this.activedFilters = !!pokemonHabitat;
     this.pokemonService.getPokemonByHabitat(pokemonHabitat).subscribe(
       (list: any) => {
         this.pokemons = list;
@@ -124,5 +125,18 @@ export class HomeComponent implements OnInit {
         this.isFetched = true;
         this.pokemons = [...this.pokemons, ...list];
       });
+  }
+
+  addToMyFavorites(pokemon: Pokemon) {
+    const index = this.myFavorites.findIndex(fav => fav.name === pokemon.name);
+    if (index >= 0) {
+      this.myFavorites.splice(index, 1);
+      this.toastr.success('Now this pokemon is not your favorite', 'Success');
+    } else {
+      this.myFavorites = [...this.myFavorites, pokemon];
+      this.toastr.success('Now this pokemon is your favorite', 'Success');
+    }
+    this.localService.setItem('favorite', this.myFavorites);
+    this.myFavorites = [...this.myFavorites];
   }
 }

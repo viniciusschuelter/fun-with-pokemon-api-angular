@@ -14,10 +14,12 @@
     </div>
     <app-pokemon-stats class="mb-3" [pokemonStats]="pokemon?.stats"></app-pokemon-stats>
     <div class="d-flex justify-content-between">
-      <a class="btn btn-outline-primary btn-sm" [routerLink]="['/pokemon', url]" [awesomeTooltip]="'teste'">
+      <a class="btn btn-outline-primary btn-sm" [routerLink]="['/pokemon', url]">
         <span class="mx-3">Read More</span>
       </a>
-      <a class="btn btn-outline-danger btn-sm ml-3" (click)="clickFavorite()">
+      <a class="btn btn-sm ml-3"
+         [ngClass]="favorite ? 'btn-danger' : 'btn-outline-danger'"
+         (click)="clickFavorite()">
         <i class="fa fa-heart-o mx-2"></i>
       </a>
     </div>

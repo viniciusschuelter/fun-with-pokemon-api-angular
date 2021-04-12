@@ -89,11 +89,11 @@ export class AwesomeTooltipDirective implements OnInit, OnDestroy {
 
   @HostListener('mouseleave', ['$event'])
   hide(e: MouseEvent) {
-    if (this.overlayRef) {
-      this.overlayRef.detach();
-      this.overlayRef.dispose();
-      this.overlayRef = undefined;
-    }
+    // if (this.overlayRef) {
+    //   this.overlayRef.detach();
+    //   this.overlayRef.dispose();
+    //   this.overlayRef = undefined;
+    // }
   }
 
   ngOnDestroy() {

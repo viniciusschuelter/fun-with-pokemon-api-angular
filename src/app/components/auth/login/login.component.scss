@@ -1,9 +1,11 @@
 .login {
   min-height: 100vh;
   padding: 150px 0 280px 0;
+
   .form-group {
     margin: 15px 0;
     position: relative;
+
     .form-control {
       padding: 25px 15px !important;
       border-radius: 0 !important;
@@ -24,8 +26,5 @@
       width: 20px;
       height: 20px;
     }
-  }
-  .btn-accent {
-    padding: 10px 0 !important;
   }
 }

@@ -11,8 +11,10 @@
                           [type]="item.type.name"
         ></app-pokemon-type>
       </div>
-      <a class="btn btn-outline-danger btn-sm ml-3" (click)="clickFavorite()">
-        Favorite <i class="fa fa-heart-o mx-2"></i>
+      <a class="btn btn-sm ml-3"
+         [ngClass]="!!(myFavorites| arrayFilter: ['name', pokemon.name]).length ? 'btn-danger' : 'btn-outline-danger'"
+         (click)="addToMyFavorites()">
+        <i class="fa fa-heart-o mx-2"></i>
       </a>
     </div>
   </div>
@@ -35,17 +37,11 @@
         </span>
       </div>
     </article>
-    <div class="d-flex justify-content-end mt-1">
-      <p class="d-block mr-3 text-capitalize">
-        <span class="mr-2 font-weight-bold">created at</span>
-        {{ pokemon.date | date: "MM/dd/yyyy" }}
-      </p>
-    </div>
   </div>
   <div
     class="col-12 col-lg-4 d-flex flex-column"
   >
-  <app-pokemon-stats class="mb-3" [pokemonStats]="pokemon?.stats"></app-pokemon-stats>
+    <app-pokemon-stats class="mb-3" [pokemonStats]="pokemon?.stats"></app-pokemon-stats>
   </div>
 
 </div>

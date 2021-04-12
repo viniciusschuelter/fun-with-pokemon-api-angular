@@ -13,14 +13,15 @@
       *ngIf="pokemons.length == 0 && !isLoading && !isError"
     ></app-no-data>
 
-    <div class="w-100" cdkDropList (cdkDropListDropped)="drop($event)">
+    <div class="row" cdkDropList (cdkDropListDropped)="drop($event)">
+
       <app-pokemon-card
-        [ngStyle]="{ cursor: 'all-scroll' }"
-        cdkDrag
-        class="py-5 w-100"
+        class="col-lg-4 mb-4"
         *ngFor="let pokemon of pokemons"
-        [pokemon]="pokemons"
-        [page]="'favorites'"
+        [pokemon]="pokemon"
+        [page]="'favorite'"
+        [favorite]="(myFavorites| arrayFilter: ['name', pokemon.name]).length"
+        (clickOnFavorite)="addToMyFavorites($event)"
       >
         <div class="placeholder-drop invisible display-1" *cdkDragPlaceholder>
           droped element placeholder
