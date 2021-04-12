@@ -89,7 +89,6 @@ export class PokemonCardComponent implements OnInit, OnDestroy {
   }
 
   clickFavorite() {
-    console.log(this.uid);
     if (this.uid) {
       const favoritePokemon = {...this.pokemon, favorite_date: new Date()};
       this.clickOnFavorite.emit(favoritePokemon);

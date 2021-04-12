@@ -66,8 +66,6 @@ export class AwesomeTooltipDirective implements OnInit, OnDestroy {
 
     this.overlayRef = this.overlay.create({ positionStrategy });
 
-    console.log(this.overlayRef);
-
     if (this.hasTouch() && this.slim) {
       return;
     }
@@ -80,8 +78,6 @@ export class AwesomeTooltipDirective implements OnInit, OnDestroy {
 
     const tooltipRef: ComponentRef<AwesomeTooltipComponent>
       = this.overlayRef.attach(new ComponentPortal(AwesomeTooltipComponent));
-
-    console.log(tooltipRef);
 
     tooltipRef.instance.text = this.text;
     tooltipRef.instance.slim = this.slim;

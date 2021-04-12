@@ -121,7 +121,6 @@ export class HomeComponent implements OnInit {
     this.pokemonService
       .getPokemonByLazyLoading(this.limit, this.skip)
       .subscribe((list: Pokemon[]) => {
-        console.log(list);
         this.isFetched = true;
         this.pokemons = [...this.pokemons, ...list];
       });

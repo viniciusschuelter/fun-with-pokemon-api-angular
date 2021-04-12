@@ -23,7 +23,6 @@ export class FavoritesService {
   public addNewFavorite(pokemon: Pokemon): Observable<any> {
     const uid = this.auth.getCurrUserUid();
     const favoriteWithUser = {...pokemon, uid};
-    console.log(favoriteWithUser);
     return from(
       this.Afirestore.collection(`favorites`).add(favoriteWithUser)
     ).pipe(catchError(this.handleErrors));
