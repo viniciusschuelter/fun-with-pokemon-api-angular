@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { User } from 'src/app/models/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
-import fadeAnimation from 'src/app/shared/animations/fade.animation';
+import fadeAnimation from 'src/app/animations/fade.animation';
 
 @Component({
   selector: 'app-login',

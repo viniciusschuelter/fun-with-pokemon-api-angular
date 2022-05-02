@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Pokemon} from 'src/app/models/interfaces';
 import {FavoritesService} from 'src/app/services/favorites.service';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {LocalStorageService} from '../../../services/local-storage.service';
+import {LocalStorageService} from '../../services/local-storage.service';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({

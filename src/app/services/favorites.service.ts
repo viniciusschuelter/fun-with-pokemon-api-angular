@@ -31,7 +31,7 @@ export class FavoritesService {
   public getAllFavorites(): Observable<any[]> {
     const uid = this.auth.getCurrUserUid();
     return from(
-      this.Afirestore.collection('favorites', (ref) =>
+      this.Afirestore.collection('favoritess', (ref) =>
         ref.where('uid', '==', uid)
       ).valueChanges()
     ).pipe(catchError(this.handleErrors));
