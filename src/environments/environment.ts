@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
+  urlBase: 'https://pokeapi.co/api/v2/',
   apiKey:
     'apikey=87c0e8fefe1df530b86527bf6ace82c3&ts=1&hash=db5deddc59c2d1f5910075b14ec388ff',
   firebase: {

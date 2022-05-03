@@ -7,7 +7,7 @@ import { FavoritesService } from 'src/app/services/favorites.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UsersService } from 'src/app/services/users.service';
 import { environment } from 'src/environments/environment.prod';
-import {PokemonService} from '../../services/pokemon.service';
+import { PokemonService } from '../../services/pokemon.service';
 
 @NgModule({
   providers: [

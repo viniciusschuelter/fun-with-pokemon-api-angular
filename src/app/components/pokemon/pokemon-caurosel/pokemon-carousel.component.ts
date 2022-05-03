@@ -1,10 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PokemonSprites, SpritesTypes} from 'src/app/models/interfaces';
+import slideLeft from '../../../animations/slideLeft.animation';
 
 @Component({
   selector: 'app-pokemon-carousel',
   templateUrl: './pokemon-carousel.component.html',
   styleUrls: ['./pokemon-carousel.component.scss'],
+  animations: [slideLeft]
 })
 export class PokemonCarouselComponent implements OnInit {
 

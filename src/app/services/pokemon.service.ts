@@ -3,15 +3,20 @@ import {Injectable} from '@angular/core';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {Pokemon, PokemonMini} from '../models/interfaces';
+import {environment} from '../../environments/environment.prod';
+import {ToastrService} from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
 })
 
 export class PokemonService {
-  url = 'https://pokeapi.co/api/v2/';
+  url = environment.urlBase;
 
-  constructor(private http: HttpClient) {  }
+  constructor(
+    private http: HttpClient,
+    private toastr: ToastrService
+  ) {  }
 
   public getPokemons(): Observable<any> {
     return this.http
@@ -54,11 +59,11 @@ export class PokemonService {
   }
 
   private handleErrors(error: HttpErrorResponse) {
-    const err = 'Something wrong!';
+    let err = 'Something wrong!';
     if (error) {
-      return throwError(
-        error.error?.message ? error.error?.message : error.message
-      );
+      err = error.error?.message || error?.message;
+      this.toastr.error(err, 'Error');
+      return throwError(err);
     } else {
       return throwError(err);
     }

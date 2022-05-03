@@ -1,33 +1,29 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
-import {FavoritesComponent} from './components/favorites/favorites/favorites.component';
-import {HomeComponent} from './components/homePage/home/home.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
-import {AuthGuard} from './auth.guard';
-import {PokemonDetailsComponent} from './components/pokemon/pokemon-details/pokemon-details.component';
 import {SoonComponent} from './components/shared/soon/soon.component';
+import {AuthGuard} from './auth.guard';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  {
+    path: '',
+    loadChildren: () => import('./pages/home/home-routing.module').then(m => m.HomeRoutingModule),
+  },
 
   {
     path: 'favorites',
-    component: FavoritesComponent,
     canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/favorites/favorites-routing.module').then(m => m.FavoritesRoutingModule),
   },
 
   {
     path: 'pokemon/:url',
-    component: PokemonDetailsComponent,
+    loadChildren: () => import('./pages/pokemon-details/pokemon-details-routing.module').then(m => m.PokemonDetailsRoutingModule),
   },
 
   {
     path: 'auth',
-
-    loadChildren: () =>
-      import('../app/modules/feature_modules/auth/auth.module').then(
-        (module) => module.AuthModule
-      ),
+    loadChildren: () => import('../app/modules/feature_modules/auth/auth.module').then((module) => module.AuthModule),
   },
 
   {path: 'soon', component: SoonComponent},

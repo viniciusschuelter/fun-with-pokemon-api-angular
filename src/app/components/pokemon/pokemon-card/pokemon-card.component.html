@@ -4,7 +4,7 @@
   <app-pokemon-carousel [pokemonSprites]="pokemon?.sprites"></app-pokemon-carousel>
   <div class="card-body">
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <h5 class="card-title mb-0">{{pokemon.name | titlecase}}</h5>
+      <h5 class="card-title mb-0 text-capitalize">{{pokemon.name}}</h5>
       <div class="d-flex">
         <app-pokemon-type *ngFor="let item of pokemon.types; trackBy: trackBy"
                           class="ml-2"

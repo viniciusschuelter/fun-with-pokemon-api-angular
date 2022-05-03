@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import {Pokemon, PokemonTypesEnum} from 'src/app/models/interfaces';
 import {AuthService} from 'src/app/services/auth.service';
 import {LocalStorageService} from 'src/app/services/local-storage.service';
-import {PokemonService} from '../../../services/pokemon.service';
+import {PokemonService} from '../../services/pokemon.service';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
@@ -117,6 +117,9 @@ export class HomeComponent implements OnInit {
   }
 
   public onScroll() {
+    if (!this.activedFilters) {
+      return;
+    }
     this.skip += this.limit;
     this.pokemonService
       .getPokemonByLazyLoading(this.limit, this.skip)

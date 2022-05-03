@@ -1,8 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-
-import {Pokemon, PokemonMini, PokemonTypesEnum} from 'src/app/models/interfaces';
-import {PokemonService} from '../../../services/pokemon.service';
-import {ToastrService} from 'ngx-toastr';
+import { PokemonMini, } from 'src/app/models/interfaces';
+import { ToastrService } from 'ngx-toastr';
+import { PokemonService } from '../../services/pokemon.service';
 
 @Component({
   selector: 'app-filters-bar',
