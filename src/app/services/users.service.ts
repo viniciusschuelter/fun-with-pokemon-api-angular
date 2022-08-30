@@ -1,11 +1,11 @@
 import {HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {AngularFirestore} from '@angular/fire/firestore';
+import {AngularFirestore} from '@angular/fire/compat/firestore';
 import {from, Observable, of, throwError} from 'rxjs';
 import {User} from '../models/interfaces';
 import {catchError, switchMap} from 'rxjs/operators';
-import {AngularFireAuth} from '@angular/fire/auth';
-import firebase from 'firebase/app';
+import {AngularFireAuth} from '@angular/fire/compat/auth';
+import firebase from 'firebase/compat/app';
 
 import 'firebase/auth';
 

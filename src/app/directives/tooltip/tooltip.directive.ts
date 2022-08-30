@@ -26,8 +26,7 @@ export class AwesomeTooltipDirective implements OnInit, OnDestroy {
 
   hasTouch() {
     return 'ontouchstart' in document.documentElement
-           || navigator.maxTouchPoints > 0
-           || navigator.msMaxTouchPoints > 0;
+           || navigator.maxTouchPoints > 0;
   }
 
   private getPositionRoles(): ConnectedPosition[] {

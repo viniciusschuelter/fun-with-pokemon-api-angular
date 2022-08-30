@@ -7,7 +7,7 @@
       <h5 class="card-title mb-0 text-capitalize">{{pokemon.name}}</h5>
       <div class="d-flex">
         <app-pokemon-type *ngFor="let item of pokemon.types; trackBy: trackBy"
-                          class="ml-2"
+                          class="ms-2"
                           [type]="item.type.name"
         ></app-pokemon-type>
       </div>
@@ -17,7 +17,7 @@
       <a class="btn btn-outline-primary btn-sm" [routerLink]="['/pokemon', url]">
         <span class="mx-3">Read More</span>
       </a>
-      <a class="btn btn-sm ml-3"
+      <a class="btn btn-sm ms-3"
          [ngClass]="favorite ? 'btn-danger' : 'btn-outline-danger'"
          (click)="clickFavorite()">
         <i class="fa fa-heart-o mx-2"></i>

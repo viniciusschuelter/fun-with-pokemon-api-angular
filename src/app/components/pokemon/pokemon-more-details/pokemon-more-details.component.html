@@ -7,11 +7,11 @@
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex">
         <app-pokemon-type *ngFor="let item of pokemon.types"
-                          class="ml-2"
+                          class="ms-2"
                           [type]="item.type.name"
         ></app-pokemon-type>
       </div>
-      <a class="btn btn-sm ml-3"
+      <a class="btn btn-sm ms-3"
          [ngClass]="!!(myFavorites| arrayFilter: ['name', pokemon.name]).length ? 'btn-danger' : 'btn-outline-danger'"
          (click)="addToMyFavorites()">
         <i class="fa fa-heart-o mx-2"></i>
@@ -24,7 +24,7 @@
     <article class="mb-3">
       <h6 class="">Type Pokemon</h6>
       <div class="d-flex flex-wrap w-100">
-        <span *ngFor="let item of pokemon.types" class="badge badge-pill bg-primary mr-2">
+        <span *ngFor="let item of pokemon.types" class="badge badge-pill bg-primary me-2">
           {{item.type.name}}
         </span>
       </div>
@@ -32,7 +32,7 @@
     <article>
       <h6 class="">Abilities Pokemon</h6>
       <div class="d-flex flex-wrap w-100">
-        <span *ngFor="let item of pokemon.abilities" class="badge badge-pill bg-warning mr-2">
+        <span *ngFor="let item of pokemon.abilities" class="badge badge-pill bg-warning me-2">
           {{item.ability.name}}
         </span>
       </div>

@@ -12,9 +12,7 @@ import {NotFoundComponent} from './components/not-found/not-found.component';
 
 import {StoreModule} from '@ngrx/store';
 
-import {AngularFireModule} from '@angular/fire';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFireModule} from '@angular/fire/compat';
 import {environment} from 'src/environments/environment';
 
 import {AuthReducer} from './store/auth/auth.reducer';
@@ -27,6 +25,8 @@ import {CoreModule} from './modules/core/core.module';
 import {SharedModule} from './modules/shared_modules/shared.module';
 import {OverlayModule} from '@angular/cdk/overlay';
 import { ToastrModule } from 'ngx-toastr';
+import {AngularFireAuthModule} from '@angular/fire/compat/auth';
+import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
 
 @NgModule({
   declarations: [
