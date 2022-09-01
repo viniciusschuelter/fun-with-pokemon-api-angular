@@ -1,32 +1,22 @@
-<section class="mt-2 my-5 favorites">
+<section class="mt-2 my-5 favorites" *ngIf="myFavorites$ | async as pokemons else loading">
   <div class="container">
+    <app-no-data *ngIf="pokemons.length === 0" [message]="'No pokemon yet in your Favorites'"></app-no-data>
 
-    <app-error *ngIf="isError" [message]="isError"></app-error>
-
-    <app-loading
-      *ngIf="isLoading && !isError"
-      class="d-block pt-5"
-    ></app-loading>
-
-    <app-no-data
-      [message]="'no pokemon yet in your Favorites '"
-      *ngIf="pokemons.length == 0 && !isLoading && !isError"
-    ></app-no-data>
-
-    <div class="row" cdkDropList (cdkDropListDropped)="drop($event)">
-
+    <div class="row">
       <app-pokemon-card
         class="col-lg-4 mb-4"
         *ngFor="let pokemon of pokemons"
         [pokemon]="pokemon"
         [page]="'favorite'"
-        [favorite]="(myFavorites| arrayFilter: ['name', pokemon.name]).length"
-        (clickOnFavorite)="addToMyFavorites($event)"
-      >
-        <div class="placeholder-drop invisible display-1" *cdkDragPlaceholder>
-          droped element placeholder
-        </div>
-      </app-pokemon-card>
+        [favorite]="true"
+        (clickOnFavorite)="removeFromMyFavorites($event)"
+      ></app-pokemon-card>
     </div>
   </div>
 </section>
+
+<ng-template #loading>
+  <app-loading
+    class="d-block h-100 pt-5"
+  ></app-loading>
+</ng-template>

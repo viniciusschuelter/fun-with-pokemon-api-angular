@@ -2,7 +2,7 @@
   "hosting": [
     {
       "target": "funWithPokeapi",
-      "public": "dist/funWithPokeapi",
+      "public": "dist",
       "ignore": [
         "**/.*"
       ],
@@ -26,7 +26,7 @@
     },
     {
       "target": "funWithPokeapi",
-      "public": "dist/funWithPokeapi",
+      "public": "dist",
       "ignore": [
         "**/.*"
       ],

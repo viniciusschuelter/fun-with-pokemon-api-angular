@@ -1,12 +1,12 @@
-import {HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {Store} from '@ngrx/store';
 import * as authActions from '../store/auth/auth.action';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {User} from '../models/interfaces';
 import {UsersService} from './users.service';
+import {handleErrors} from '../utils/utils';
 
 @Injectable({
   providedIn: 'root',
@@ -37,7 +37,7 @@ export class AuthService {
   }
 
   public async authCheck() {
-    this.fireAuth.authState.pipe(catchError(this.handleErrors)).subscribe(
+    this.fireAuth.authState.pipe(catchError(handleErrors)).subscribe(
       (user) => {
         if (user) {
           this.store.dispatch(authActions.login({uid: user.uid}));
@@ -83,16 +83,5 @@ export class AuthService {
 
   public isAuth() {
     return;
-  }
-
-  private handleErrors(error: HttpErrorResponse) {
-    const err = 'Something wrong!';
-    if (error) {
-      return throwError(
-        error.error.message ? error.error.message : error.message
-      );
-    } else {
-      return throwError(err);
-    }
   }
 }

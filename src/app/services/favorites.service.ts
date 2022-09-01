@@ -1,56 +1,51 @@
-import {HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
 
-import {from, Observable, throwError} from 'rxjs';
+import {combineLatest, firstValueFrom, from, Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {Pokemon} from '../models/interfaces';
 import {AuthService} from './auth.service';
+import {handleErrors} from '../utils/utils';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FavoritesService {
-  uid = this.auth.getCurrUserUid();
 
   constructor(
     private Afirestore: AngularFirestore,
     private auth: AuthService
-  ) {
-  }
+  ) { }
 
 
   public addNewFavorite(pokemon: Pokemon): Observable<any> {
-    const uid = this.auth.getCurrUserUid();
-    const favoriteWithUser = {...pokemon, uid};
+    const payload = {id: pokemon.id, name: pokemon.name, uid: this.auth.getCurrUserUid()};
     return from(
-      this.Afirestore.collection(`favorites`).add(favoriteWithUser)
-    ).pipe(catchError(this.handleErrors));
+      this.Afirestore.collection(`favorites/`).add(payload)
+    ).pipe(catchError(handleErrors));
   }
 
   public getAllFavorites(): Observable<any[]> {
-    const uid = this.auth.getCurrUserUid();
     return from(
-      this.Afirestore.collection('favoritess', (ref) =>
-        ref.where('uid', '==', uid)
+      this.Afirestore.collection('favorites', (ref) =>
+        ref.where('uid', '==', this.auth.getCurrUserUid())
       ).valueChanges()
-    ).pipe(catchError(this.handleErrors));
+    ).pipe(catchError(handleErrors));
   }
 
-  public removeFavorite(favoriteId: string): Observable<any> {
-    return from(this.Afirestore.doc(`favorites/${favoriteId}`).delete()).pipe(
-      catchError(this.handleErrors)
+  public removeFavorite(pokemonId: number): Observable<any> {
+    return combineLatest(
+      this.getDocReferences(pokemonId).then( refs => refs
+        .map( ref => this.Afirestore.doc(`favorites/${ref}`).delete()))
+    ).pipe(
+      catchError(handleErrors)
     );
   }
 
-  private handleErrors(error: HttpErrorResponse) {
-    const err = 'Something wrong!';
-    if (error) {
-      return throwError(
-        error.error?.message ? error.error?.message : error.message
-      );
-    } else {
-      return throwError(err);
-    }
+  public async getDocReferences(id): Promise<string[]> {
+    const snapshot = await firstValueFrom(this.Afirestore.collection('favorites', (ref) => {
+      return ref.where('uid', '==', this.auth.getCurrUserUid()) && ref.where('id', '==', id);
+    }).get());
+    return snapshot.docs.map( _ => _.ref.id);
   }
 }

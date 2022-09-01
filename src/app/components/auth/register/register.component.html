@@ -79,7 +79,6 @@
                     password.invalid && (password.dirty || password.touched),
                   'is-valid': password.valid
                 }"
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}"
                 required
                 #password="ngModel"
                 [(ngModel)]="user.password"
@@ -96,9 +95,6 @@
                 "
               >
                 Password is required
-              </small>
-              <small class="text-danger" *ngIf="password.errors?.pattern">
-                Invalid password syntax
               </small>
             </div>
 

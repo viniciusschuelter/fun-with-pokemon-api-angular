@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-loading',
-  templateUrl: './loading.component.html',
-  styleUrls: ['./loading.component.scss']
+  template: `
+    <section class="d-flex flex-grow-1 justify-content-center align-items-center h-100 w-100">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </section>
+  `,
+  styles: [
+    `
+      .spinner-border {
+        width: 4rem;
+        height: 4rem;
+      }
+    `
+  ]
 })
-export class LoadingComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class LoadingComponent  { }

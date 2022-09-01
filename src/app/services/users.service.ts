@@ -1,13 +1,13 @@
-import {HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
-import {from, Observable, of, throwError} from 'rxjs';
+import {from, Observable, of} from 'rxjs';
 import {User} from '../models/interfaces';
 import {catchError, switchMap} from 'rxjs/operators';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
 
 import 'firebase/auth';
+import {handleErrors} from '../utils/utils';
 
 @Injectable({
   providedIn: 'root',
@@ -44,7 +44,7 @@ export class UsersService {
       joind_date: new Date(),
     };
     this.addNewUser(newSocialUser)
-      .pipe(catchError(this.handleErrors))
+      .pipe(catchError(handleErrors))
       .subscribe((data) => data);
 
     return newSocialUser;
@@ -58,24 +58,13 @@ export class UsersService {
 
   public addNewUser(user: User) {
     return from(this.Afirestore.doc(`users/${user.uid}`).set(user)).pipe(
-      catchError(this.handleErrors)
+      catchError(handleErrors)
     );
   }
 
   public getUserById(uid: string): Observable<any> {
     return this.Afirestore.doc(`users/${uid}`)
       .valueChanges()
-      .pipe(catchError(this.handleErrors));
-  }
-
-  private handleErrors(error: HttpErrorResponse) {
-    const err = 'Something wrong!';
-    if (error) {
-      return throwError(
-        error.error?.message ? error.error?.message : error?.message
-      );
-    } else {
-      return throwError(err);
-    }
+      .pipe(catchError(handleErrors));
   }
 }

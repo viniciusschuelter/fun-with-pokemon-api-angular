@@ -5,6 +5,7 @@ import {catchError, map} from 'rxjs/operators';
 import {Pokemon, PokemonMini} from '../models/interfaces';
 import {environment} from '../../environments/environment.prod';
 import {ToastrService} from 'ngx-toastr';
+import {handleErrors} from '../utils/utils';
 
 @Injectable({
   providedIn: 'root',
@@ -23,21 +24,21 @@ export class PokemonService {
       .get<PokemonMini[]>(this.url + 'pokemon')
       .pipe(
         map((data: any) => data.results),
-        catchError(this.handleErrors)
+        catchError(handleErrors)
       );
   }
 
   public getPokemonByUrl(url: string): Observable<any> {
     return this.http.get<Pokemon>(url).pipe(
       map(data => data),
-      catchError(this.handleErrors)
+      catchError(handleErrors)
     );
   }
 
   public getPokemonByType(type?: string): Observable<any> {
     return this.http.get<any>(this.url + 'type/' + (type ? type : '')).pipe(
       map(data => data?.pokemon ? data.pokemon.map(item => item.pokemon) : data.results),
-      catchError(this.handleErrors)
+      catchError(handleErrors)
     );
   }
 
@@ -45,7 +46,7 @@ export class PokemonService {
   public getPokemonByHabitat(habitat?: string): Observable<any> {
     return this.http.get<any>(this.url + 'pokemon-habitat/' + (habitat ? habitat : '')).pipe(
       map(data => data?.pokemon_species ? data.pokemon_species : data.results),
-      catchError(this.handleErrors)
+      catchError(handleErrors)
     );
   }
 
@@ -54,18 +55,7 @@ export class PokemonService {
       .get<PokemonMini[]>(this.url + `pokemon?limit=${limit}&offset=${skip}`)
       .pipe(
         map((data: any) => data.results),
-        catchError(this.handleErrors)
+        catchError(handleErrors)
       );
-  }
-
-  private handleErrors(error: HttpErrorResponse) {
-    let err = 'Something wrong!';
-    if (error) {
-      err = error.error?.message || error?.message;
-      this.toastr.error(err, 'Error');
-      return throwError(err);
-    } else {
-      return throwError(err);
-    }
   }
 }

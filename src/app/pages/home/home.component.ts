@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs';
+import {firstValueFrom, Observable, take} from 'rxjs';
 
 import {Pokemon, PokemonTypesEnum} from 'src/app/models/interfaces';
 import {AuthService} from 'src/app/services/auth.service';
 import {LocalStorageService} from 'src/app/services/local-storage.service';
 import {PokemonService} from '../../services/pokemon.service';
 import {ToastrService} from 'ngx-toastr';
+import {FavoritesService} from '../../services/favorites.service';
 
 @Component({
   selector: 'app-home',
@@ -30,6 +31,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private pokemonService: PokemonService,
+    private favoritesService: FavoritesService,
     private localService: LocalStorageService,
     private auth: AuthService,
     private store: Store<{ auth: string }>,
@@ -130,15 +132,16 @@ export class HomeComponent implements OnInit {
   }
 
   addToMyFavorites(pokemon: Pokemon) {
-    const index = this.myFavorites.findIndex(fav => fav.name === pokemon.name);
-    if (index >= 0) {
-      this.myFavorites.splice(index, 1);
-      this.toastr.success('Now this pokemon is not your favorite', 'Success');
-    } else {
-      this.myFavorites = [...this.myFavorites, pokemon];
-      this.toastr.success('Now this pokemon is your favorite', 'Success');
-    }
-    this.localService.setItem('favorite', this.myFavorites);
-    this.myFavorites = [...this.myFavorites];
+    this.favoritesService.addNewFavorite(pokemon).pipe(take(1)).subscribe( a => console.log(a));
+    // const index = this.myFavorites.findIndex(fav => fav.name === pokemon.name);
+    // if (index >= 0) {
+    //   this.myFavorites.splice(index, 1);
+    //   this.toastr.success('Now this pokemon is not your favorite', 'Success');
+    // } else {
+    //   this.myFavorites = [...this.myFavorites, pokemon];
+    //   this.toastr.success('Now this pokemon is your favorite', 'Success');
+    // }
+    // this.localService.setItem('favorite', this.myFavorites);
+    // this.myFavorites = [...this.myFavorites];
   }
 }
