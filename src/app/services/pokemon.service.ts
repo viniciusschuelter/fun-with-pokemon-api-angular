@@ -19,7 +19,7 @@ export class PokemonService {
     private toastr: ToastrService
   ) {  }
 
-  public getPokemons(): Observable<any> {
+  public getPokemons(): Observable<PokemonMini[]> {
     return this.http
       .get<PokemonMini[]>(this.url + 'pokemon')
       .pipe(
@@ -50,7 +50,7 @@ export class PokemonService {
     );
   }
 
-  public getPokemonByLazyLoading(limit: number, skip: number): Observable<any> {
+  public getPokemonByLazyLoading(limit: number, skip: number): Observable<any[]> {
     return this.http
       .get<PokemonMini[]>(this.url + `pokemon?limit=${limit}&offset=${skip}`)
       .pipe(

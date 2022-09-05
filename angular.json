@@ -68,6 +68,14 @@
               ],
               "serviceWorker": true,
               "ngswConfigPath": "ngsw-config.json"
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": false
             }
           }
         },
@@ -79,8 +87,12 @@
           "configurations": {
             "production": {
               "browserTarget": "funWithPokeapi:build:production"
+            },
+            "development": {
+              "browserTarget": "funWithPokeapi:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -129,15 +141,8 @@
             "production": {
               "devServerTarget": "funWithPokeapi:serve:production"
             }
-          }
-        },
-        "deploy": {
-          "builder": "@netlify-builder/deploy:deploy",
-          "options": {
-            "outputPath": "dist/funWithPokeapi",
-            "netlifyToken": "6E0lQlhtOEenEKEh6YfFCtCHw5jh2arGLovDub4sFeg",
-            "siteId": "b1ad13e6-23f7-486e-82ba-2a28459263e8"
-          }
+          },
+          "defaultConfiguration": "development"
         }
       }
     }

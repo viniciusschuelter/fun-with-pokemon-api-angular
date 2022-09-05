@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {firstValueFrom, Observable, take} from 'rxjs';
+import {firstValueFrom, Observable, take, takeUntil} from 'rxjs';
 
 import {Pokemon, PokemonTypesEnum} from 'src/app/models/interfaces';
 import {AuthService} from 'src/app/services/auth.service';
@@ -8,15 +8,20 @@ import {LocalStorageService} from 'src/app/services/local-storage.service';
 import {PokemonService} from '../../services/pokemon.service';
 import {ToastrService} from 'ngx-toastr';
 import {FavoritesService} from '../../services/favorites.service';
+import {PokemonAction} from '../../store/pokemon/pokemon.action';
+import {PokemonState} from '../../store/pokemon/pokemon.reducer';
+import {selectFavoritesPokemons, selectMiniPokemons} from '../../store/pokemon/pokemon.selector';
+import {Actions, ofType} from '@ngrx/effects';
+import {UnsubscribeDirective} from '../../directives/unsubscribe/unsubscribe.directive';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent extends UnsubscribeDirective implements OnInit {
 
-  isAuth$: Observable<string>;
+  isAuth$: Observable<string> = this.store.select('auth');
   pokemons: Pokemon[] = [];
   character: Pokemon;
   isLoading = false;
@@ -27,21 +32,34 @@ export class HomeComponent implements OnInit {
   limit = 20;
   skip = 0;
   activedFilters = false;
-  myFavorites = this.localService.getItem('favorite')
+  myFavorites = this.localService.getItem('favorite');
 
   constructor(
     private pokemonService: PokemonService,
     private favoritesService: FavoritesService,
     private localService: LocalStorageService,
     private auth: AuthService,
-    private store: Store<{ auth: string }>,
+    private store: Store<{ auth: string, pokemon: PokemonState }>,
     private toastr: ToastrService,
+    private actions$: Actions
   ) {
+    super();
+    this.initPokemonStore();
   }
 
   ngOnInit(): void {
-    this.isAuth$ = this.store.select('auth');
+    this.actions$.subscribe( a => console.log(a));
+    this.store.subscribe( a => console.log(a));
     this.getlocalComics();
+  }
+
+  private initPokemonStore(): void {
+    this.store.select(selectMiniPokemons).pipe(takeUntil(this._destroy)).subscribe( (results: any) => {
+      console.log(results);
+      if (!results?.length) {
+        this.store.dispatch(PokemonAction.loadPokemonMini());
+      }
+    });
   }
 
   private getlocalComics() {
@@ -105,11 +123,11 @@ export class HomeComponent implements OnInit {
   }
 
   public onHabitatPokemonSelect(pokemonHabitat: string) {
-    this.fetchPokemonsByHabitat(pokemonHabitat);
+    // this.fetchPokemonsByHabitat(pokemonHabitat);
   }
 
   public onTypePokemonSelect(pokemonType: string) {
-    this.fetchPokemonsByType(pokemonType);
+    // this.fetchPokemonsByType(pokemonType);
   }
 
 

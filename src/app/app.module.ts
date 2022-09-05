@@ -27,6 +27,8 @@ import {OverlayModule} from '@angular/cdk/overlay';
 import { ToastrModule } from 'ngx-toastr';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
+import {PokemonReducer} from './store/pokemon/pokemon.reducer';
+import {EffectsModule} from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
     SharedModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    StoreModule.forRoot({auth: AuthReducer}, {}),
+    StoreModule.forRoot({auth: AuthReducer, pokemon: null}, {}),
+    EffectsModule.forRoot([]),
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,

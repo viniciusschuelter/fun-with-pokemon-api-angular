@@ -8,6 +8,7 @@ import {FavoritesService} from '../../../services/favorites.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from "@angular/router";
 import {LocalStorageService} from "../../../services/local-storage.service";
+import {PokemonAction} from '../../../store/pokemon/pokemon.action';
 
 @Component({
   selector: 'app-pokemon-card',
