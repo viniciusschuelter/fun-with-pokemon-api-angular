@@ -1,4 +1,4 @@
-import {ComponentRef, Directive, ElementRef, HostBinding, HostListener, Input, OnDestroy, OnInit} from '@angular/core';
+import {ComponentRef, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit} from '@angular/core';
 import { Overlay, OverlayPositionBuilder, OverlayRef, ConnectedPosition } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 
@@ -25,30 +25,67 @@ export class AwesomeTooltipDirective implements OnInit, OnDestroy {
   }
 
   hasTouch() {
-    return 'ontouchstart' in document.documentElement
-           || navigator.maxTouchPoints > 0;
+    return (
+      'ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0
+    );
   }
 
+
   private getPositionRoles(): ConnectedPosition[] {
-    // tslint:disable-next-line:max-line-length
-    const top: ConnectedPosition = { originX: 'center', originY: 'top', overlayX: 'center', overlayY: 'bottom', offsetY:  -8, panelClass: 'tooltip-top', };
-    // tslint:disable-next-line:max-line-length
-    const bottom: ConnectedPosition = { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top', offsetY:  8, panelClass: 'tooltip-bottom', };
-    // tslint:disable-next-line:max-line-length
-    const right: ConnectedPosition = { originX: 'end', originY: 'center', overlayX: 'start', overlayY: 'center', offsetX:  8, panelClass: 'tooltip-right', };
-    // tslint:disable-next-line:max-line-length
-    const left: ConnectedPosition = { originX: 'start', originY: 'center', overlayX: 'end', overlayY: 'center', offsetX:  -8, panelClass: 'tooltip-left', };
+    const top: ConnectedPosition = {
+      originX: 'center',
+      originY: 'top',
+      overlayX: 'center',
+      overlayY: 'bottom',
+      offsetY: -8,
+      panelClass: 'tooltip-top'
+    };
+    const bottom: ConnectedPosition = {
+      originX: 'center',
+      originY: 'bottom',
+      overlayX: 'center',
+      overlayY: 'top',
+      offsetY: 8,
+      panelClass: 'tooltip-bottom'
+    };
+    const right: ConnectedPosition = {
+      originX: 'end',
+      originY: 'center',
+      overlayX: 'start',
+      overlayY: 'center',
+      offsetX: 8,
+      panelClass: 'tooltip-right'
+    };
+    const left: ConnectedPosition = {
+      originX: 'start',
+      originY: 'center',
+      overlayX: 'end',
+      overlayY: 'center',
+      offsetX: -8,
+      panelClass: 'tooltip-left'
+    };
+    const bottomLeft: ConnectedPosition = {
+      originX: 'start',
+      originY: 'bottom',
+      overlayX: 'center',
+      overlayY: 'top',
+      offsetX: 8,
+      offsetY: 4,
+      panelClass: 'tooltip-bottom-left'
+    };
 
     switch (this.position) {
       case 'bottom':
-        return [ bottom, top, left, right ];
+        return [bottom, top, left, right];
+      // @ts-ignore
+      case 'bottom-left':
+        return [bottomLeft, left, top, right];
       case 'right':
-        return [ right, top, bottom, left ];
+        return [right, top, bottom, left];
       case 'left':
-        return [ left, top, bottom, right ];
+        return [left, top, bottom, right];
       default:
-        return [ top, bottom, left, right ];
-
+        return [top, bottom, left, right];
     }
   }
 
@@ -59,9 +96,9 @@ export class AwesomeTooltipDirective implements OnInit, OnDestroy {
     }
 
     const positionStrategy = this.overlayPositionBuilder
-        .flexibleConnectedTo(this.elementRef)
-        .withPositions(this.getPositionRoles())
-        .withGrowAfterOpen(true);
+      .flexibleConnectedTo(this.elementRef)
+      .withPositions(this.getPositionRoles())
+      .withGrowAfterOpen(true);
 
     this.overlayRef = this.overlay.create({ positionStrategy });
 
@@ -69,29 +106,29 @@ export class AwesomeTooltipDirective implements OnInit, OnDestroy {
       return;
     }
 
+    const tooltipRef: ComponentRef<AwesomeTooltipComponent> =
+      this.overlayRef.attach(new ComponentPortal(AwesomeTooltipComponent));
+
     positionStrategy.positionChanges.subscribe(p => {
       tooltipRef.instance.position = p.connectionPair.panelClass as any;
       tooltipRef.instance.noMax = this.noMax;
       tooltipRef.changeDetectorRef.detectChanges();
     });
 
-    const tooltipRef: ComponentRef<AwesomeTooltipComponent>
-      = this.overlayRef.attach(new ComponentPortal(AwesomeTooltipComponent));
-
     tooltipRef.instance.text = this.text;
     tooltipRef.instance.slim = this.slim;
   }
 
-  @HostListener('mouseleave', ['$event'])
-  hide(e: MouseEvent) {
-    // if (this.overlayRef) {
-    //   this.overlayRef.detach();
-    //   this.overlayRef.dispose();
-    //   this.overlayRef = undefined;
-    // }
+  @HostListener('mouseleave')
+  hide() {
+    if (this.overlayRef) {
+      this.overlayRef.detach();
+      this.overlayRef.dispose();
+      this.overlayRef = undefined;
+    }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.overlayRef) {
       this.overlayRef.detach();
       this.overlayRef.dispose();

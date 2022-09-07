@@ -6,6 +6,8 @@ import {PokemonTypeModule} from '../pokemon-type/pokemon-type.module';
 import {PokemonStatsModule} from '../pokemon-stats/pokemon-stats.module';
 import {SharedModule} from '../../../modules/shared_modules/shared.module';
 import {RouterModule} from '@angular/router';
+import {ArrayFilterModule} from '../../../pipes/array-filter/array-filter.module';
+import {PokemonFavoriteButtonModule} from '../pokemon-favorite-button/pokemon-favorite-button.module';
 
 
 @NgModule({
@@ -17,6 +19,8 @@ import {RouterModule} from '@angular/router';
     PokemonTypeModule,
     PokemonStatsModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    ArrayFilterModule,
+    PokemonFavoriteButtonModule
   ]
 }) export class PokemonCardModule { }

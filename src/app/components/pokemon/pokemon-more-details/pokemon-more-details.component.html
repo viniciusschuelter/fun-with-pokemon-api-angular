@@ -1,5 +1,5 @@
 <ng-content></ng-content>
-<div *ngIf="!isLoading" class="row my-4 w-100">
+<div class="row my-4 w-100">
 
   <div class="col-12 col-lg-4 mb-5 mb-lg-0">
     <app-pokemon-carousel [pokemonSprites]="pokemon?.sprites"></app-pokemon-carousel>
@@ -11,11 +11,7 @@
                           [type]="item.type.name"
         ></app-pokemon-type>
       </div>
-      <a class="btn btn-sm ms-3"
-         [ngClass]="!!(myFavorites| arrayFilter: ['name', pokemon.name]).length ? 'btn-danger' : 'btn-outline-danger'"
-         (click)="addToMyFavorites()">
-        <i class="fa fa-heart-o mx-2"></i>
-      </a>
+      <app-pokemon-favorite-button [myFavorites]="myFavorites" [pokemon]="pokemon"></app-pokemon-favorite-button>
     </div>
   </div>
 

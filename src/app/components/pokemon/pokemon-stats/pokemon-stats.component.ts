@@ -26,7 +26,7 @@ export class PokemonStatsComponent implements OnInit {
     'special-attack': 'SP. ATK',
     'special-defense': 'SP. DEF',
     'speed': 'SPEED'
-  }
+  };
 
   constructor() {
   }

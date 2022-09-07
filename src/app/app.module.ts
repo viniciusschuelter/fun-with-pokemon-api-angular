@@ -23,12 +23,27 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {CoreModule} from './modules/core/core.module';
 import {SharedModule} from './modules/shared_modules/shared.module';
-import {OverlayModule} from '@angular/cdk/overlay';
+import {OverlayContainer} from '@angular/cdk/overlay';
 import { ToastrModule } from 'ngx-toastr';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
-import {PokemonReducer} from './store/pokemon/pokemon.reducer';
 import {EffectsModule} from '@ngrx/effects';
+import {EntityDataModule, EntityDataModuleConfig, EntityMetadata, EntityMetadataMap} from '@ngrx/data';
+import {Pokemon} from './models/interfaces';
+
+const entityMetadata: EntityMetadataMap = {
+  Pokemon: <EntityMetadata<Pokemon>>{ selectId: model => model.name }
+};
+
+const pluralNames = {
+  Pokemon: 'Pokemons'
+};
+
+export const entityConfig: EntityDataModuleConfig = {
+  entityMetadata,
+  pluralNames
+};
+
 
 @NgModule({
   declarations: [
@@ -47,18 +62,38 @@ import {EffectsModule} from '@ngrx/effects';
     HttpClientModule,
     StoreModule.forRoot({auth: AuthReducer, pokemon: null}, {}),
     EffectsModule.forRoot([]),
+    EntityDataModule.forRoot(entityConfig),
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
     DragDropModule,
-    OverlayModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerImmediately',
     }),
     ToastrModule.forRoot(),
   ],
+  // providers: [
+  //   {
+  //     provide: OverlayContainer,
+  //     useFactory: () => {
+  //       const container = document.createElement('div');
+  //       container.classList.add('cdk-overlay-container');
+  //       class Class extends OverlayContainer {
+  //         _createContainer(): void {
+  //           (
+  //             document.querySelector('#content-container') ||
+  //             document.querySelector('body')
+  //           ).appendChild(container);
+  //           this._containerElement = container;
+  //         }
+  //       }
+  //
+  //       return new Class(container, undefined);
+  //     }
+  //   },
+  // ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

@@ -1,39 +1,35 @@
-<section class="homePage">
+<section class="homePage" *ngIf="pokemonsMini$ | async as pokemonsMini else loading">
   <div class="container my-3">
-    <app-filters-bar
-      (searchChange)="onSearchPokemon($event)"
-      (typePokemonChange)="onTypePokemonSelect($event)"
-      (habitatPokemonChange)="onHabitatPokemonSelect($event)"
-    ></app-filters-bar>
+<!--    <app-filters-bar-->
+<!--      (searchChange)="onSearchPokemon($event)"-->
+<!--      (typePokemonChange)="onTypePokemonSelect($event)"-->
+<!--      (habitatPokemonChange)="onHabitatPokemonSelect($event)"-->
+<!--    ></app-filters-bar>-->
 
-    <app-error *ngIf="isError" [message]="isError" class="mt-5"></app-error>
+    <app-no-data *ngIf="(!pokemonsMini.length)"></app-no-data>
 
-    <app-loading *ngIf="isLoading && !isError" class="d-block"></app-loading>
-
-    <app-no-data
-      *ngIf="(!pokemons.length && !isLoading) || isNoData"
-    ></app-no-data>
-
-    <div class="row">
+    <div class="row" *ngIf="pokemons$ | async as pokemons else loading">
       <app-pokemon-card
         class="col-lg-4 mb-4"
-        *ngFor="let pokemon of pokemons"
-        [pokemon]="pokemon"
-        [page]="'home'"
-        [favorite]="!!(myFavorites| arrayFilter: ['name', pokemon.name]).length"
-        (clickOnFavorite)="addToMyFavorites($event)"
+        *ngFor="let pokemon of pokemonsMini"
+        [pokemon]="pokemons[pokemon.name] || pokemon"
+        [myFavorites]="myFavorites$ | async"
       ></app-pokemon-card>
     </div>
 
-    <app-lazy-loading-scroll (scrolled)="onScroll()">
-      <img
-        *ngIf="!isLoading && !activedFilters"
-        src="../../../assets/images/spinner.gif"
-        alt="spinner"
-        width="50px"
-        height="50px"
-        class="d-block mx-auto my-5"
-      />
-    </app-lazy-loading-scroll>
+<!--    <app-lazy-loading-scroll (scrolled)="onScroll()">-->
+<!--      <img-->
+<!--        *ngIf="!isLoading && !activedFilters"-->
+<!--        src="../../../assets/images/spinner.gif"-->
+<!--        alt="spinner"-->
+<!--        width="50px"-->
+<!--        height="50px"-->
+<!--        class="d-block mx-auto my-5"-->
+<!--      />-->
+<!--    </app-lazy-loading-scroll>-->
   </div>
 </section>
+
+<ng-template #loading>
+  <app-loading class="d-block h-100 pt-5"></app-loading>
+</ng-template>

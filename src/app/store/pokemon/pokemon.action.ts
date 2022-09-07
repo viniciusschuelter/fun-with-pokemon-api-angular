@@ -17,7 +17,7 @@ export const PokemonAction = {
   ),
   loadPokemon: createAction(
     '[Pokemon] Load Pokemons',
-    props<{ id: string }>()
+    props<{ name: string }>()
   ),
   loadSuccess: createAction(
     '[Pokemon] Load Pokemons Success',

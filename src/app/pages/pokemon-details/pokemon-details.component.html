@@ -1,9 +1,5 @@
-<section class="my-pokemon">
-  <app-no-data *ngIf="!pokemon && !isLoading && !isError"></app-no-data>
-
-  <app-error *ngIf="isError" [message]="isError" class="my-5"></app-error>
-
-  <section *ngIf="!isError && pokemon" class="pokemon-details mt-0">
+<section class="my-pokemon"  *ngIf="pokemon$ | async as pokemon else loading">
+  <section class="pokemon-details mt-0">
     <img class="poster-background" [src]="pokemon.sprites.front_default" [alt]="pokemon?.name" />
     <div class="container mt-0 pt-0">
       <article class="d-flex flex-column card-details bg-transparent mt-0">
@@ -19,19 +15,14 @@
           back
         </button>
 
-        <app-loading
-          *ngIf="isLoading && !isError"
-          class="d-block pt-5"
-        ></app-loading>
-
         <app-pokemon-more-details
           [pokemon]="pokemon"
-          *ngIf="!isLoading"
+          [myFavorites]="myFavorites$ | async"
           class="row my-5"
         ></app-pokemon-more-details>
       </article>
 
-      <section *ngIf="!isLoading" class="characters text-white">
+      <section class="characters text-white">
         <h3 class="font-weight-bold text-left text-capitalize my-2">
           characters
         </h3>
@@ -39,3 +30,7 @@
     </div>
   </section>
 </section>
+
+<ng-template #loading>
+  <app-loading class="d-block h-100 pt-5"></app-loading>
+</ng-template>

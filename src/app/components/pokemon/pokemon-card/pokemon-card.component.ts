@@ -1,103 +1,45 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {Observable, Subscription} from 'rxjs';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {takeUntil} from 'rxjs';
 import {Pokemon, PokemonMini} from 'src/app/models/interfaces';
-import {AuthService} from 'src/app/services/auth.service';
 import {PokemonService} from '../../../services/pokemon.service';
-import {FavoritesService} from '../../../services/favorites.service';
-import {ToastrService} from 'ngx-toastr';
-import {Router} from "@angular/router";
-import {LocalStorageService} from "../../../services/local-storage.service";
-import {PokemonAction} from '../../../store/pokemon/pokemon.action';
+import {UnsubscribeDirective} from '../../../directives/unsubscribe/unsubscribe.directive';
+import {PokemonDataService} from '../../../store/pokemon/pokemon-data.service';
 
 @Component({
   selector: 'app-pokemon-card',
   templateUrl: './pokemon-card.component.html',
   styleUrls: ['./pokemon-card.component.scss'],
 })
-export class PokemonCardComponent implements OnInit, OnDestroy {
+export class PokemonCardComponent extends UnsubscribeDirective {
 
   _pokemon: Pokemon & PokemonMini;
 
   @Input()
   set pokemon(pokemon: Pokemon & PokemonMini) {
-    if (pokemon.url) {
-      pokemon.url = pokemon.url.replace('-species', '');
-      this.url = pokemon.url;
+    if (!pokemon.id) {
+      this.getPokemonDetails(pokemon);
     }
     this._pokemon = pokemon;
-    this.getPokemonDetails();
   }
 
   get pokemon() {
     return this._pokemon;
   }
 
-  @Input() page: string;
-  @Input() favorite = false;
+  @Input() myFavorites: PokemonMini[];
   @Output() clickOnFavorite: EventEmitter<Pokemon> = new EventEmitter();
-  isAuth$: Observable<string>;
-  uid: string = this.auth.getCurrUserUid();
-  isInit = true;
-  isToast = false;
-  subs: Subscription;
-  isLoading = false;
-  url = '';
 
   constructor(
-    private auth: AuthService,
-    private store: Store<{ auth: string }>,
-    private pokemonService: PokemonService,
-    private toastr: ToastrService,
-    private favoriteService: FavoritesService,
-    private localService: LocalStorageService,
-    private router: Router
+    private pokemonDataService: PokemonDataService,
+    private pokemonService: PokemonService
   ) {
+    super();
   }
 
-  ngOnInit(): void {
-    this.AuthListener();
-  }
-
-  private getPokemonDetails() {
-    if (this.pokemon.url) {
-      this.isLoading = true;
-      this.subs = this.pokemonService.getPokemonByUrl(this.pokemon.url).subscribe(pokemon => {
-        this.pokemon = pokemon;
-        this.isLoading = false;
-      });
-    }
-  }
-
-  public checkCreator() {
-  }
-
-  public AuthListener() {
-    this.isAuth$ = this.store.select('auth');
-    this.isAuth$.subscribe((id: string) => {
-      if (id) {
-        this.isInit = false;
-      } else {
-        this.isInit = false;
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    if (this.subs) {
-      this.subs.unsubscribe();
-    }
-  }
-
-  clickFavorite() {
-    if (this.uid) {
-      const favoritePokemon = {...this.pokemon, favorite_date: new Date()};
-      this.clickOnFavorite.emit(favoritePokemon);
-      // this.favoriteService.addNewFavorite(favoritePokemon).subscribe(() => {
-      // });
-    } else {
-      this.router.navigate(['/soon']);
-    }
+  private getPokemonDetails(pokemon: PokemonMini) {
+    this.pokemonService.getPokemonByName(pokemon.name)
+      .pipe(takeUntil(this._destroy))
+      .subscribe((data: Pokemon) => this.pokemonDataService.addOnePokemon(data));
   }
 
   trackBy(index: number, item: PokemonMini): string {

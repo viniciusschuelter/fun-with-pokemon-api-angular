@@ -35,6 +35,13 @@ export class PokemonService {
     );
   }
 
+  public getPokemonByName(name: string): Observable<any> {
+    return this.http.get<Pokemon>(`${this.url}pokemon/${name}`).pipe(
+      map(data => data),
+      catchError(handleErrors)
+    );
+  }
+
   public getPokemonByType(type?: string): Observable<any> {
     return this.http.get<any>(this.url + 'type/' + (type ? type : '')).pipe(
       map(data => data?.pokemon ? data.pokemon.map(item => item.pokemon) : data.results),

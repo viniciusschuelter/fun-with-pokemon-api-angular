@@ -1,27 +1,26 @@
-<app-loading *ngIf="isLoading" class="mt-5"></app-loading>
-
-<div class="card" *ngIf="!isLoading">
+<div class="card" *ngIf="pokemon?.id else loading">
   <app-pokemon-carousel [pokemonSprites]="pokemon?.sprites"></app-pokemon-carousel>
   <div class="card-body">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h5 class="card-title mb-0 text-capitalize">{{pokemon.name}}</h5>
       <div class="d-flex">
-        <app-pokemon-type *ngFor="let item of pokemon.types; trackBy: trackBy"
-                          class="ms-2"
-                          [type]="item.type.name"
+        <app-pokemon-type
+          class="ms-2"
+          *ngFor="let item of pokemon.types; trackBy: trackBy"
+          [type]="item.type.name"
         ></app-pokemon-type>
       </div>
     </div>
     <app-pokemon-stats class="mb-3" [pokemonStats]="pokemon?.stats"></app-pokemon-stats>
     <div class="d-flex justify-content-between">
-      <a class="btn btn-outline-primary btn-sm" [routerLink]="['/pokemon', url]">
+      <a class="btn btn-outline-primary btn-sm" [routerLink]="['/pokemon', this.pokemon.name]">
         <span class="mx-3">Read More</span>
       </a>
-      <a class="btn btn-sm ms-3"
-         [ngClass]="favorite ? 'btn-danger' : 'btn-outline-danger'"
-         (click)="clickFavorite()">
-        <i class="fa fa-heart-o mx-2"></i>
-      </a>
+      <app-pokemon-favorite-button [myFavorites]="myFavorites" [pokemon]="pokemon"></app-pokemon-favorite-button>
     </div>
   </div>
 </div>
+
+<ng-template #loading>
+  <app-loading class="d-block h-100 pt-5"></app-loading>
+</ng-template>

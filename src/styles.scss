@@ -3,7 +3,8 @@ $theme-colors: (
   "accent": #dc042b,
 );
 
-@import "../node_modules/bootstrap/scss/bootstrap";
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~@angular/cdk/overlay-prebuilt.css";
 
 // ! initialization
 body {
@@ -26,3 +27,14 @@ body {
     border: 0;
   }
 }
+
+
+//@include media-breakpoint-down(md) {
+//  .cdk-overlay-container {
+//    .cdk-overlay-pane {
+//      > ng-component {
+//        height: vh(100);
+//      }
+//    }
+//  }
+//}

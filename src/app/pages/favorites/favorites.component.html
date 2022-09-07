@@ -1,15 +1,13 @@
-<section class="mt-2 my-5 favorites" *ngIf="myFavorites$ | async as pokemons else loading">
+<section class="mt-2 my-5 favorites" *ngIf="myFavorites$ | async as pokemonsFavorite else loading">
   <div class="container">
-    <app-no-data *ngIf="pokemons.length === 0" [message]="'No pokemon yet in your Favorites'"></app-no-data>
+    <app-no-data *ngIf="pokemonsFavorite.length === 0" [message]="'No pokemon yet in your Favorites'"></app-no-data>
 
-    <div class="row">
+    <div class="row" *ngIf="pokemons$ | async as pokemons else loading">
       <app-pokemon-card
         class="col-lg-4 mb-4"
-        *ngFor="let pokemon of pokemons"
-        [pokemon]="pokemon"
-        [page]="'favorite'"
-        [favorite]="true"
-        (clickOnFavorite)="removeFromMyFavorites($event)"
+        *ngFor="let pokemon of pokemonsFavorite"
+        [pokemon]="pokemons[pokemon.name] || pokemon"
+        [myFavorites]="pokemonsFavorite"
       ></app-pokemon-card>
     </div>
   </div>

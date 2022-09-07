@@ -13,7 +13,7 @@ const initialState: PokemonState = {
   loading: true,
   miniPokemons: [],
   pokemons: [],
-  favorites: [],
+  favorites: null,
 };
 
 
@@ -23,7 +23,10 @@ const newPokemonReducer = createReducer(
   on(PokemonAction.loadMiniSuccess, (state, action) => ({...state, loading: false, miniPokemons: action.data})),
   on(PokemonAction.loadMiniFailure, (state, uid) => state),
   on(PokemonAction.loadPokemon, (state, action) => ({...state, loading: true})),
-  on(PokemonAction.loadSuccess, (state, action) => ({...state, loading: false, pokemons: action.data})),
+  on(PokemonAction.loadSuccess, (state, action) => {
+console.log(state.pokemons);
+    return ({...state, loading: false, pokemons: [...state.pokemons || [], ...action.data]})
+    }),
   on(PokemonAction.loadFailure, (state, uid) => state),
   on(PokemonAction.loadFavorites, (state, action) => ({...state, loading: true})),
   on(PokemonAction.loadFavoritesSuccess, (state, action) => ({...state, loading: false, favorites: action.data})),
