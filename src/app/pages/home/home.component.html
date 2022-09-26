@@ -1,32 +1,28 @@
-<section class="homePage" *ngIf="pokemonsMini$ | async as pokemonsMini else loading">
+<section
+  class="homePage"
+  *ngIf="pokemonsMini$ | async as pokemonsMini; else loading"
+>
   <div class="container my-3">
-<!--    <app-filters-bar-->
-<!--      (searchChange)="onSearchPokemon($event)"-->
-<!--      (typePokemonChange)="onTypePokemonSelect($event)"-->
-<!--      (habitatPokemonChange)="onHabitatPokemonSelect($event)"-->
-<!--    ></app-filters-bar>-->
+    <app-filters-bar (searchChange)="searchTerm = $event"></app-filters-bar>
 
-    <app-no-data *ngIf="(!pokemonsMini.length)"></app-no-data>
+    <app-no-data *ngIf="!pokemonsMini.length"></app-no-data>
 
-    <div class="row" *ngIf="pokemons$ | async as pokemons else loading">
-      <app-pokemon-card
+    <div class="row" *ngIf="pokemons$ | async as pokemons; else loading">
+      <div
         class="col-lg-4 mb-4"
-        *ngFor="let pokemon of pokemonsMini"
-        [pokemon]="pokemons[pokemon.name] || pokemon"
-        [myFavorites]="myFavorites$ | async"
-      ></app-pokemon-card>
+        [style.min-height]="700"
+        *ngFor="let pokemon of pokemonsMini | filter: 'name':searchTerm"
+        lazyRenderer
+        [intersectionDebounce]="0"
+        (visibilityChange)="onVisibilityChanged(pokemon.name, $event)"
+      >
+        <app-pokemon-card
+          *ngIf="visibilityStatus[pokemon.name]"
+          [pokemon]="pokemons[pokemon.name] || pokemon"
+          [myFavorites]="myFavorites$ | async"
+        ></app-pokemon-card>
+      </div>
     </div>
-
-<!--    <app-lazy-loading-scroll (scrolled)="onScroll()">-->
-<!--      <img-->
-<!--        *ngIf="!isLoading && !activedFilters"-->
-<!--        src="../../../assets/images/spinner.gif"-->
-<!--        alt="spinner"-->
-<!--        width="50px"-->
-<!--        height="50px"-->
-<!--        class="d-block mx-auto my-5"-->
-<!--      />-->
-<!--    </app-lazy-loading-scroll>-->
   </div>
 </section>
 

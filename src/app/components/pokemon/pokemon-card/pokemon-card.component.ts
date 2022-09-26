@@ -1,17 +1,23 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {takeUntil} from 'rxjs';
-import {Pokemon, PokemonMini} from 'src/app/models/interfaces';
-import {PokemonService} from '../../../services/pokemon.service';
-import {UnsubscribeDirective} from '../../../directives/unsubscribe/unsubscribe.directive';
-import {PokemonDataService} from '../../../store/pokemon/pokemon-data.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { takeUntil } from 'rxjs';
+import { Pokemon, PokemonMini } from 'src/app/models/interfaces';
+import { PokemonService } from '../../../services/pokemon.service';
+import { UnsubscribeDirective } from '../../../directives/unsubscribe/unsubscribe.directive';
+import { PokemonDataService } from '../../../store/pokemon/pokemon-data.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pokemon-card',
   templateUrl: './pokemon-card.component.html',
-  styleUrls: ['./pokemon-card.component.scss'],
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+    `
+  ]
 })
 export class PokemonCardComponent extends UnsubscribeDirective {
-
   _pokemon: Pokemon & PokemonMini;
 
   @Input()
@@ -37,9 +43,14 @@ export class PokemonCardComponent extends UnsubscribeDirective {
   }
 
   private getPokemonDetails(pokemon: PokemonMini) {
-    this.pokemonService.getPokemonByName(pokemon.name)
-      .pipe(takeUntil(this._destroy))
-      .subscribe((data: Pokemon) => this.pokemonDataService.addOnePokemon(data));
+    this.pokemonService
+      .getPokemonByName(pokemon.name)
+      .pipe(
+        takeUntil(this._destroy),
+        map(_ => ({ ..._, game_indices: null, moves: null }))
+      )
+      .subscribe((data: Pokemon) => this.pokemonDataService.addOnePokemon(data)
+      );
   }
 
   trackBy(index: number, item: PokemonMini): string {

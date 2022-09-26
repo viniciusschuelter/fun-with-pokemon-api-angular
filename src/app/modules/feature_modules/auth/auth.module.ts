@@ -25,8 +25,8 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     AngularFirestoreModule,
     HttpClientModule,
     StoreModule.forFeature('auth', AuthReducer),
-    AuthRoutingModule,
+    AuthRoutingModule
   ],
-  exports: [LoginComponent, RegisterComponent, SocialComponent],
+  exports: [LoginComponent, RegisterComponent, SocialComponent]
 })
 export class AuthModule {}

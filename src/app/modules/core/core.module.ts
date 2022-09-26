@@ -19,8 +19,8 @@ import { PokemonService } from '../../services/pokemon.service';
     FavoritesService,
     {
       provide: SwRegistrationOptions,
-      useFactory: () => ({ enabled: environment.production }),
-    },
-  ],
+      useFactory: () => ({ enabled: environment.production })
+    }
+  ]
 })
 export class CoreModule {}

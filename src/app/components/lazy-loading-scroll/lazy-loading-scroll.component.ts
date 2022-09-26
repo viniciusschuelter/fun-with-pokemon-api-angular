@@ -6,11 +6,11 @@ import {
   ElementRef,
   ViewChild,
   Input,
-  OnDestroy,
+  OnDestroy
 } from '@angular/core';
 
 @Component({
-  host: {class: 'd-block'},
+  host: { class: 'd-block' },
   selector: 'app-lazy-loading-scroll',
   template: `
     <div #anchor></div>
@@ -20,12 +20,11 @@ import {
 export class LazyLoadingScrollComponent implements OnInit, OnDestroy {
   @Input() options = {};
   @Output() scrolled = new EventEmitter();
-  @ViewChild('anchor', {static: true}) anchor: ElementRef<HTMLElement>;
+  @ViewChild('anchor', { static: true }) anchor: ElementRef<HTMLElement>;
 
   private observer: IntersectionObserver;
 
-  constructor(private host: ElementRef) {
-  }
+  constructor(private host: ElementRef) {}
 
   get element() {
     return this.host.nativeElement;
@@ -34,7 +33,7 @@ export class LazyLoadingScrollComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const options = {
       root: this.isHostScrollable() ? this.host.nativeElement : null,
-      ...this.options,
+      ...this.options
     };
 
     this.observer = new IntersectionObserver(([entry]) => {

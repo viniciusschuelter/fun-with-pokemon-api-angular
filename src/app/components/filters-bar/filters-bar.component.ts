@@ -1,15 +1,14 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import { PokemonMini, } from 'src/app/models/interfaces';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { PokemonMini } from 'src/app/models/interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { PokemonService } from '../../services/pokemon.service';
 
 @Component({
   selector: 'app-filters-bar',
   templateUrl: './filters-bar.component.html',
-  styleUrls: ['./filters-bar.component.scss'],
+  styleUrls: ['./filters-bar.component.scss']
 })
-export class FiltersBarComponent implements OnInit {
-
+export class FiltersBarComponent {
   @Output() searchChange: EventEmitter<string> = new EventEmitter();
   @Output() typePokemonChange: EventEmitter<string> = new EventEmitter();
   @Output() habitatPokemonChange: EventEmitter<string> = new EventEmitter();
@@ -28,11 +27,7 @@ export class FiltersBarComponent implements OnInit {
     this.fetchPokemonsHabitats();
   }
 
-  ngOnInit(): void {
-  }
-
-  public onSearch() {
-  }
+  public onSearch() {}
 
   selectTypePokemon(value) {
     this.typePokemonChange.emit(value);
@@ -44,22 +39,21 @@ export class FiltersBarComponent implements OnInit {
 
   public fetchPokemonsType() {
     this.pokemonService.getPokemonByType().subscribe(
-      (types) => {
+      types => {
         this.pokemonTypes = types;
       },
-      (err) => {
+      err => {
         this.toastr.error(err.error.message, 'Error');
       }
     );
   }
 
-
   public fetchPokemonsHabitats() {
     this.pokemonService.getPokemonByHabitat().subscribe(
-      (habitats) => {
+      habitats => {
         this.pokemonHabitats = habitats;
       },
-      (err) => {
+      err => {
         this.toastr.error(err.error.message, 'Error');
       }
     );

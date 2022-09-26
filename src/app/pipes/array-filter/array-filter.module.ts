@@ -4,11 +4,7 @@ import { ArrayFilterPipe } from './array-filter.pipe';
 
 @NgModule({
   declarations: [ArrayFilterPipe],
-  imports: [
-    CommonModule
-  ],
-  exports: [
-    ArrayFilterPipe
-  ]
+  imports: [CommonModule],
+  exports: [ArrayFilterPipe]
 })
-export class ArrayFilterModule { }
+export class ArrayFilterModule {}

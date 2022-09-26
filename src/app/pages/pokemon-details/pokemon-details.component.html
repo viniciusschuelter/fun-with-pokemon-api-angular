@@ -1,6 +1,10 @@
-<section class="my-pokemon"  *ngIf="pokemon$ | async as pokemon else loading">
+<section class="my-pokemon" *ngIf="pokemon$ | async as pokemon; else loading">
   <section class="pokemon-details mt-0">
-    <img class="poster-background" [src]="pokemon.sprites.front_default" [alt]="pokemon?.name" />
+    <img
+      class="poster-background"
+      [src]="pokemon.sprites.front_default"
+      [alt]="pokemon?.name"
+    />
     <div class="container mt-0 pt-0">
       <article class="d-flex flex-column card-details bg-transparent mt-0">
         <button

@@ -3,21 +3,26 @@
     class="form-control"
     name="search"
     [(ngModel)]="search"
+    (ngModelChange)="searchChange.emit(search)"
     type="text"
     placeholder="I'm Looking for ..."
     aria-label="Search"
   />
-  <div class="input-group-append">
-    <select class="form-control" (change)="selectHabitatPokemon(habitat.value)" #habitat>
+  <div class="d-flex input-group-append">
+    <select
+      class="form-control"
+      (change)="selectHabitatPokemon(habitat.value)"
+      #habitat
+    >
       <option hidden>Habitats</option>
       <option [value]="habitat.name" *ngFor="let habitat of pokemonHabitats">
-        <h6 class="">{{habitat.name}}</h6>
+        <h6 class="">{{ habitat.name }}</h6>
       </option>
     </select>
     <select class="form-control" (change)="selectTypePokemon(type.value)" #type>
       <option hidden>Types</option>
       <option [value]="type.name" *ngFor="let type of pokemonTypes">
-        <h6 class="">{{type.name}}</h6>
+        <h6 class="">{{ type.name }}</h6>
       </option>
     </select>
   </div>

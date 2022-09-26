@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {PokemonSprites, SpritesTypes} from 'src/app/models/interfaces';
+import { Component, Input } from '@angular/core';
+import { PokemonSprites, SpritesTypes } from 'src/app/models/interfaces';
 import slideLeft from '../../../animations/slideLeft.animation';
 
 @Component({
@@ -8,21 +8,25 @@ import slideLeft from '../../../animations/slideLeft.animation';
   styleUrls: ['./pokemon-carousel.component.scss'],
   animations: [slideLeft]
 })
-export class PokemonCarouselComponent implements OnInit {
-
+export class PokemonCarouselComponent {
   @Input() pokemonSprites: PokemonSprites;
   carouselCurr: SpritesTypes = 'front_default';
-  carouselList: SpritesTypes[] = ['front_default', 'back_default', 'front_female', 'back_female', 'front_shiny', 'back_shiny', 'front_shiny_female', 'back_shiny_female'];
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
+  carouselList: SpritesTypes[] = [
+    'front_default',
+    'back_default',
+    'front_female',
+    'back_female',
+    'front_shiny',
+    'back_shiny',
+    'front_shiny_female',
+    'back_shiny_female'
+  ];
 
   goToNextImg() {
-    const index = this.carouselList.findIndex(item => item === this.carouselCurr);
-    if (index === (this.carouselList.length - 1)) {
+    const index = this.carouselList.findIndex(
+      item => item === this.carouselCurr
+    );
+    if (index === this.carouselList.length - 1) {
       this.carouselCurr = this.carouselList[0];
     } else {
       this.carouselCurr = this.carouselList[index + 1];
@@ -33,7 +37,9 @@ export class PokemonCarouselComponent implements OnInit {
   }
 
   goToPrevImg() {
-    const index = this.carouselList.findIndex(item => item === this.carouselCurr);
+    const index = this.carouselList.findIndex(
+      item => item === this.carouselCurr
+    );
     if (index === 0) {
       this.carouselCurr = this.carouselList[this.carouselList.length - 1];
     } else {

@@ -39,7 +39,7 @@ export interface PokemonMini {
   url: string;
 }
 
-export interface PokemonType  {
+export interface PokemonType {
   type: PokemonMini;
   slot: number;
 }
@@ -88,7 +88,7 @@ export enum PokemonTypesEnum {
   rock = 'rock',
   steel = 'steel',
   water = 'water',
-};
+}
 
 export interface PokemonMove {
   move: PokemonMini;

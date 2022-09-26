@@ -3,9 +3,9 @@ import {
   EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory
 } from '@ngrx/data';
-import {Pokemon} from '../../models/interfaces';
-import {LocalStorageService} from '../../services/local-storage.service';
-import {firstValueFrom} from 'rxjs';
+import { Pokemon } from '../../models/interfaces';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class PokemonDataService extends EntityCollectionServiceBase<Pokemon> {
@@ -26,7 +26,10 @@ export class PokemonDataService extends EntityCollectionServiceBase<Pokemon> {
 
   async addOnePokemon(pokemon: Pokemon): Promise<void> {
     this.addOneToCache(pokemon);
-    this.localStorageService.setItem('pokemons', await firstValueFrom(this.entities$));
+    this.localStorageService.setItem(
+      'pokemons',
+      await firstValueFrom(this.entities$)
+    );
   }
 
   private async addManyPokemons(pokemons: Pokemon[]): Promise<void> {

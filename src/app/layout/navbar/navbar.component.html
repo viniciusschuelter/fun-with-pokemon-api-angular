@@ -41,7 +41,7 @@
               [routerLinkActiveOptions]="{ exact: true }"
               awesomeTooltip="teste"
               class="nav-link"
-            >Home <span class="sr-only">(current)</span>
+              >Home <span class="sr-only">(current)</span>
             </a>
           </li>
 
@@ -56,7 +56,7 @@
             </a>
           </li>
 
-          <li *ngIf="!(isAuth$ | async)" class="nav-item">
+          <li *ngIf="(isAuth$ | async) === false" class="nav-item">
             <button
               routerLink="/auth/register"
               type="button"
@@ -66,7 +66,7 @@
             </button>
           </li>
 
-          <li *ngIf="!(isAuth$ | async)" class="nav-item">
+          <li *ngIf="(isAuth$ | async) === false" class="nav-item">
             <button
               routerLink="/auth/login"
               type="button"
@@ -77,7 +77,7 @@
           </li>
 
           <div
-            *ngIf="(!user?.name && !user?.email) && isAuth$ | async"
+            *ngIf="!user?.name && !user?.email && isAuth$ | async"
             class="mx-auto d-block spinner-grow spinner-grow-sm mt-2 ms-3"
             role="status"
           >

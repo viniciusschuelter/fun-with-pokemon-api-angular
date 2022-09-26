@@ -10,7 +10,7 @@ import fadeAnimation from 'src/app/animations/fade.animation';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  animations: [fadeAnimation],
+  animations: [fadeAnimation]
 })
 export class LoginComponent implements OnInit {
   isShown: boolean = false;
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
     this.user = {
       email: null,
-      password: null,
+      password: null
     };
   }
 
@@ -45,14 +45,14 @@ export class LoginComponent implements OnInit {
     this.auth
       .login(email, password)
       //! success
-      .then((response) => {
+      .then(response => {
         if (response.user.uid) {
           this.isLoading = false;
           this.router.navigate(['/']);
         }
       })
       //! error
-      .catch((error) => {
+      .catch(error => {
         this.isLoading = false;
         this.isError = error.error?.message
           ? error.error?.message

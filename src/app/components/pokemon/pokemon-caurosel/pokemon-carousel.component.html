@@ -2,12 +2,21 @@
   <img
     *ngIf="pokemonSprites"
     [src]="pokemonSprites[carouselCurr]"
-    alt="{{pokemonSprites[carouselCurr]}}"
-    class="card-img-top">
+    alt="{{ pokemonSprites[carouselCurr] }}"
+    class="card-img-top"
+  />
   <a class="carousel-control-prev">
-    <i id="prev" class="fa fa-angle-left text-primary" (click)="goToPrevImg()"></i>
+    <i
+      id="prev"
+      class="fa fa-angle-left text-primary"
+      (click)="goToPrevImg()"
+    ></i>
   </a>
   <a class="carousel-control-next">
-    <i id="next" class="fa fa-angle-right text-primary" (click)="goToNextImg()"></i>
+    <i
+      id="next"
+      class="fa fa-angle-right text-primary"
+      (click)="goToNextImg()"
+    ></i>
   </a>
 </div>

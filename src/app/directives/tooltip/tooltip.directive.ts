@@ -1,16 +1,27 @@
-import {ComponentRef, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit} from '@angular/core';
-import { Overlay, OverlayPositionBuilder, OverlayRef, ConnectedPosition } from '@angular/cdk/overlay';
+import {
+  ComponentRef,
+  Directive,
+  ElementRef,
+  HostListener,
+  Input,
+  OnDestroy
+} from '@angular/core';
+import {
+  Overlay,
+  OverlayPositionBuilder,
+  OverlayRef,
+  ConnectedPosition
+} from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 
 import { AwesomeTooltipComponent } from './tooltip.component';
 
 @Directive({ selector: '[awesomeTooltip]' })
-export class AwesomeTooltipDirective implements OnInit, OnDestroy {
-
+export class AwesomeTooltipDirective implements OnDestroy {
   @Input('awesomeTooltip') text = '';
   @Input() slim = false;
   @Input() hideTooltip = false;
-  @Input() position: 'top' | 'bottom' | 'right' |  'left' | 'auto' = 'auto';
+  @Input() position: 'top' | 'bottom' | 'right' | 'left' | 'auto' = 'auto';
   @Input() noMax = false;
 
   private overlayRef: OverlayRef;
@@ -21,15 +32,11 @@ export class AwesomeTooltipDirective implements OnInit, OnDestroy {
     private elementRef: ElementRef
   ) {}
 
-  ngOnInit(): void {
-  }
-
   hasTouch() {
     return (
       'ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0
     );
   }
-
 
   private getPositionRoles(): ConnectedPosition[] {
     const top: ConnectedPosition = {

@@ -10,6 +10,6 @@ export const environment = {
     storageBucket: 'pokemon-api-1a563.appspot.com',
     messagingSenderId: '539887574642',
     appId: '1:404237250762:web:4144b26162d43bb6968433',
-    measurementId: 'G-DPRNRGE0YP',
-  },
+    measurementId: 'G-DPRNRGE0YP'
+  }
 };

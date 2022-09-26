@@ -1,17 +1,15 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
-  Router,
+  Router
 } from '@angular/router';
-import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({providedIn: 'root'})
 export class AuthGuard implements CanActivate {
   isAuth$: Observable<string>;
 
@@ -27,7 +25,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    this.isAuth$.subscribe((uid) => {
+    this.isAuth$.subscribe(uid => {
       if (!uid) {
         this.router.navigate(['/auth/login']);
       }

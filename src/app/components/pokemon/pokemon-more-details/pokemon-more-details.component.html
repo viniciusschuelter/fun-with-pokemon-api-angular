@@ -1,17 +1,22 @@
 <ng-content></ng-content>
 <div class="row my-4 w-100">
-
   <div class="col-12 col-lg-4 mb-5 mb-lg-0">
-    <app-pokemon-carousel [pokemonSprites]="pokemon?.sprites"></app-pokemon-carousel>
+    <app-pokemon-carousel
+      [pokemonSprites]="pokemon?.sprites"
+    ></app-pokemon-carousel>
 
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex">
-        <app-pokemon-type *ngFor="let item of pokemon.types"
-                          class="ms-2"
-                          [type]="item.type.name"
+        <app-pokemon-type
+          *ngFor="let item of pokemon.types"
+          class="ms-2"
+          [type]="item.type.name"
         ></app-pokemon-type>
       </div>
-      <app-pokemon-favorite-button [myFavorites]="myFavorites" [pokemon]="pokemon"></app-pokemon-favorite-button>
+      <app-pokemon-favorite-button
+        [myFavorites]="myFavorites"
+        [pokemon]="pokemon"
+      ></app-pokemon-favorite-button>
     </div>
   </div>
 
@@ -20,24 +25,30 @@
     <article class="mb-3">
       <h6 class="">Type Pokemon</h6>
       <div class="d-flex flex-wrap w-100">
-        <span *ngFor="let item of pokemon.types" class="badge badge-pill bg-primary me-2">
-          {{item.type.name}}
+        <span
+          *ngFor="let item of pokemon.types"
+          class="badge badge-pill bg-primary me-2"
+        >
+          {{ item.type.name }}
         </span>
       </div>
     </article>
     <article>
       <h6 class="">Abilities Pokemon</h6>
       <div class="d-flex flex-wrap w-100">
-        <span *ngFor="let item of pokemon.abilities" class="badge badge-pill bg-warning me-2">
-          {{item.ability.name}}
+        <span
+          *ngFor="let item of pokemon.abilities"
+          class="badge badge-pill bg-warning me-2"
+        >
+          {{ item.ability.name }}
         </span>
       </div>
     </article>
   </div>
-  <div
-    class="col-12 col-lg-4 d-flex flex-column"
-  >
-    <app-pokemon-stats class="mb-3" [pokemonStats]="pokemon?.stats"></app-pokemon-stats>
+  <div class="col-12 col-lg-4 d-flex flex-column">
+    <app-pokemon-stats
+      class="mb-3"
+      [pokemonStats]="pokemon?.stats"
+    ></app-pokemon-stats>
   </div>
-
 </div>

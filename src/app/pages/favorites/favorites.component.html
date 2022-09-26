@@ -1,8 +1,14 @@
-<section class="mt-2 my-5 favorites" *ngIf="myFavorites$ | async as pokemonsFavorite else loading">
+<section
+  class="mt-2 my-5 favorites"
+  *ngIf="myFavorites$ | async as pokemonsFavorite; else loading"
+>
   <div class="container">
-    <app-no-data *ngIf="pokemonsFavorite.length === 0" [message]="'No pokemon yet in your Favorites'"></app-no-data>
+    <app-no-data
+      *ngIf="pokemonsFavorite.length === 0"
+      [message]="'No pokemon yet in your Favorites'"
+    ></app-no-data>
 
-    <div class="row" *ngIf="pokemons$ | async as pokemons else loading">
+    <div class="row" *ngIf="pokemons$ | async as pokemons; else loading">
       <app-pokemon-card
         class="col-lg-4 mb-4"
         *ngFor="let pokemon of pokemonsFavorite"
@@ -14,7 +20,5 @@
 </section>
 
 <ng-template #loading>
-  <app-loading
-    class="d-block h-100 pt-5"
-  ></app-loading>
+  <app-loading class="d-block h-100 pt-5"></app-loading>
 </ng-template>

@@ -1,17 +1,15 @@
-import {Injectable} from '@angular/core';
-import {AngularFirestore} from '@angular/fire/compat/firestore';
-import {from, Observable, of} from 'rxjs';
-import {User} from '../models/interfaces';
-import {catchError, switchMap} from 'rxjs/operators';
-import {AngularFireAuth} from '@angular/fire/compat/auth';
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { from, Observable, of } from 'rxjs';
+import { User } from '../models/interfaces';
+import { catchError, switchMap } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
 
 import 'firebase/auth';
-import {handleErrors} from '../utils/utils';
+import { handleErrors } from '../utils/utils';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({providedIn: 'root'})
 export class UsersService {
   user$: Observable<User>;
 
@@ -20,7 +18,7 @@ export class UsersService {
     private Afirestore: AngularFirestore
   ) {
     this.user$ = this.afAuth.authState.pipe(
-      switchMap((user) => {
+      switchMap(user => {
         if (user) {
           return this.Afirestore.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
@@ -41,11 +39,11 @@ export class UsersService {
       uid: credential.user.uid,
       name: credential.user.displayName,
       email: credential.user.email,
-      joind_date: new Date(),
+      joind_date: new Date()
     };
     this.addNewUser(newSocialUser)
       .pipe(catchError(handleErrors))
-      .subscribe((data) => data);
+      .subscribe(data => data);
 
     return newSocialUser;
   }

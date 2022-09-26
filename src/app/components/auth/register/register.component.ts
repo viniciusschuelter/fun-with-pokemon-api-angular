@@ -1,20 +1,19 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {Router} from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
-import {User} from 'src/app/models/interfaces';
-import {AuthService} from 'src/app/services/auth.service';
-import {UsersService} from 'src/app/services/users.service';
+import { User } from 'src/app/models/interfaces';
+import { AuthService } from 'src/app/services/auth.service';
+import { UsersService } from 'src/app/services/users.service';
 import fadeAnimation from 'src/app/animations/fade.animation';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
-  animations: [fadeAnimation],
+  animations: [fadeAnimation]
 })
 export class RegisterComponent implements OnInit {
-
   @ViewChild('form') form: NgForm;
 
   isShown = false;
@@ -27,8 +26,7 @@ export class RegisterComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private usersService: UsersService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -40,7 +38,7 @@ export class RegisterComponent implements OnInit {
     this.user = {
       name: null,
       email: null,
-      password: null,
+      password: null
     };
   }
 
@@ -57,7 +55,6 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-
   public onSubmit(form: NgForm) {
     this.isLoading = true;
     this.isError = null;
@@ -65,30 +62,29 @@ export class RegisterComponent implements OnInit {
     const email = form.value.email.trim();
     const password = form.value.password.trim();
 
-
     this.auth
       .signUp(email, password)
-      .then((response) => {
+      .then(response => {
         if (response.user.uid) {
           const newUser = {
             uid: response.user.uid,
             name,
             email,
-            joind_date: new Date(),
+            joind_date: new Date()
           };
           this.usersService.addNewUser(newUser).subscribe(
             () => {
               this.isLoading = false;
               this.router.navigate(['/']);
             },
-            (error) => {
+            error => {
               this.isLoading = false;
               this.isError = error;
             }
           );
         }
       })
-      .catch((error) => {
+      .catch(error => {
         this.isLoading = false;
         this.isError = error.error?.message
           ? error.error?.message

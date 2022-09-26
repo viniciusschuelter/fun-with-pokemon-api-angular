@@ -1,8 +1,10 @@
-<div class="card" *ngIf="pokemon?.id else loading">
-  <app-pokemon-carousel [pokemonSprites]="pokemon?.sprites"></app-pokemon-carousel>
+<div class="card" *ngIf="pokemon?.id; else loading">
+  <app-pokemon-carousel
+    [pokemonSprites]="pokemon?.sprites"
+  ></app-pokemon-carousel>
   <div class="card-body">
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <h5 class="card-title mb-0 text-capitalize">{{pokemon.name}}</h5>
+      <h5 class="card-title mb-0 text-capitalize">{{ pokemon.name }}</h5>
       <div class="d-flex">
         <app-pokemon-type
           class="ms-2"
@@ -11,12 +13,21 @@
         ></app-pokemon-type>
       </div>
     </div>
-    <app-pokemon-stats class="mb-3" [pokemonStats]="pokemon?.stats"></app-pokemon-stats>
+    <app-pokemon-stats
+      class="mb-3"
+      [pokemonStats]="pokemon?.stats"
+    ></app-pokemon-stats>
     <div class="d-flex justify-content-between">
-      <a class="btn btn-outline-primary btn-sm" [routerLink]="['/pokemon', this.pokemon.name]">
+      <a
+        class="btn btn-outline-primary btn-sm"
+        [routerLink]="['/pokemon', this.pokemon.name]"
+      >
         <span class="mx-3">Read More</span>
       </a>
-      <app-pokemon-favorite-button [myFavorites]="myFavorites" [pokemon]="pokemon"></app-pokemon-favorite-button>
+      <app-pokemon-favorite-button
+        [myFavorites]="myFavorites"
+        [pokemon]="pokemon"
+      ></app-pokemon-favorite-button>
     </div>
   </div>
 </div>

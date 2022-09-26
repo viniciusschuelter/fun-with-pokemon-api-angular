@@ -1,36 +1,35 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Pokemon, PokemonMini, PokemonStat, SpritesTypes} from 'src/app/models/interfaces';
+import { Component, Input } from '@angular/core';
+import { PokemonStat } from 'src/app/models/interfaces';
+import { CommonModule } from '@angular/common';
 
 @Component({
+  standalone: true,
   selector: 'app-pokemon-stats',
   template: `
     <div class="d-flex align-items-center" *ngFor="let item of pokemonStats">
-      <span class="label stats pr-2">{{statsLabel[item.stat?.name] | uppercase}}</span>
+      <span class="label stats pr-2">{{
+        statsLabel[item.stat?.name] | uppercase
+      }}</span>
       <div class="progress m-2 w-100">
-        <div class="progress-bar {{item.stat?.name}}"
-             [style.width]="(item?.base_stat * 0.65) + '%'"
+        <div
+          class="progress-bar {{ item.stat?.name }}"
+          [style.width]="item?.base_stat * 0.65 + '%'"
         ></div>
       </div>
-      <span class="label number">{{item?.base_stat}}</span>
+      <span class="label number">{{ item?.base_stat }}</span>
     </div>
   `,
-  styleUrls: ['./pokemon-stats.component.scss'],
+  imports: [CommonModule],
+  styleUrls: ['./pokemon-stats.component.scss']
 })
-export class PokemonStatsComponent implements OnInit {
-
+export class PokemonStatsComponent {
   @Input() pokemonStats: PokemonStat[];
   statsLabel = {
-    'hp': 'HP',
-    'attack': 'ATTACK',
-    'defense': 'DEFENSE',
+    hp: 'HP',
+    attack: 'ATTACK',
+    defense: 'DEFENSE',
     'special-attack': 'SP. ATK',
     'special-defense': 'SP. DEF',
-    'speed': 'SPEED'
+    speed: 'SPEED'
   };
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 }

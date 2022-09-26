@@ -1,17 +1,16 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {select, Store} from '@ngrx/store';
-import {Observable, Subscription} from 'rxjs';
-import {User} from 'src/app/models/interfaces';
-import {AuthService} from 'src/app/services/auth.service';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { User } from 'src/app/models/interfaces';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
+  styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-
   isAuth$: Observable<string>;
   user: User;
   subs: Subscription;
@@ -21,8 +20,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private router: Router,
     private store: Store<{ auth: string }>
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.AuthListener();
@@ -30,7 +28,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   public getCurrentUser() {
-    this.subs = this.auth.UserInfos.subscribe((user) => {
+    this.subs = this.auth.UserInfos.subscribe(user => {
       this.user = user;
     });
   }
@@ -42,7 +40,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .then(() => {
         this.router.navigate(['/']);
       })
-      .catch((error) => console.log(error));
+      .catch(error => console.log(error));
   }
 
   public AuthListener() {
