@@ -14,8 +14,11 @@
         ></app-pokemon-type>
       </div>
       <app-pokemon-favorite-button
-        [myFavorites]="myFavorites"
         [pokemon]="pokemon"
+        [myFavorites]="myFavorites"
+        [isFavorite]="
+          !!(myFavorites | arrayFilter: ['name', pokemon.name])?.length
+        "
       ></app-pokemon-favorite-button>
     </div>
   </div>

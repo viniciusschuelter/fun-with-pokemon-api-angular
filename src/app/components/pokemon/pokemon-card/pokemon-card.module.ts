@@ -8,19 +8,21 @@ import { RouterModule } from '@angular/router';
 import { ArrayFilterModule } from '../../../pipes/array-filter/array-filter.module';
 import { PokemonFavoriteButtonModule } from '../pokemon-favorite-button/pokemon-favorite-button.module';
 import { PokemonTypeComponent } from '../pokemon-type/pokemon-type.component';
+import {AwesomeTooltipModule} from '../../../directives/tooltip/tooltip.module';
 
 @NgModule({
   declarations: [PokemonCardComponent],
   exports: [PokemonCardComponent],
-  imports: [
-    CommonModule,
-    PokemonCauroselModule,
-    PokemonTypeComponent,
-    PokemonStatsComponent,
-    SharedModule,
-    RouterModule,
-    ArrayFilterModule,
-    PokemonFavoriteButtonModule
-  ]
+    imports: [
+        CommonModule,
+        PokemonCauroselModule,
+        PokemonTypeComponent,
+        PokemonStatsComponent,
+        SharedModule,
+        RouterModule,
+        ArrayFilterModule,
+        PokemonFavoriteButtonModule,
+        AwesomeTooltipModule
+    ]
 })
 export class PokemonCardModule {}

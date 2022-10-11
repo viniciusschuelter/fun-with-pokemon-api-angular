@@ -1,4 +1,25 @@
 <div class="card" *ngIf="pokemon?.id; else loading">
+  <div
+    class="d-flex position-absolute justify-content-between w-100 p-4"
+    style="z-index: 999"
+  >
+    <a
+      style="z-index: 9999"
+      awesomeTooltip="Read more"
+      class="btn btn-outline-primary btn-sm"
+      [routerLink]="['/pokemon', this.pokemon.name]"
+    >
+      <i class="fa fa-info-circle mt-1 mx-2"></i>
+    </a>
+    <app-pokemon-favorite-button
+      style="z-index: 9999"
+      [pokemon]="pokemon"
+      [myFavorites]="myFavorites"
+      [isFavorite]="
+        !!(myFavorites | arrayFilter: ['name', pokemon.name])?.length
+      "
+    ></app-pokemon-favorite-button>
+  </div>
   <app-pokemon-carousel
     [pokemonSprites]="pokemon?.sprites"
   ></app-pokemon-carousel>
@@ -17,18 +38,6 @@
       class="mb-3"
       [pokemonStats]="pokemon?.stats"
     ></app-pokemon-stats>
-    <div class="d-flex justify-content-between">
-      <a
-        class="btn btn-outline-primary btn-sm"
-        [routerLink]="['/pokemon', this.pokemon.name]"
-      >
-        <span class="mx-3">Read More</span>
-      </a>
-      <app-pokemon-favorite-button
-        [myFavorites]="myFavorites"
-        [pokemon]="pokemon"
-      ></app-pokemon-favorite-button>
-    </div>
   </div>
 </div>
 

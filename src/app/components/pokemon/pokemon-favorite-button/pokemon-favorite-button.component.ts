@@ -15,20 +15,18 @@ import { Store } from '@ngrx/store';
   template: `
     <a
       class="btn btn-sm ms-3"
-      [ngClass]="
-        !(myFavorites | arrayFilter: ['name', pokemon.name])?.length
-          ? 'btn-outline-danger'
-          : 'btn-danger'
-      "
+      [awesomeTooltip]="isFavorite ? 'Remove from favorites':  'Add to favorites'"
+      [ngClass]="isFavorite ? 'btn-danger':  'btn-outline-danger'"
       (click)="clickFavorite()"
     >
-      <i class="fa fa-heart-o mx-2"></i>
+      <i class="fa fa-heart-o mt-1 mx-2"></i>
     </a>
   `
 })
 export class PokemonFavoriteButtonComponent extends UnsubscribeDirective {
   @Input() myFavorites: PokemonMini[];
   @Input() pokemon: Pokemon & PokemonMini;
+  @Input() isFavorite: boolean;
   uid: string = this.auth.getCurrUserUid();
 
   constructor(
@@ -43,12 +41,9 @@ export class PokemonFavoriteButtonComponent extends UnsubscribeDirective {
   }
 
   clickFavorite() {
+    console.log('here');
     if (this.uid) {
-      if (this.myFavorites.find(_ => _.name === this.pokemon.name)) {
-        this.removeFromFavorites();
-      } else {
-        this.addToFavorites();
-      }
+      this.isFavorite ? this.removeFromFavorites() : this.addToFavorites()
     } else {
       this.router.navigate(['/soon']);
     }
