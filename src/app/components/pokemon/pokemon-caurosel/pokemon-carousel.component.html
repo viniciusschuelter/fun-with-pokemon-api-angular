@@ -1,22 +1,29 @@
-<div class="card-img" @slideLeft>
-  <img
-    *ngIf="pokemonSprites"
-    [src]="pokemonSprites[carouselCurr]"
-    alt="{{ pokemonSprites[carouselCurr] }}"
-    class="card-img-top"
-  />
-  <a class="carousel-control-prev">
-    <i
-      id="prev"
-      class="fa fa-angle-left text-primary"
-      (click)="goToPrevImg()"
-    ></i>
-  </a>
-  <a class="carousel-control-next">
-    <i
-      id="next"
-      class="fa fa-angle-right text-primary"
-      (click)="goToNextImg()"
-    ></i>
-  </a>
+<div class="card-img h-100" @slideLeft>
+  <ng-container *ngIf="!loading; else onLoading">
+    <img
+      *ngIf="sprites"
+      [ngSrc]="sprites[carouselCurr]"
+      [fill]="true"
+      alt="{{ sprites[carouselCurr] }}"
+      class="card-img-top h-100 w-100"
+    />
+    <a class="carousel-control-prev">
+      <i
+        id="prev"
+        class="fa fa-angle-left text-primary"
+        (click)="changeImage()"
+      ></i>
+    </a>
+    <a class="carousel-control-next">
+      <i
+        id="next"
+        class="fa fa-angle-right text-primary"
+        (click)="changeImage(true)"
+      ></i>
+    </a>
+  </ng-container>
+
+  <ng-template #onLoading>
+    <app-loading class="d-block h-100 pt-5"></app-loading>
+  </ng-template>
 </div>

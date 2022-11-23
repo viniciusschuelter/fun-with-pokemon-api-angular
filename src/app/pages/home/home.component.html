@@ -10,7 +10,7 @@
     <div class="row" *ngIf="pokemons$ | async as pokemons; else loading">
       <div
         class="col-lg-4 mb-4"
-        [style.min-height]="700"
+        [style.min-height]="600"
         *ngFor="let pokemon of pokemonsMini | filter: 'name':searchTerm"
         lazyRenderer
         [intersectionDebounce]="0"
