@@ -5,8 +5,8 @@ import { SharedModule } from '../../modules/shared_modules/shared.module';
 import { PokemonCardModule } from '../../components/pokemon/pokemon-card/pokemon-card.module';
 import { ArrayFilterModule } from '../../pipes/array-filter/array-filter.module';
 import { FiltersBarModule } from '../../components/filters-bar/filters-bar.module';
-import {LazyRendererModule} from '../../directives/lazy-renderer/lazy-renderer.module';
-import {FilterModule} from '../../pipes/filter';
+import { LazyRendererModule } from '../../directives/lazy-renderer/lazy-renderer.module';
+import { FilterModule } from '../../pipes/filter';
 
 @NgModule({
   declarations: [HomeComponent],

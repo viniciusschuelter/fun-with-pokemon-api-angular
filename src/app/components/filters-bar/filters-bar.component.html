@@ -11,7 +11,7 @@
   <div class="d-flex input-group-append">
     <select
       class="form-control"
-      (change)="typePokemonChange.emit(habitat.value)"
+      (change)="pokemonsByHabitats(habitat.value)"
       #habitat
     >
       <option hidden>Habitats</option>
@@ -19,11 +19,7 @@
         <h6 class="">{{ habitat.name }}</h6>
       </option>
     </select>
-    <select
-      class="form-control"
-      (change)="habitatPokemonChange.emit(type.value)"
-      #type
-    >
+    <select class="form-control" (change)="pokemonsByTypes(type.value)" #type>
       <option hidden>Types</option>
       <option [value]="type.name" *ngFor="let type of pokemonTypes">
         <h6 class="">{{ type.name }}</h6>

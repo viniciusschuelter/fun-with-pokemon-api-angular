@@ -18,6 +18,8 @@ export class PokemonCarouselComponent implements OnChanges {
   loading = false;
   carouselCurr = 2;
   sprites = [];
+  spriteDefault = 'official-artwork';
+  blackListSprites = ['generation-i', 'generation-ii', 'generation-iii', 'generation-iv'];
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.pokemonSprites.firstChange) {
@@ -30,11 +32,14 @@ export class PokemonCarouselComponent implements OnChanges {
   }
 
   extractSpritesFromObject = (obj, sprites, strSearch): string[] => {
-    Object.keys(obj).forEach(key => {
+    Object.keys(obj).forEach((key: any) => {
       if (!obj[key]) return;
-      if (typeof obj[key] === 'object')
+      if (typeof obj[key] === 'object') {
+        if (this.blackListSprites.includes(key)) return;
+        if (key === this.spriteDefault) this.carouselCurr = sprites.length;
         return this.extractSpritesFromObject(obj[key], sprites, strSearch);
-      if (obj[key]?.includes(strSearch)) {
+      }
+      if (obj[key]?.includes(strSearch) && !key.includes('back_')) {
         sprites.push(obj[key]);
       }
     });
@@ -43,9 +48,9 @@ export class PokemonCarouselComponent implements OnChanges {
 
   changeImage(next = false): void {
     this.loading = true;
-    next ? this.carouselCurr++ :  this.carouselCurr--;
-    if (this.carouselCurr < 0) this.carouselCurr = this.sprites.length - 1;;
+    next ? this.carouselCurr++ : this.carouselCurr--;
+    if (this.carouselCurr < 0) this.carouselCurr = this.sprites.length - 1;
     if (this.carouselCurr >= this.sprites.length) this.carouselCurr = 0;
-    setTimeout( () => this.loading = false, 50);
+    setTimeout(() => (this.loading = false), 50);
   }
 }

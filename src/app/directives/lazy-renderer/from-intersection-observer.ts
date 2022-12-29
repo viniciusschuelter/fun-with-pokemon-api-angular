@@ -39,7 +39,7 @@ export const fromIntersectionObserver = (
 
         if (isEntryVisible) {
           subscriber.next(IntersectionStatus.Visible);
-          // observer.unobserve(entry.target);
+          observer.unobserve(entry.target);
         } else {
           subscriber.next(IntersectionStatus.NotVisible);
         }

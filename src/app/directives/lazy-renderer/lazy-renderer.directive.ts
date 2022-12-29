@@ -1,9 +1,9 @@
 import {
+  AfterViewInit,
   Directive,
   ElementRef,
   EventEmitter,
-  Input,
-  OnInit,
+  Input, NgZone,
   Output
 } from '@angular/core';
 
@@ -15,7 +15,7 @@ import {
 import {UnsubscribeDirective} from '../unsubscribe/unsubscribe.directive';
 
 @Directive({ selector: '[lazyRenderer]' })
-export class LazyRendererDirective extends UnsubscribeDirective implements OnInit {
+export class LazyRendererDirective extends UnsubscribeDirective implements AfterViewInit {
   @Input() intersectionDebounce = 0;
   @Input() intersectionRootMargin = '0px';
   @Input() intersectionRoot: HTMLElement;
@@ -23,22 +23,24 @@ export class LazyRendererDirective extends UnsubscribeDirective implements OnIni
 
   @Output() visibilityChange = new EventEmitter<IntersectionStatus>();
 
-  constructor(private element: ElementRef) {
+  constructor(private element: ElementRef, private ngZone: NgZone) {
     super();
   }
 
-  ngOnInit() {
-    const element = this.element.nativeElement;
-    const config = {
-      root: this.intersectionRoot,
-      rootMargin: this.intersectionRootMargin,
-      threshold: this.intersectionThreshold
-    };
+  ngAfterViewInit() {
+    this.ngZone.runOutsideAngular( () => {
+      const element = this.element.nativeElement;
+      const config = {
+        root: this.intersectionRoot,
+        rootMargin: this.intersectionRootMargin,
+        threshold: this.intersectionThreshold
+      };
 
-    fromIntersectionObserver(element, config, this.intersectionDebounce)
-      .pipe(takeUntil(this.destroy))
-      .subscribe(status => {
-        this.visibilityChange.emit(status);
-      });
+      fromIntersectionObserver(element, config, this.intersectionDebounce)
+        .pipe(takeUntil(this.destroy))
+        .subscribe(status => {
+          this.ngZone.run( () => this.visibilityChange.emit(status))
+        });
+    })
   }
 }
