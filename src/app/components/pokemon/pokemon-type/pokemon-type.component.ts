@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { PokemonTypesEnum } from 'src/app/models/interfaces';
 import { AwesomeTooltipModule } from '../../../directives/tooltip/tooltip.module';
 
@@ -11,7 +11,8 @@ import { AwesomeTooltipModule } from '../../../directives/tooltip/tooltip.module
     </div>
   `,
   imports: [AwesomeTooltipModule],
-  styleUrls: ['./pokemon-type.component.scss']
+  styleUrls: ['./pokemon-type.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PokemonTypeComponent {
   @Input() type: PokemonTypesEnum;

@@ -68,6 +68,6 @@ export class HomeComponent extends UnsubscribeDirective {
 
   onVisibilityChanged(index: string, status: IntersectionStatus) {
     delete this.visibilityStatus[index];
-    this.visibilityStatus[index] = status === 'Visible';
+    this.visibilityStatus[index] = status === 'Visible' || status === 'Pending';
   }
 }

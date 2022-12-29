@@ -3,19 +3,23 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
-  Input, NgZone,
+  Input,
+  NgZone,
   Output
 } from '@angular/core';
 
-import { takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import {
   fromIntersectionObserver,
   IntersectionStatus
 } from './from-intersection-observer';
-import {UnsubscribeDirective} from '../unsubscribe/unsubscribe.directive';
+import { UnsubscribeDirective } from '../unsubscribe/unsubscribe.directive';
 
 @Directive({ selector: '[lazyRenderer]' })
-export class LazyRendererDirective extends UnsubscribeDirective implements AfterViewInit {
+export class LazyRendererDirective
+  extends UnsubscribeDirective
+  implements AfterViewInit
+{
   @Input() intersectionDebounce = 0;
   @Input() intersectionRootMargin = '0px';
   @Input() intersectionRoot: HTMLElement;
@@ -28,7 +32,7 @@ export class LazyRendererDirective extends UnsubscribeDirective implements After
   }
 
   ngAfterViewInit() {
-    this.ngZone.runOutsideAngular( () => {
+    this.ngZone.runOutsideAngular(() => {
       const element = this.element.nativeElement;
       const config = {
         root: this.intersectionRoot,
@@ -36,11 +40,16 @@ export class LazyRendererDirective extends UnsubscribeDirective implements After
         threshold: this.intersectionThreshold
       };
 
-      fromIntersectionObserver(element, config, this.intersectionDebounce)
-        .pipe(takeUntil(this.destroy))
+      fromIntersectionObserver(
+        element,
+        config,
+        this.intersectionDebounce,
+        false
+      )
+        .pipe(takeUntil(this.destroy), distinctUntilChanged())
         .subscribe(status => {
-          this.ngZone.run( () => this.visibilityChange.emit(status))
+          this.ngZone.run(() => this.visibilityChange.emit(status));
         });
-    })
+    });
   }
 }

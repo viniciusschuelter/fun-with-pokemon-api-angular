@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Pokemon, PokemonMini } from 'src/app/models/interfaces';
 import { takeUntil } from 'rxjs';
 import { PokemonAction } from '../../../store/pokemon/pokemon.action';
@@ -9,19 +9,27 @@ import { LocalStorageService } from '../../../services/local-storage.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { Store } from '@ngrx/store';
+import { CommonModule } from '@angular/common';
+import { ArrayFilterModule } from '../../../pipes/array-filter/array-filter.module';
+import { AwesomeTooltipModule } from '../../../directives/tooltip/tooltip.module';
 
 @Component({
+  standalone: true,
   selector: 'app-pokemon-favorite-button',
   template: `
     <a
       class="btn btn-sm ms-3"
-      [awesomeTooltip]="isFavorite ? 'Remove from favorites':  'Add to favorites'"
-      [ngClass]="isFavorite ? 'btn-danger':  'btn-outline-danger'"
+      [awesomeTooltip]="
+        isFavorite ? 'Remove from favorites' : 'Add to favorites'
+      "
+      [ngClass]="isFavorite ? 'btn-danger' : 'btn-outline-danger'"
       (click)="clickFavorite()"
     >
       <i class="fa fa-heart-o mt-1 mx-2"></i>
     </a>
-  `
+  `,
+  imports: [CommonModule, ArrayFilterModule, AwesomeTooltipModule],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PokemonFavoriteButtonComponent extends UnsubscribeDirective {
   @Input() myFavorites: PokemonMini[];
@@ -41,9 +49,8 @@ export class PokemonFavoriteButtonComponent extends UnsubscribeDirective {
   }
 
   clickFavorite() {
-    console.log('here');
     if (this.uid) {
-      this.isFavorite ? this.removeFromFavorites() : this.addToFavorites()
+      this.isFavorite ? this.removeFromFavorites() : this.addToFavorites();
     } else {
       this.router.navigate(['/soon']);
     }

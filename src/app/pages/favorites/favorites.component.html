@@ -12,6 +12,7 @@
       <app-pokemon-card
         class="col-lg-4 mb-4"
         *ngFor="let pokemon of pokemonsFavorite"
+        [style.min-height]="600"
         [pokemon]="pokemons[pokemon.name] || pokemon"
         [myFavorites]="pokemonsFavorite"
       ></app-pokemon-card>

@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { PokemonDetailsComponent } from './pokemon-details.component';
 import { SharedModule } from '../../modules/shared_modules/shared.module';
 import { PokemonMoreDetailsModule } from '../../components/pokemon/pokemon-more-details/pokemon-more-details.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [PokemonDetailsComponent],
   exports: [PokemonDetailsComponent],
-  imports: [CommonModule, SharedModule, PokemonMoreDetailsModule]
+  imports: [CommonModule, SharedModule, PokemonMoreDetailsModule, RouterModule]
 })
 export class PokemonDetailsModule {}

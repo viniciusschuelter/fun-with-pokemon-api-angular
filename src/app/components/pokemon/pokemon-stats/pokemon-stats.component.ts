@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { PokemonStat } from 'src/app/models/interfaces';
 import { CommonModule } from '@angular/common';
 
@@ -20,7 +20,8 @@ import { CommonModule } from '@angular/common';
     </div>
   `,
   imports: [CommonModule],
-  styleUrls: ['./pokemon-stats.component.scss']
+  styleUrls: ['./pokemon-stats.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PokemonStatsComponent {
   @Input() pokemonStats: PokemonStat[];

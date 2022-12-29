@@ -10,7 +10,8 @@ export enum IntersectionStatus {
 export const fromIntersectionObserver = (
   element: HTMLElement,
   config: IntersectionObserverInit,
-  debounce = 0
+  debounce = 0,
+  pendingMode = true
 ) => new Observable<IntersectionStatus>(subscriber => {
     const subject$ = new Subject<{
       entry: IntersectionObserverEntry;
@@ -28,9 +29,11 @@ export const fromIntersectionObserver = (
       config
     );
 
-    subject$.subscribe(() => {
-      subscriber.next(IntersectionStatus.Pending);
-    });
+    if (pendingMode) {
+      subject$.subscribe(() => {
+        subscriber.next(IntersectionStatus.Pending);
+      });
+    }
 
     subject$
       .pipe(debounceTime(debounce), filter(Boolean))

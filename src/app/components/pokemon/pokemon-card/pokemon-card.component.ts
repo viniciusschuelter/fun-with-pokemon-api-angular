@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import { takeUntil } from 'rxjs';
 import { Pokemon, PokemonMini } from 'src/app/models/interfaces';
 import { PokemonService } from '../../../services/pokemon.service';
@@ -15,7 +15,8 @@ import { map } from 'rxjs/operators';
         display: block;
       }
     `
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PokemonCardComponent extends UnsubscribeDirective {
   _pokemon: Pokemon & PokemonMini;
