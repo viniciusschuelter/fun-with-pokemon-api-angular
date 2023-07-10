@@ -1,7 +1,8 @@
 {
   "root": true,
   "ignorePatterns": [
-    "projects/**/*", "index.html"
+    "projects/**/*",
+    "index.html"
   ],
   "overrides": [
     {
@@ -27,25 +28,47 @@
             "type": "attribute",
             "style": "camelCase"
           }
-
         ],
-        "@angular-eslint/no-host-metadata-property": ["error", { "allowStatic": true }],
+        "@angular-eslint/no-host-metadata-property": [
+          "error",
+          {
+            "allowStatic": true
+          }
+        ],
         "import/prefer-default-export": "off",
         "import/no-unresolved": "off",
         "no-underscore-dangle": "off",
         "class-methods-use-this": "off",
-        "max-classes-per-file": ["error", 10],
-        "linebreak-style": ["error", "unix"],
+        "max-classes-per-file": [
+          "error",
+          10
+        ],
+        "linebreak-style": [
+          "error",
+          "unix"
+        ],
         "lines-between-class-members": "off",
-        "arrow-parens": ["error", "as-needed"],
+        "arrow-parens": [
+          "error",
+          "as-needed"
+        ],
         "array-callback-return": "off",
         "object-curly-newline": [
           "error",
           {
-            "ObjectExpression": { "multiline": true },
-            "ObjectPattern": { "multiline": true },
-            "ImportDeclaration": { "multiline": true },
-            "ExportDeclaration": { "multiline": true, "minProperties": 3 }
+            "ObjectExpression": {
+              "multiline": true
+            },
+            "ObjectPattern": {
+              "multiline": true
+            },
+            "ImportDeclaration": {
+              "multiline": true
+            },
+            "ExportDeclaration": {
+              "multiline": true,
+              "minProperties": 3
+            }
           }
         ],
         "comma-dangle": [
@@ -58,24 +81,53 @@
             "functions": "never"
           }
         ],
-        "max-len": ["error", { "code": 140, "ignoreStrings": true }],
+        "max-len": [
+          "error",
+          {
+            "code": 140,
+            "ignoreStrings": true
+          }
+        ],
         "no-useless-constructor": "off",
-        "implicit-arrow-linebreak": ["error", "beside"],
+        "implicit-arrow-linebreak": [
+          "error",
+          "beside"
+        ],
         "operator-linebreak": [
           "error",
           "after",
-          { "overrides": { "+=": "before", "?": "ignore", ":": "ignore" } }
+          {
+            "overrides": {
+              "+=": "before",
+              "?": "ignore",
+              ":": "ignore"
+            }
+          }
         ],
         "function-paren-newline": "off",
         "no-case-declarations": "off",
-        "arrow-body-style": ["error", "as-needed"],
+        "arrow-body-style": [
+          "error",
+          "as-needed"
+        ],
         "no-return-assign": "off",
         "no-mixed-operators": [
           "error",
           {
             "groups": [
-              ["&", "|", "^", "~", "<<", ">>", ">>>"],
-              ["&&", "||"]
+              [
+                "&",
+                "|",
+                "^",
+                "~",
+                "<<",
+                ">>",
+                ">>>"
+              ],
+              [
+                "&&",
+                "||"
+              ]
             ]
           }
         ],
@@ -94,7 +146,9 @@
         "plugin:@angular-eslint/template/recommended",
         "prettier"
       ],
-      "plugins": ["prettier"],
+      "plugins": [
+        "prettier"
+      ],
       "rules": {
         "prettier/prettier": "error"
       }
