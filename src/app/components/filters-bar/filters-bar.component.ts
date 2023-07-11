@@ -7,11 +7,28 @@ import { UnsubscribeDirective } from '../../directives/unsubscribe/unsubscribe.d
 import { PokemonService } from '../../services/pokemon.service';
 import { Store } from '@ngrx/store';
 import { PokemonState } from '../../store/pokemon/pokemon.reducer';
+import { FormsModule } from '@angular/forms';
+import { NgFor } from '@angular/common';
 
 @Component({
+  standalone: true,
   selector: 'app-filters-bar',
   templateUrl: './filters-bar.component.html',
-  styleUrls: ['./filters-bar.component.scss']
+  imports: [FormsModule, NgFor],
+  styles: [
+    `
+      :host {
+        .input-group-append {
+          :first-child {
+            border-radius: unset;
+          }
+          :last-child {
+            border-radius: 0 0.25rem 0.25rem 0;
+          }
+        }
+      }
+    `
+  ]
 })
 export class FiltersBarComponent extends UnsubscribeDirective {
   @Output() searchChange: EventEmitter<string> = new EventEmitter();

@@ -1,55 +1,38 @@
 import {
-  AfterViewInit,
   Directive,
+  effect,
   ElementRef,
   EventEmitter,
   Input,
-  NgZone,
-  Output
+  Output,
+  Signal
 } from '@angular/core';
+import { fromVisibilityObserver } from '@angular-primitives/intersection-observer';
 
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import {
-  fromIntersectionObserver,
-  IntersectionStatus
-} from './from-intersection-observer';
-import { UnsubscribeDirective } from '../unsubscribe/unsubscribe.directive';
-
-@Directive({ selector: '[lazyRenderer]' })
-export class LazyRendererDirective
-  extends UnsubscribeDirective
-  implements AfterViewInit
-{
+@Directive({ standalone: true, selector: '[lazyRenderer]' })
+export class LazyRendererDirective {
   @Input() intersectionDebounce = 0;
   @Input() intersectionRootMargin = '0px';
   @Input() intersectionRoot: HTMLElement;
   @Input() intersectionThreshold: number | number[];
 
-  @Output() visibilityChange = new EventEmitter<IntersectionStatus>();
+  @Output() visibilityChange = new EventEmitter<boolean>();
 
-  constructor(private element: ElementRef, private ngZone: NgZone) {
-    super();
-  }
+  constructor(private element: ElementRef) {
+    const config = {
+      root: this.intersectionRoot,
+      rootMargin: this.intersectionRootMargin,
+      threshold: this.intersectionThreshold
+    };
 
-  ngAfterViewInit() {
-    this.ngZone.runOutsideAngular(() => {
-      const element = this.element.nativeElement;
-      const config = {
-        root: this.intersectionRoot,
-        rootMargin: this.intersectionRootMargin,
-        threshold: this.intersectionThreshold
-      };
+    const signalObserver: Signal<boolean> = fromVisibilityObserver(
+      this.element.nativeElement,
+      config
+    );
 
-      fromIntersectionObserver(
-        element,
-        config,
-        this.intersectionDebounce,
-        false
-      )
-        .pipe(takeUntil(this.destroy), distinctUntilChanged())
-        .subscribe(status => {
-          this.ngZone.run(() => this.visibilityChange.emit(status));
-        });
+    effect(() => {
+      this.visibilityChange.emit(signalObserver());
+      console.log('the card is rendered: ' + signalObserver());
     });
   }
 }

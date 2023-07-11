@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
-import { ArrayFilterModule } from '../../../pipes/array-filter/array-filter.module';
 import { AwesomeTooltipModule } from '../../../directives/tooltip/tooltip.module';
 
 @Component({
@@ -28,7 +27,7 @@ import { AwesomeTooltipModule } from '../../../directives/tooltip/tooltip.module
       <i class="fa fa-heart-o mt-1 mx-2"></i>
     </a>
   `,
-  imports: [CommonModule, ArrayFilterModule, AwesomeTooltipModule],
+  imports: [CommonModule, AwesomeTooltipModule],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PokemonFavoriteButtonComponent extends UnsubscribeDirective {

@@ -23,7 +23,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { CoreModule } from './modules/core/core.module';
 import { SharedModule } from './modules/shared_modules/shared.module';
-import { OverlayContainer } from '@angular/cdk/overlay';
 import { ToastrModule } from 'ngx-toastr';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
@@ -48,16 +47,16 @@ export const entityConfig: EntityDataModuleConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent,
-    NavbarComponent,
-    NotFoundComponent,
-    SoonComponent
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CoreModule,
     SharedModule,
+    NotFoundComponent,
+    FooterComponent,
+    SoonComponent,
     BrowserAnimationsModule,
     HttpClientModule,
     StoreModule.forRoot({ auth: AuthReducer, pokemon: null }, {}),
@@ -74,26 +73,6 @@ export const entityConfig: EntityDataModuleConfig = {
     }),
     ToastrModule.forRoot()
   ],
-  // providers: [
-  //   {
-  //     provide: OverlayContainer,
-  //     useFactory: () => {
-  //       const container = document.createElement('div');
-  //       container.classList.add('cdk-overlay-container');
-  //       class Class extends OverlayContainer {
-  //         _createContainer(): void {
-  //           (
-  //             document.querySelector('#content-container') ||
-  //             document.querySelector('body')
-  //           ).appendChild(container);
-  //           this._containerElement = container;
-  //         }
-  //       }
-  //
-  //       return new Class(container, undefined);
-  //     }
-  //   },
-  // ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({ name: 'filter' })
+@Pipe({ standalone: true, name: 'filter' })
 export class FilterPipe implements PipeTransform {
   transform(array: any[], prop: string, target: string): any[] {
     if (!array?.length || !target) {

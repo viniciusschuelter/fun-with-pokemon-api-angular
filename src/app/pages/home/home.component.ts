@@ -14,12 +14,15 @@ import {
 } from '../../store/pokemon/pokemon.selector';
 import { UnsubscribeDirective } from '../../directives/unsubscribe/unsubscribe.directive';
 import { PokemonDataService } from '../../store/pokemon/pokemon-data.service';
-import {IntersectionStatus} from '../../directives/lazy-renderer/from-intersection-observer';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styles: [`
+    .homePage {
+      min-height: 100vh;
+    }
+  `]
 })
 export class HomeComponent extends UnsubscribeDirective {
   isAuth$: Observable<string> = this.store.select('auth');
@@ -66,8 +69,8 @@ export class HomeComponent extends UnsubscribeDirective {
       });
   }
 
-  onVisibilityChanged(index: string, status: IntersectionStatus) {
+  onVisibilityChanged(index: string, status: boolean) {
     delete this.visibilityStatus[index];
-    this.visibilityStatus[index] = status === 'Visible' || status === 'Pending';
+    this.visibilityStatus[index] = status;
   }
 }

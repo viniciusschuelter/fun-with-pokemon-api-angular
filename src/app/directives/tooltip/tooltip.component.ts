@@ -9,7 +9,12 @@ import { animate, style, transition, trigger } from '@angular/animations';
 @Component({
   selector: 'awesome-tooltip',
   styleUrls: ['./tooltip.component.scss'],
-  templateUrl: './tooltip.component.html',
+  template: `
+    <div class="tool-tip" role="tooltip" @tooltip>
+      <div class="arrow"></div>
+      <div class="tooltip-inner" [innerHTML]="text"></div>
+    </div>
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('tooltip', [

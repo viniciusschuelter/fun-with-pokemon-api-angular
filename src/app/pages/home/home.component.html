@@ -13,7 +13,6 @@
         [style.min-height]="600"
         *ngFor="let pokemon of pokemonsMini | filter: 'name':searchTerm"
         lazyRenderer
-        [intersectionDebounce]="0"
         (visibilityChange)="onVisibilityChanged(pokemon.name, $event)"
       >
         <app-pokemon-card

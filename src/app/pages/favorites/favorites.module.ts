@@ -4,7 +4,6 @@ import { FavoritesComponent } from './favorites.component';
 import { SharedModule } from '../../modules/shared_modules/shared.module';
 import { PokemonCardModule } from '../../components/pokemon/pokemon-card/pokemon-card.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { ArrayFilterModule } from '../../pipes/array-filter/array-filter.module';
 
 @NgModule({
   declarations: [FavoritesComponent],
@@ -13,8 +12,7 @@ import { ArrayFilterModule } from '../../pipes/array-filter/array-filter.module'
     CommonModule,
     SharedModule,
     PokemonCardModule,
-    DragDropModule,
-    ArrayFilterModule
+    DragDropModule
   ]
 })
 export class FavoritesModule {}
