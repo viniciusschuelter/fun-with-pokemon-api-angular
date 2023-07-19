@@ -1,6 +1,6 @@
 # PokemonApi
 
-###### This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.0.
+###### This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/bccd8ce2-75a2-4b6c-a9e7-15c63b146821/deploy-status)](https://app.netlify.com/sites/fun-with-pokemon-api-angular/deploys)
 
@@ -16,7 +16,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 - Angular `animation` For Login & Register page .
 - `NgRx` state management for Auth.
--  Using `IntersectionObserver` to virtual scroll.
+-  Using `IntersectionObserver` and `Signals` to virtual scroll.
 - `AuthGuard` for routes ( Favorites | My pokemons ).
 - Sever workers `PWA` for a better user experience.
 - Bundlers optimizations with `Shared Modules`.
