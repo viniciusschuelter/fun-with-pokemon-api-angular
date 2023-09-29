@@ -3,25 +3,34 @@
   *ngIf="pokemonsMini$ | async as pokemonsMini; else loading"
 >
   <div class="container my-3">
-    <app-filters-bar (searchChange)="searchTerm = $event"></app-filters-bar>
+    <app-filters-bar
+      (searchChange)="$searchTerm.next($event)"
+    ></app-filters-bar>
 
     <app-no-data *ngIf="!pokemonsMini.length"></app-no-data>
 
-    <div class="row" *ngIf="pokemons$ | async as pokemons; else loading">
+    <ng-container *ngIf="pokemons$ | async as pokemons; else loading">
       <div
-        class="col-lg-4 mb-4"
-        [style.min-height]="600"
-        *ngFor="let pokemon of pokemonsMini | filter: 'name':searchTerm"
-        lazyRenderer
-        (visibilityChange)="onVisibilityChanged(pokemon.name, $event)"
+        virtualScroller
+        [items]="pokemonsMini$"
+        (itemsRendered)="signalViewport = $event"
+        *ngIf="!!pokemonsMini"
+        class="row"
       >
-        <app-pokemon-card
-          *ngIf="visibilityStatus[pokemon.name]"
-          [pokemon]="pokemons[pokemon.name] || pokemon"
-          [myFavorites]="myFavorites$ | async"
-        ></app-pokemon-card>
+        <div
+          #itemsViewport
+          class="col-lg-4 mb-4"
+          [style.min-height]="600"
+          *ngFor="let pokemon of pokemonsMini; let i = index"
+        >
+          <app-pokemon-card
+            *ngIf="signalViewport()[i]"
+            [pokemon]="pokemons[pokemon.name] || pokemon"
+            [myFavorites]="myFavorites$ | async"
+          ></app-pokemon-card>
+        </div>
       </div>
-    </div>
+    </ng-container>
   </div>
 </section>
 

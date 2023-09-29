@@ -15,7 +15,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-primitives/intersection-observer": "^0.0.1",
+    "@angular-primitives/intersection-observer": "^0.0.4",
     "@angular/animations": "^16.1.4",
     "@angular/cdk": "^16.1.4",
     "@angular/common": "^16.1.4",

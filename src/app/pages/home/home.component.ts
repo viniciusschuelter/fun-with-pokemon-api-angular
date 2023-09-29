@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, signal, ViewChildren, WritableSignal} from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, takeUntil } from 'rxjs';
+import {BehaviorSubject, map, Observable, switchMap, takeUntil} from 'rxjs';
 import { Pokemon, PokemonMini } from 'src/app/models/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -14,32 +14,41 @@ import {
 } from '../../store/pokemon/pokemon.selector';
 import { UnsubscribeDirective } from '../../directives/unsubscribe/unsubscribe.directive';
 import { PokemonDataService } from '../../store/pokemon/pokemon-data.service';
+import {fromViewportObserver} from '@angular-primitives/intersection-observer';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styles: [`
-    .homePage {
-      min-height: 100vh;
-    }
-  `]
+  styles: [
+    `
+      .homePage {
+        min-height: 100vh;
+      }
+    `
+  ]
 })
-export class HomeComponent extends UnsubscribeDirective {
+export class HomeComponent extends UnsubscribeDirective implements AfterViewInit {
+  $searchTerm: BehaviorSubject<string> = new BehaviorSubject<string>('');
   isAuth$: Observable<string> = this.store.select('auth');
 
   myFavorites$: Observable<PokemonMini[]> = this.store
     .select(selectFavoritesPokemons)
     .pipe();
 
-  pokemonsMini$: Observable<PokemonMini[]> = this.store
-    .select(selectMiniPokemons)
-    .pipe();
+  pokemonsMini$: Observable<PokemonMini[]> = this.$searchTerm.pipe(
+    switchMap( term => this.store
+      .select(selectMiniPokemons)
+      .pipe(
+        map( _ => _?.length && _.filter( _ => _.name.includes(term.toLowerCase())))
+      )
+    )
+  )
 
   pokemons$: Observable<Record<string, Pokemon>> =
     this.pokemonDataService.entityMap$.pipe();
 
-
-  visibilityStatus: {[key: string]: boolean} = {};
+  @ViewChildren('itemsViewport') itemsViewport!: { _results: any };
+  signalViewport: WritableSignal<{ [n: number]: boolean }> = signal({});
   searchTerm = '';
 
   constructor(
@@ -54,6 +63,10 @@ export class HomeComponent extends UnsubscribeDirective {
     this.initPokemonStore();
   }
 
+  ngAfterViewInit() {
+    // this.signalViewport = fromViewportObserver(this.itemsViewport._results);
+  }
+
   private initPokemonStore(): void {
     this.store
       .select(selectMiniPokemons)
@@ -62,15 +75,12 @@ export class HomeComponent extends UnsubscribeDirective {
         if (!results?.length) {
           const pokemonsMini = this.localService.getItem('miniPokemons');
           if (pokemonsMini?.length) {
-            return this.store.dispatch(PokemonAction.loadMiniSuccess({ data: pokemonsMini }));
+            return this.store.dispatch(
+              PokemonAction.loadMiniSuccess({ data: pokemonsMini })
+            );
           }
           this.store.dispatch(PokemonAction.loadPokemonMini());
         }
       });
-  }
-
-  onVisibilityChanged(index: string, status: boolean) {
-    delete this.visibilityStatus[index];
-    this.visibilityStatus[index] = status;
   }
 }

@@ -14,7 +14,7 @@ export class PokemonService {
   constructor(private http: HttpClient, private toastr: ToastrService) {}
 
   public getPokemons(): Observable<PokemonMini[]> {
-    return this.http.get<PokemonMini[]>(this.url + 'pokemon?&limit=1200').pipe(
+    return this.http.get<PokemonMini[]>(this.url + 'pokemon?&limit=9999').pipe(
       map((data: any) => data.results),
       catchError(handleErrors)
     );
