@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { PokemonSprites } from 'src/app/models/interfaces';
 import slideLeft from '../../../animations/slideLeft.animation';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { LoadingComponent } from '../../loading/loading.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { LoadingComponent } from '../../loading/loading.component';
   selector: 'app-pokemon-carousel',
   templateUrl: './pokemon-carousel.component.html',
   styleUrls: ['./pokemon-carousel.component.scss'],
-  imports: [CommonModule, LoadingComponent, NgOptimizedImage],
+  imports: [LoadingComponent, NgOptimizedImage],
   animations: [slideLeft],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

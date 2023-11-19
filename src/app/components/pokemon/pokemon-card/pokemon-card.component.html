@@ -27,11 +27,12 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h5 class="card-title mb-0 text-capitalize">{{ pokemon.name }}</h5>
       <div class="d-flex">
+        @for (item of pokemon.types; track item.type?.name) {
         <app-pokemon-type
           class="ms-2"
-          *ngFor="let item of pokemon.types; trackBy: trackBy"
           [type]="item.type.name"
         ></app-pokemon-type>
+        }
       </div>
     </div>
     <app-pokemon-stats

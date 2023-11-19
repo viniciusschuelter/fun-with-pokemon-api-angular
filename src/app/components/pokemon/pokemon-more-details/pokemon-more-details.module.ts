@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { PokemonMoreDetailsComponent } from './pokemon-more-details.component';
 import { PokemonStatsComponent } from '../pokemon-stats/pokemon-stats.component';
 import { PokemonTypeComponent } from '../pokemon-type/pokemon-type.component';
@@ -11,7 +10,6 @@ import { ArrayFilterPipe } from '../../../pipes/array-filter/array-filter.pipe';
   declarations: [PokemonMoreDetailsComponent],
   exports: [PokemonMoreDetailsComponent],
   imports: [
-    CommonModule,
     PokemonTypeComponent,
     PokemonCarouselComponent,
     ArrayFilterPipe,

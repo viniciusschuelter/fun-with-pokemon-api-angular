@@ -13,14 +13,8 @@
           class="d-block m-auto mb-4"
         />
 
-        <app-error *ngIf="isError" [message]="isError"></app-error>
-
-        <app-loading
-          *ngIf="isLoading && !isError"
-          class="my-5 w-100"
-        ></app-loading>
-
-        <section *ngIf="!isLoading" class="mx-auto w-100">
+        @if (!isLoading) {
+        <section>
           <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="mx-auto">
             <div class="form-group">
               <input
@@ -96,13 +90,15 @@
           <p class="text-center text-muted d-block my-4">or use Social Login</p>
           <app-social [auth]="'login'"></app-social>
         </section>
+        } @else { @if (!isError) {
+        <app-loading class="my-5 w-100"></app-loading>
+        } @else {
+        <app-error [message]="isError"></app-error>
+        } }
       </div>
     </div>
 
-    <div
-      *ngIf="!isLoading"
-      class="d-flex ms-auto align-items-center justify-content-center mt-5"
-    >
+    <div class="d-flex ms-auto align-items-center justify-content-center mt-5">
       <p class="text-muted d-inline-block mb-0">I Don't have Password</p>
       <button
         routerLink="/auth/register"
