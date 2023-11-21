@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FavoritesComponent } from './favorites.component';
 import { SharedModule } from '../../modules/shared_modules/shared.module';
 import { PokemonCardModule } from '../../components/pokemon/pokemon-card/pokemon-card.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { LoadingComponent } from '../../components/loading/loading.component';
+import { AsyncPipe } from '@angular/common';
 
 @NgModule({
   declarations: [FavoritesComponent],
   exports: [FavoritesComponent],
   imports: [
-    CommonModule,
+    AsyncPipe,
     SharedModule,
+    LoadingComponent,
     PokemonCardModule,
     DragDropModule
   ]
