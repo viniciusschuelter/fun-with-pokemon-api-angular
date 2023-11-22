@@ -8,19 +8,16 @@
     @if (!pokemonsMini.length) {
     <app-no-data></app-no-data>
     } @else { @if (pokemons$ | async; as pokemons) {
-    <div
-      virtualScroller
-      [items]="pokemonsMini$"
-      (itemsRendered)="signalViewport = $event"
-      class="row"
-    >
+    <div class="row">
       @for (pokemon of pokemonsMini; track pokemon.name; let i = $index) {
       <div #itemsViewport class="col-lg-4 mb-4" [style.min-height]="600">
-        @if (signalViewport()[i]) {
+        @defer (on viewport()) {
         <app-pokemon-card
           [pokemon]="pokemons[pokemon.name] || pokemon"
           [myFavorites]="myFavorites$ | async"
         ></app-pokemon-card>
+        } @placeholder {
+        <span></span>
         }
       </div>
       }
