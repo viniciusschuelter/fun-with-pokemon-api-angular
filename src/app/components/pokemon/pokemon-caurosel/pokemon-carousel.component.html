@@ -1,29 +1,26 @@
 <div class="card-img h-100">
-  <ng-container *ngIf="!loading; else onLoading">
-    <img
-      *ngIf="sprites"
-      [ngSrc]="sprites[carouselCurr]"
-      [fill]="true"
-      alt="{{ sprites[carouselCurr] }}"
-      class="card-img-top h-100 w-100"
-    />
-    <a class="carousel-control-prev">
-      <i
-        id="prev"
-        class="fa fa-angle-left text-primary"
-        (click)="changeImage()"
-      ></i>
-    </a>
-    <a class="carousel-control-next">
-      <i
-        id="next"
-        class="fa fa-angle-right text-primary"
-        (click)="changeImage(true)"
-      ></i>
-    </a>
-  </ng-container>
-
-  <ng-template #onLoading>
-    <app-loading class="d-block h-100 pt-5"></app-loading>
-  </ng-template>
+  @if (!loading) { @if (sprites) {
+  <img
+    [ngSrc]="sprites[carouselCurr]"
+    [fill]="true"
+    alt="{{ sprites[carouselCurr] }}"
+    class="card-img-top h-100 w-100"
+  />
+  <a class="carousel-control-prev">
+    <i
+      id="prev"
+      class="fa fa-angle-left text-primary"
+      (click)="changeImage()"
+    ></i>
+  </a>
+  <a class="carousel-control-next">
+    <i
+      id="next"
+      class="fa fa-angle-right text-primary"
+      (click)="changeImage(true)"
+    ></i>
+  </a>
+  } } @else {
+  <app-loading class="d-block h-100 pt-5"></app-loading>
+  }
 </div>

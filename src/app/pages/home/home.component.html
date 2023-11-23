@@ -1,39 +1,32 @@
-<section
-  class="homePage"
-  *ngIf="pokemonsMini$ | async as pokemonsMini; else loading"
->
+@if (pokemonsMini$ | async; as pokemonsMini) {
+<section class="homePage">
   <div class="container my-3">
     <app-filters-bar
       (searchChange)="$searchTerm.next($event)"
     ></app-filters-bar>
 
-    <app-no-data *ngIf="!pokemonsMini.length"></app-no-data>
-
-    <ng-container *ngIf="pokemons$ | async as pokemons; else loading">
-      <div
-        virtualScroller
-        [items]="pokemonsMini$"
-        (itemsRendered)="signalViewport = $event"
-        *ngIf="!!pokemonsMini"
-        class="row"
-      >
-        <div
-          #itemsViewport
-          class="col-lg-4 mb-4"
-          [style.min-height]="600"
-          *ngFor="let pokemon of pokemonsMini; let i = index"
-        >
-          <app-pokemon-card
-            *ngIf="signalViewport()[i]"
-            [pokemon]="pokemons[pokemon.name] || pokemon"
-            [myFavorites]="myFavorites$ | async"
-          ></app-pokemon-card>
-        </div>
+    @if (!pokemonsMini.length) {
+    <app-no-data></app-no-data>
+    } @else { @if (pokemons$ | async; as pokemons) {
+    <div class="row">
+      @for (pokemon of pokemonsMini; track pokemon.name; let i = $index) {
+      <div #itemsViewport class="col-lg-4 mb-4" [style.min-height]="600">
+        @defer (on viewport()) {
+        <app-pokemon-card
+          [pokemon]="pokemons[pokemon.name] || pokemon"
+          [myFavorites]="myFavorites$ | async"
+        ></app-pokemon-card>
+        } @placeholder {
+        <span></span>
+        }
       </div>
-    </ng-container>
+      }
+    </div>
+    } @else {
+    <app-loading class="d-block h-100 pt-5"></app-loading>
+    } }
   </div>
 </section>
-
-<ng-template #loading>
-  <app-loading class="d-block h-100 pt-5"></app-loading>
-</ng-template>
+} @else {
+<app-loading class="d-block h-100 pt-5"></app-loading>
+}

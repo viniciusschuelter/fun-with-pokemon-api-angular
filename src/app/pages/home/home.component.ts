@@ -1,6 +1,6 @@
-import {AfterViewInit, Component, signal, ViewChildren, WritableSignal} from '@angular/core';
+import { Component, signal, ViewChildren, WritableSignal } from '@angular/core';
 import { Store } from '@ngrx/store';
-import {BehaviorSubject, map, Observable, switchMap, takeUntil} from 'rxjs';
+import { BehaviorSubject, map, Observable, switchMap, takeUntil } from 'rxjs';
 import { Pokemon, PokemonMini } from 'src/app/models/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -14,7 +14,6 @@ import {
 } from '../../store/pokemon/pokemon.selector';
 import { UnsubscribeDirective } from '../../directives/unsubscribe/unsubscribe.directive';
 import { PokemonDataService } from '../../store/pokemon/pokemon-data.service';
-import {fromViewportObserver} from '@angular-primitives/intersection-observer';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +26,7 @@ import {fromViewportObserver} from '@angular-primitives/intersection-observer';
     `
   ]
 })
-export class HomeComponent extends UnsubscribeDirective implements AfterViewInit {
+export class HomeComponent extends UnsubscribeDirective {
   $searchTerm: BehaviorSubject<string> = new BehaviorSubject<string>('');
   isAuth$: Observable<string> = this.store.select('auth');
 
@@ -36,13 +35,15 @@ export class HomeComponent extends UnsubscribeDirective implements AfterViewInit
     .pipe();
 
   pokemonsMini$: Observable<PokemonMini[]> = this.$searchTerm.pipe(
-    switchMap( term => this.store
-      .select(selectMiniPokemons)
-      .pipe(
-        map( _ => _?.length && _.filter( _ => _.name.includes(term.toLowerCase())))
-      )
+    switchMap(term => this.store
+        .select(selectMiniPokemons)
+        .pipe(
+          map(
+            _ => _?.length && _.filter(_ => _.name.includes(term.toLowerCase()))
+          )
+        )
     )
-  )
+  );
 
   pokemons$: Observable<Record<string, Pokemon>> =
     this.pokemonDataService.entityMap$.pipe();
@@ -61,10 +62,6 @@ export class HomeComponent extends UnsubscribeDirective implements AfterViewInit
   ) {
     super();
     this.initPokemonStore();
-  }
-
-  ngAfterViewInit() {
-    // this.signalViewport = fromViewportObserver(this.itemsViewport._results);
   }
 
   private initPokemonStore(): void {

@@ -1,4 +1,5 @@
-<section class="my-pokemon" *ngIf="pokemon$ | async as pokemon; else loading">
+@if (pokemon$ | async; as pokemon) {
+<section class="my-pokemon">
   <section class="pokemon-details mt-0">
     <img
       class="poster-background"
@@ -35,6 +36,6 @@
   </section>
 </section>
 
-<ng-template #loading>
-  <app-loading class="d-block h-100 pt-5"></app-loading>
-</ng-template>
+} @else {
+<app-loading class="d-block h-100 pt-5"></app-loading>
+}

@@ -7,11 +7,12 @@
 
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex">
+        @for (item of pokemon.types; track item.type?.name) {
         <app-pokemon-type
-          *ngFor="let item of pokemon.types"
           class="ms-2"
           [type]="item.type.name"
         ></app-pokemon-type>
+        }
       </div>
       <app-pokemon-favorite-button
         [pokemon]="pokemon"
@@ -23,28 +24,26 @@
     </div>
   </div>
 
-  <div class="col-12 col-lg-4 d-flex flex-column">
-    <h3>{{ pokemon.name | titlecase }}</h3>
+  <div class="col-12 col-lg-4 d-flex flex-column text-uppercase">
+    <h3>{{ pokemon.name }}</h3>
     <article class="mb-3">
       <h6 class="">Type Pokemon</h6>
       <div class="d-flex flex-wrap w-100">
-        <span
-          *ngFor="let item of pokemon.types"
-          class="badge badge-pill bg-primary me-2"
-        >
+        @for (item of pokemon.types; track item.type?.name) {
+        <span class="badge badge-pill bg-primary me-2">
           {{ item.type.name }}
         </span>
+        }
       </div>
     </article>
     <article>
       <h6 class="">Abilities Pokemon</h6>
       <div class="d-flex flex-wrap w-100">
-        <span
-          *ngFor="let item of pokemon.abilities"
-          class="badge badge-pill bg-warning me-2"
-        >
+        @for (item of pokemon.abilities; track item.ability?.name) {
+        <span class="badge badge-pill bg-warning me-2">
           {{ item.ability.name }}
         </span>
+        }
       </div>
     </article>
   </div>

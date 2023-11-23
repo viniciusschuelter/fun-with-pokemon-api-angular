@@ -6,20 +6,23 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { handleErrors } from '../../utils/utils';
 import { PokemonDataService } from './pokemon-data.service';
-import {LocalStorageService} from '../../services/local-storage.service';
+import { LocalStorageService } from '../../services/local-storage.service';
+import miniPokemons from '../../mocks/mini-pokemons-mock';
+import { of } from 'rxjs';
+import {PokemonMini} from '../../models/interfaces';
 
 @Injectable()
 export class PokemonEffects {
   loadMiniPokemons$ = createEffect(() => this.actions$.pipe(
       ofType(PokemonAction.loadPokemonMini),
-      switchMap(() => this.pokemonService
-          .getPokemons()
-          .pipe(
-            map(results => {
-              this.localService.setItem('miniPokemons', results);
-              return PokemonAction.loadMiniSuccess({ data: results })
-            })
-          )),
+      switchMap(() => {
+        const pokemons: PokemonMini[] = JSON.parse(miniPokemons).map(_ => ({
+          name: _,
+          url: `https://pokeapi.co/api/v2/pokemon/${_}`
+        }));
+        // this.localService.setItem('miniPokemons', pokemons);
+        return of(PokemonAction.loadMiniSuccess({ data: pokemons }));
+      }),
       catchError(handleErrors)
     )
   );
@@ -44,7 +47,8 @@ export class PokemonEffects {
             this.pokemonDataService.addOneToCache(pokemon);
             return PokemonAction.loadSuccess({ data: [pokemon] });
           })
-        )),
+        )
+      ),
       catchError(handleErrors)
     )
   );

@@ -1,25 +1,24 @@
-<section
-  class="mt-2 my-5 favorites"
-  *ngIf="myFavorites$ | async as pokemonsFavorite; else loading"
->
+@if (myFavorites$ | async; as pokemonsFavorite) {
+<section class="mt-2 my-5 favorites">
   <div class="container">
-    <app-no-data
-      *ngIf="pokemonsFavorite.length === 0"
-      [message]="'No pokemon yet in your Favorites'"
-    ></app-no-data>
-
-    <div class="row" *ngIf="pokemons$ | async as pokemons; else loading">
+    @if (pokemonsFavorite.length) { @if (pokemons$ | async; as pokemons) {
+    <div class="row">
+      @for (pokemon of pokemonsFavorite; track pokemon.name; let i = $index) {
       <app-pokemon-card
         class="col-lg-4 mb-4"
-        *ngFor="let pokemon of pokemonsFavorite"
         [style.min-height]="600"
         [pokemon]="pokemons[pokemon.name] || pokemon"
         [myFavorites]="pokemonsFavorite"
       ></app-pokemon-card>
+      }
     </div>
+    } @else {
+    <app-loading class="d-block h-100 pt-5"></app-loading>
+    } } @else {
+    <app-no-data [message]="'No pokemon yet in your Favorites'"></app-no-data>
+    }
   </div>
 </section>
-
-<ng-template #loading>
-  <app-loading class="d-block h-100 pt-5"></app-loading>
-</ng-template>
+} @else {
+<app-loading class="d-block h-100 pt-5"></app-loading>
+}

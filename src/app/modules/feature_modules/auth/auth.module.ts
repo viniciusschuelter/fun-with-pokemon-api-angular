@@ -13,6 +13,7 @@ import { AuthRoutingModule } from '../../routing_modules/auth-routing/auth-routi
 import { SharedModule } from '../../shared_modules/shared.module';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import {LoadingComponent} from '../../../components/loading/loading.component';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent, SocialComponent],
@@ -25,7 +26,8 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     AngularFirestoreModule,
     HttpClientModule,
     StoreModule.forFeature('auth', AuthReducer),
-    AuthRoutingModule
+    AuthRoutingModule,
+    LoadingComponent
   ],
   exports: [LoginComponent, RegisterComponent, SocialComponent]
 })
