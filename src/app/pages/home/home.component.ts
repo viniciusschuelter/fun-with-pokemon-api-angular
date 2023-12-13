@@ -1,4 +1,10 @@
-import { Component, signal, ViewChildren, WritableSignal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  signal,
+  ViewChildren,
+  WritableSignal
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, map, Observable, switchMap, takeUntil } from 'rxjs';
 import { Pokemon, PokemonMini } from 'src/app/models/interfaces';
@@ -24,7 +30,8 @@ import { PokemonDataService } from '../../store/pokemon/pokemon-data.service';
         min-height: 100vh;
       }
     `
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent extends UnsubscribeDirective {
   $searchTerm: BehaviorSubject<string> = new BehaviorSubject<string>('');
