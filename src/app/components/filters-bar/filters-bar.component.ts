@@ -1,7 +1,12 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Output
+} from '@angular/core';
 import { PokemonMini } from 'src/app/models/interfaces';
-import { pokemonTypes, pokemonHabitats } from '../../mocks/pokemon-mock';
-import {debounce, interval, takeUntil} from 'rxjs';
+import { pokemonHabitats, pokemonTypes } from '../../mocks/pokemon-mock';
+import { debounce, interval, takeUntil } from 'rxjs';
 import { PokemonAction } from '../../store/pokemon/pokemon.action';
 import { UnsubscribeDirective } from '../../directives/unsubscribe/unsubscribe.directive';
 import { PokemonService } from '../../services/pokemon.service';
@@ -28,7 +33,8 @@ import { NgFor } from '@angular/common';
         }
       }
     `
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FiltersBarComponent extends UnsubscribeDirective {
   @Output() searchChange: EventEmitter<string> = new EventEmitter();
@@ -51,11 +57,12 @@ export class FiltersBarComponent extends UnsubscribeDirective {
       .getPokemonByHabitat(habitat)
       .pipe(
         debounce(() => interval(100)),
-        takeUntil(this._destroy))
+        takeUntil(this._destroy)
+      )
       .subscribe((pokemonsMini: PokemonMini[]) => this.store.dispatch(
           PokemonAction.loadMiniSuccess({ data: pokemonsMini })
         )
-      )
+      );
   }
 
   pokemonsByTypes(type): void {
@@ -63,7 +70,8 @@ export class FiltersBarComponent extends UnsubscribeDirective {
       .getPokemonByType(type)
       .pipe(
         debounce(() => interval(100)),
-        takeUntil(this._destroy))
+        takeUntil(this._destroy)
+      )
       .subscribe((pokemonsMini: PokemonMini[]) => this.store.dispatch(
           PokemonAction.loadMiniSuccess({ data: pokemonsMini })
         )

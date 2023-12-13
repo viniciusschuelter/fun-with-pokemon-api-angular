@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Pokemon, PokemonMini } from 'src/app/models/interfaces';
 import { FavoritesService } from 'src/app/services/favorites.service';
 import { ToastrService } from 'ngx-toastr';
@@ -12,7 +12,8 @@ import { PokemonDataService } from '../../store/pokemon/pokemon-data.service';
 @Component({
   selector: 'app-favorites',
   templateUrl: './favorites.component.html',
-  styleUrls: ['./favorites.component.scss']
+  styleUrls: ['./favorites.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FavoritesComponent extends UnsubscribeDirective {
   myFavorites$: Observable<PokemonMini[]> = this.store

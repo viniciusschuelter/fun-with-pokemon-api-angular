@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Pokemon, PokemonMini } from 'src/app/models/interfaces';
 import { PokemonService } from '../../services/pokemon.service';
@@ -12,7 +12,8 @@ import { PokemonState } from '../../store/pokemon/pokemon.reducer';
 @Component({
   selector: 'app-pokemon-details',
   templateUrl: './pokemon-details.component.html',
-  styleUrls: ['./pokemon-details.component.scss']
+  styleUrls: ['./pokemon-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PokemonDetailsComponent {
   pokemon$: Observable<Pokemon> = this.pokemonDataService.entityMap$.pipe(
