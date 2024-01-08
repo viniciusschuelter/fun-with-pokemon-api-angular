@@ -1,4 +1,11 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { PokemonSprites } from 'src/app/models/interfaces';
 import slideLeft from '../../../animations/slideLeft.animation';
 import { NgOptimizedImage } from '@angular/common';
@@ -12,7 +19,7 @@ import { LoadingComponent } from '../../loading/loading.component';
   styleUrls: ['./pokemon-carousel.component.scss'],
   imports: [LoadingComponent, NgOptimizedImage],
   animations: [slideLeft],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PokemonCarouselComponent implements OnChanges {
   @Input() pokemonSprites: PokemonSprites;
@@ -20,9 +27,14 @@ export class PokemonCarouselComponent implements OnChanges {
   carouselCurr = 2;
   sprites = [];
   spriteDefault = 'official-artwork';
-  blackListSprites = ['generation-i', 'generation-ii', 'generation-iii', 'generation-iv'];
+  blackListSprites = [
+    'generation-i',
+    'generation-ii',
+    'generation-iii',
+    'generation-iv',
+  ];
 
-  constructor(private _cdRef: ChangeDetectorRef) { }
+  constructor(private _cdRef: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.pokemonSprites.firstChange) {
@@ -55,7 +67,7 @@ export class PokemonCarouselComponent implements OnChanges {
     if (this.carouselCurr < 0) this.carouselCurr = this.sprites.length - 1;
     if (this.carouselCurr >= this.sprites.length) this.carouselCurr = 0;
     setTimeout(() => {
-      this.loading = false
+      this.loading = false;
       this._cdRef.detectChanges();
     }, 50);
   }
